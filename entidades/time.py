@@ -47,7 +47,7 @@ class Time():
         else:
             print("Número de pokémon inválido. Tente outro número.")
 
-    '''def del_pokemon_time(self, numero_pokemon):
+    def del_pokemon_time(self, numero_pokemon):
         for pokemon in self.__time:
             if pokemon.numero == numero_pokemon:
                 self.__time.remove(pokemon)
@@ -56,7 +56,7 @@ class Time():
                 print(f"O pokemon {pokemon.nome} foi removido do seu time com sucesso.")
                 break
             else:
-                print('Nenhum pokémon encontrado com esse número. Tente novamente.')'''
+                print('Nenhum pokémon encontrado com esse número. Tente novamente.')
 
 # Cria uma instância da classe Time
 time = Time()
