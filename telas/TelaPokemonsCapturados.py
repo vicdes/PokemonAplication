@@ -1,0 +1,3 @@
+from controladores.ControladorPokemonsCapturados import ControladorPokemonsCapturados
+
+class
