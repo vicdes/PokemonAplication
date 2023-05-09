@@ -1,3 +1,5 @@
+#DELETAR POSTERIORMENTE, ARQUIVO TEMPORÁRIO
+
 import json
 
 import sys
