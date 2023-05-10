@@ -1,5 +1,5 @@
 
-
+from exceptions.pokemon_inexistente import PokemonInexistente
 from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import *
 import json
@@ -28,34 +28,65 @@ class ControladorPokemon():
         ControladorPokemon.lista_pokemons = dict
 
     def del_pokemon(self): # ! Fazer LOOP de "deseja remover outro pokemon? " + loop q faça o else ir direto para a função de novo.
-        numero_pokemon = self.__tela_pokemon.deletar_pokemon()
-        for pokemon in ControladorPokemon.lista_pokemons:
-            if pokemon.num == numero_pokemon:
-                ControladorPokemon.lista_pokemons.remove(pokemon)
-                self.__tela_pokemon.mostra_mensagem(f"O pokemon {pokemon.nome} foi removido do jogo com sucesso.")
-                break
-        else:
-            self.__tela_pokemon.mostra_mensagem("Nenhum pokémon encontrado com esse número. Tente novamente.")
-    
+        try:
+            pokemon = self.selecionar_pokemon()
+            ControladorPokemon.lista_pokemons.remove(pokemon)
+            self.__tela_pokemon.mostra_mensagem(f"O pokemon {pokemon.nome} foi removido do jogo com sucesso.")
+        
+        except PokemonInexistente as e:
+            self.__tela_pokemon.mostra_mensagem(e)
+            #print deu ruim
+        
+    def selecionar_pokemon(self):
+        #implementar -> chamar tela Pokemon pedindo para usuario digitar num pokemon
+        #tratar num pokemon
+        #retornar pokemon
+        num_pokemon = self.__tela_pokemon.seleciona_pokemon_numero()
+        for pokemon in self.lista_pokemons:
+            if pokemon.num == num_pokemon:
+                return pokemon
+        
+        raise PokemonInexistente(num_pokemon)
+        #self.__tela_pokemon.mostra_mensagem("Código de pokémon inválido!")
+        #return None
 
+    def altera_status(self):
+            #num_pokemon = self.__tela_pokemon.seleciona_pokemon_numero()
+        try:
+            pokemon = self.selecionar_pokemon()
+            #pokemon = self.selecionar_pokemon(num_pokemon)
+            self.__tela_pokemon.mostra_mensagem(f'\nPokemon selecionado:\n     {pokemon.nome} #{pokemon.num}, {pokemon.hp}HP, {pokemon.ataque} Ataque')
+            novo_hp = self.__tela_pokemon.le_num_inteiro("\nDigite o novo valor de HP: ")
+            novo_ataque = self.__tela_pokemon.le_num_inteiro("Digite o novo valor de ataque: ")
+            
+            
+            pokemon.hp = novo_hp
+            pokemon.ataque = novo_ataque
+            self.__tela_pokemon.mostra_mensagem(f'\nPokemon selecionado com seus atributos alterados:\n     {pokemon.nome} #{pokemon.num}, {pokemon.hp}HP, {pokemon.ataque} Ataque')
+        
+        except PokemonInexistente as e:
+            self.__tela_pokemon.mostra_mensagem(e)
+            
     def mostra_pokemons(self):
-        nomes_pokemons = [pokemon.nome for pokemon in self.lista_pokemons]
-        self.__tela_pokemon.mostrar_pokemons(nomes_pokemons)
+        pokemons = ControladorPokemon.lista_pokemons
+        nomes_e_nums = []
+        for pokemon in pokemons:
+            nomes_e_nums.append((pokemon.nome, pokemon.num))
+        self.__tela_pokemon.mostrar_pokemons(nomes_e_nums)
 
-    def mostra_tudo(self):
-        print(self.lista_pokemons)
-        '''for i in self.lista_pokemons:
-            print(i['nome'], i['num'], i['hp'], i['ataque'])'''
 
-    def seleciona_pokemon(self):
-        pass
+    #def mostra_tudo(self):          #* TESTANDO LOCAL DE MEMÓRIA DA LISTA
+    #    print(self.lista_pokemons)
+    #    '''for i in self.lista_pokemons:
+    #        print(i['nome'], i['num'], i['hp'], i['ataque'])'''
 
     def retornar(self):
         exit() # ! - Temporário, alterar para retornar ao controladorSistema depois.
 
     def abre_tela(self):
-        lista_opcoes = {1: self.add_pokemon, 2: self.del_pokemon, 3: self.mostra_pokemons, 0: self.retornar}
+        lista_opcoes = {1: self.add_pokemon, 2: self.del_pokemon, 3: self.mostra_pokemons, 4:self.altera_status, 0: self.retornar}
 
-        continua = True
-        while continua:
-         lista_opcoes[self.__tela_pokemon.tela_opcoes()]()
+        while True:
+            opcao_escolhida = self.__tela_pokemon.tela_opcoes()
+            funcao_escolhida = lista_opcoes[opcao_escolhida]
+            funcao_escolhida()

@@ -1,7 +1,6 @@
 
 
 
-
 class TelaCaptura():
     def tela_opcoes(self):
         print("\n--------- TESTE TELA CAPTURA ---------")

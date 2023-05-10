@@ -3,10 +3,7 @@ import sys
 import time
 import copy
 
-# Get the current working directory
 cwd = os.getcwd()
-
-# Append the current working directory to sys.path
 sys.path.append(cwd)
 
 from controladores.controladorPokemon import ControladorPokemon
@@ -33,8 +30,8 @@ class Treinador:
             raise ValueError("O equipe não pode ter mais do que 3 Pokémons.")
         else:
             self.__equipe = equipe
-        self.__ataque_equipe = self.__calcular_ataque_equipe()
-        self.__hp_equipe = self.__calcular_hp_equipe()
+        self.__ataque_equipe = self.calcular_ataque_equipe()
+        self.__hp_equipe = self.calcular_hp_equipe()
 
     def captura_pokemon(self, pokemon):
         if pokemon in self.__pokemons_capturados:
@@ -43,39 +40,61 @@ class Treinador:
             self.__pokemons_capturados.append(pokemon)
             print(f"\nParabéns, você capturou o {pokemon.nome}!")
 
-            
-    def __calcular_ataque_equipe(self):
+    def calcular_ataque_equipe(self):
         ataque_equipe = 0
         for pokemon in self.__equipe:
             ataque_equipe += pokemon.ataque
         return ataque_equipe
 
-    def __calcular_hp_equipe(self):
+    def calcular_hp_equipe(self):
         hp_equipe = 0
         for pokemon in self.__equipe:
             hp_equipe += pokemon.hp
         return hp_equipe
     
+    @property
+    def hp_equipe(self):
+        return self.__hp_equipe
+
+    @hp_equipe.setter
+    def hp_equipe(self, valor):
+        self.__hp_equipe = valor
+
+    @property
+    def ataque_equipe(self):
+        return self.__ataque_equipe
+    
+    @ataque_equipe.setter
+    def ataque_equipe(self, valor):
+        self.__ataque_equipe = valor
+
     def verifica_numero_pokemon_capturado(self, numero_pokemon):
         numeros_capturados = [p.num for p in self.__pokemons_capturados]
         return numero_pokemon in numeros_capturados
     
     # Métodos para acessar os valores calculados
-    def get_ataque_equipe(self):
-        return self.__ataque_equipe
-
-    def get_hp_equipe(self):
-        return self.__hp_equipe
-
-    def get_equipe(self):
+    @property
+    def equipe(self):
         return self.__equipe
-
-    def set_equipe(self, equipe):
-        self.__set_equipe(equipe)
+    
+    @equipe.setter
+    def equipe(self, equipe):
+        self.__set_equipe = equipe
 
     @property
     def nome(self):
         return self.__nome
+
+
+
+#####################################################################
+#####################################################################
+#####################################################################
+
+def titulo(mensagem):
+    #titulo = "Batalha Pokémon"
+    linha_separadora = "=" * 80
+    print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
 
 class CapturaPokemon:
     def __init__(self, treinador: Treinador):
@@ -91,10 +110,9 @@ class CapturaPokemon:
     def iniciar_batalha(self):
         global win, derrotas
         capturado = False
-        print()
-        print("==="*10)
-        print("Iniciando batalha...")
-        print("==="*10)
+        rodada = 1
+
+        titulo('Batalha Pokémon')
 
         oponente = self.escolher_pokemon_aleatorio()
         #pokemon_original = oponente.copy()
@@ -106,24 +124,27 @@ class CapturaPokemon:
             capturado = False
         
         #usando 'selvagem' como referencia aos jogos
-        print(f"Um {oponente.nome} selvagem apareceu!")
-        hp_equipe = sum([p.hp for p in self.__treinador.get_equipe()])
-        ataque_equipe = sum([p.ataque for p in self.__treinador.get_equipe()])
-        #hpFixo = oponente.hp #! GAMBIARRA
-        #ataqueFixo = oponente.ataque #! GAMBIARRA
+        print(f"\nUm {oponente.nome} selvagem apareceu!")
+    
+        hp_original = oponente.hp
+        ataque_original = oponente.ataque
 
-        multiplicador = random.choice([3, 3, 3, 4, 4])
+        tamanho_equipe = len(self.__treinador.equipe)
+
+        multiplicador = random.choice([tamanho_equipe, tamanho_equipe, tamanho_equipe, tamanho_equipe, tamanho_equipe, 4, 4, 5,])
         oponente.hp = int(oponente.hp * multiplicador)
 
-        multiplicador_ataque = random.choice([1,2,2,2,3,3,3])
+        multiplicador_ataque = random.choice([2,2,2,3,3,3])
         oponente.ataque = int(oponente.ataque * multiplicador_ataque)
 
         print(f"O {oponente.nome} selvagem tem {oponente.ataque} de ataque (*{multiplicador_ataque}) e {oponente.hp} de HP (*{multiplicador})! ")
-        print(f"\n{self.__treinador.nome}, seu equipe possui {ataque_equipe} de ataque e {hp_equipe} de HP.\n")
+        
+        print(f'\nRodada {rodada}')
+        print(f"\n{self.__treinador.nome}, seu equipe possui {self.__treinador.ataque_equipe} de ataque e {self.__treinador.hp_equipe} de HP.\n")
 
-        while hp_equipe > 0 and oponente.hp > 0:
+        while self.__treinador.hp_equipe > 0 and oponente.hp > 0:
             # turno do treinador
-            equipe = self.__treinador.get_equipe()
+            equipe = self.__treinador.equipe
 
             for pokemon in equipe:
                 if pokemon.hp > 0:
@@ -131,12 +152,20 @@ class CapturaPokemon:
                     oponente.hp -= pokemon.ataque
                     if oponente.hp <= 0:
                         break
-
-            print(f"\nO {oponente.nome} selvagem agora tem {oponente.hp} de HP! - ({oponente.ataque} de ataque)")
+                            
+            #print(f"\nO {oponente.nome} selvagem tem {oponente.hp}HP restantes! - ({oponente.ataque} de ataque)")
 
             if oponente.hp <= 0:
+                oponente.hp = 0 
+                '''for pokemon in self.__treinador.equipe:
+                        print(pokemon.hp)
+                        pokemon.restaurar_hp()
+                        print(pokemon.hp)'''
+                print(f"\nO {oponente.nome} está desmaiado! ({oponente.hp} de hp restantes!) - ({oponente.ataque} de ataque)")
+
                 print(f"\n{self.__treinador.nome} GANHOU 💙 a batalha!")
-                #oponente.hp = hpFixo #! GAMBIARRA
+                oponente.hp = hp_original
+                oponente.ataque = ataque_original
                 win += 1
                 if capturado == False:
                     self.tentar_captura(oponente)
@@ -144,32 +173,42 @@ class CapturaPokemon:
 
             # turno do Pokémon selvagem
             if oponente.hp > 0:
+                print(f"\nO {oponente.nome} selvagem tem {oponente.hp}HP restantes! - ({oponente.ataque} de ataque)")
                 print(f"O {oponente.nome} selvagem ataca!")
-                equipe_hp = sum([p.hp for p in equipe])
-                hp_equipe -= oponente.ataque
-                print(f"\n{self.__treinador.nome}, sua equipe agora tem {hp_equipe} de HP!")
-                if hp_equipe <= 0:
+                #equipe_hp = sum([p.hp for p in equipe])
+                self.__treinador.hp_equipe -= oponente.ataque
+                if self.__treinador.hp_equipe < 0: 
+                    self.__treinador.hp_equipe = 0
+                print(f"\n{self.__treinador.nome}, sua equipe está desmaiada! ({self.__treinador.hp_equipe} de hp restantes!)")
+                
+                if self.__treinador.hp_equipe <= 0:
+                    for pokemon in self.__treinador.equipe:
+                        pokemon.restaurar_hp()
                     print("\nVocê PERDEU 💔 a batalha.")
-                    #oponente.hp = hpFixo #! GAMBIARRA
+                    
+                    oponente.hp = hp_original
+                    oponente.ataque = ataque_original
                     derrotas += 1
+                    
                     break
+            
 
-
-    def tentar_captura(self, pokemon_original):
-        escolha = input(f'Deseja tentar capturar {pokemon_original.nome}? ').upper()
+    def tentar_captura(self, pokemon):
+        #escolha = input(f'Deseja tentar capturar {pokemon.nome}? ').upper()
+        escolha = 'S'
         if escolha == 'S':
             chance_captura = random.randint(1, 100)
-            print('Testando sua sorte...')
-            time.sleep(2)
+            print('\nTestando sua sorte!')
+            #time.sleep(2)
             
             print(f'Você tirou {chance_captura}.')
             if chance_captura >= 25:
-                self.__treinador.captura_pokemon(pokemon_original)
-                print('Esses são seus pokémons capturados até o momento: ')
+                self.__treinador.captura_pokemon(pokemon)
+                print('\nEsses são seus pokémons capturados até o momento: ')
                 for pokemon in ash.get_pokemons_capturados():
-                    print(pokemon.nome, "-", pokemon.hp, "-", pokemon.ataque)
+                    print(  pokemon.nome, "-", pokemon.hp, "-", pokemon.ataque)
             else:
-                print(f"Que pena, o {pokemon.nome} escapou...")
+                print(f"\nQue pena, o {pokemon.nome} escapou...")
         else:
             return 
 
@@ -206,7 +245,7 @@ pokemon_testes = [
 
 controlador_pokemon = ControladorPokemon()
 
-ControladorPokemon.add_lista(pokemon_testes.copy())
+ControladorPokemon.add_lista(pokemon_testes)
 #controlador_pokemon.mostra_tudo()
 
 #controlador_pokemon = ControladorPokemon()
@@ -220,7 +259,7 @@ squirtle = Pokemon("Squirtle", 7, 44, 48)
 equipe = [pikachu, charmander, squirtle]
 
 # criar o treinador com o time
-ash = Treinador("Ash", equipe)
+ash = Treinador("Lulu", equipe)
 
 ash.captura_pokemon(pikachu)
 ash.captura_pokemon(charmander)
@@ -229,13 +268,16 @@ ash.captura_pokemon(squirtle)
 for pokemon in ash.get_pokemons_capturados():
     print(pokemon.nome, "-", pokemon.hp, "-", pokemon.ataque)
 
-# Create a CapturePokemon object and initiate a battle
 capture = CapturaPokemon(ash)
-while True:
-    capture.iniciar_batalha()
-    continuar = int(input('1 - CONTINUA'))
-    if continuar != 1:
-        break
 
-print(win)
-print(derrotas)
+
+#while True:
+#for i in range(3):
+capture.iniciar_batalha()
+    #continuar = input('\n Deseja continuar? [S/N]').upper()
+    #if continuar != 'S':
+    #    break
+
+#* teste de vitórias e derrotas
+print('\nVitórias',win)
+print('Derrotas',derrotas)

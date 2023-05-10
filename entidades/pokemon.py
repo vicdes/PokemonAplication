@@ -14,9 +14,12 @@ class Pokemon:
         if isinstance(ataque, int):
             self.__ataque = ataque
         self.__tipos = []
-
-    def copiar_pokemon(self):
-        return Pokemon(self.__nome, self.__num, self.__hp, self.__ataque)
+        self.__hp_max = hp
+    
+    def restaurar_hp(self):
+        self.__hp = self.__hp_max
+    '''def copiar_pokemon(self):
+        return Pokemon(self.__nome, self.__num, self.__hp, self.__ataque)'''
     
     @property
     def nome(self):
