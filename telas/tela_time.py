@@ -1,4 +1,5 @@
 
+# ! DESCONTINUADO
 class TelaTime():
     def tela_opcoes(self):
         print("\n--------- TESTE TELA TIME ---------")

@@ -1,6 +1,7 @@
 
-
+# ! DESCONTINUADO
 class TelaPokedex():
+
     def tela_opcoes(self):
         print("\n--------- TESTE TELA ---------")
         print("1 - Mostrar porcentagem pokedex")

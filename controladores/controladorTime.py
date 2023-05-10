@@ -3,6 +3,8 @@ sys.path.append('C:\\Users\\Jose Eduardo\\Desktop\\Pokémon\\PokemonAplication')
 
 from telas.tela_time import TelaTime
 from entidades.time import *
+# ! - DESCONTINUADO
+
 
 class ControladorTime():
     def __init__(self):

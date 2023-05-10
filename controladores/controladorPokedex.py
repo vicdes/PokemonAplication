@@ -4,8 +4,6 @@ sys.path.append('C:\\Users\\Jose\\Desktop\\Pokémon\\PokemonAplication')
 from telas.tela_pokedex import TelaPokedex
 from entidades.pokedex import *
 
-
-
 class ControladorPokedex:
     def __init__(self):   #posteriomente recebe controlador_sistema
         self.__tela_pokedex = TelaPokedex()

@@ -1,5 +1,6 @@
 from PokémonOLD import *
 
+# ! DESCONTINUADO
 class Pokedex:
     def __init__(self, lista_pokemons: Pokemon, lista_pokemons_capturados: Pokemon):
         self.lista_pokemons = lista_pokemons

@@ -3,7 +3,7 @@ sys.path.append('C:\\Users\\Jose Eduardo\\Desktop\\Pokémon\\PokemonAplication')
 
 from PokémonOLD import Pokemon
 
-
+# ! DESCONTINUADO
 class Time():
     def __init__(self):
         self.__lista_pokemons_capturados = Pokemon.lista_pokemons_capturados
