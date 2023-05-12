@@ -40,3 +40,4 @@ class TipoPokemon:
     def add_vantagem(self, tipo: TipoPokemon):
         if isinstance(tipo, TipoPokemon):
             self.__fraquezas.append(tipo)
+q

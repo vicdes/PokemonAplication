@@ -11,4 +11,4 @@ class ControladorTiposPokemons:
             nome_fraq = self.__tela_tipo_pokemon.seleciona_fraquezas()
             fraq = pega_tipo_nome(nome_fraq)
             tipo.add_fraqueza(fraq)
-
+    def del_tipo(self):
