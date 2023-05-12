@@ -1,10 +1,7 @@
 
 from telas.tela_abstract import AbstractTela
 
-
-
 class TelaPokemon(AbstractTela):
-
     def tela_opcoes(self):
         print("\n--------- TESTE TELA POKEMON ---------")
         print("1 - Adicionar Pokémons") #! isso tbm acho meio estranho
@@ -16,7 +13,8 @@ class TelaPokemon(AbstractTela):
         #! talvez até possa ter um método q faça um swap de pokémons baseado no num
         #! seleciona o pokemon do time, seleciona o pokemon pra substituir e ta feito
         print("0 - Retornar")
-        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 4,0])
+
+        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 4, 0])
         return opcao
     # ! talvez falta adicionar o método adicionar pokémon. 
     

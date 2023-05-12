@@ -1,10 +1,9 @@
 import os
 import sys
 import time
-import copy
 
-cwd = os.getcwd()
-sys.path.append(cwd)
+'''cwd = os.getcwd()
+sys.path.append(cwd)'''
 
 from controladores.controlador_pokemon import ControladorPokemon
 from entidades.pokemon import Pokemon
@@ -13,7 +12,7 @@ import random
 win = 0
 derrotas = 0
 
-#classe temporária, juntar com as classes da vic posteriormente
+'''#classe temporária, juntar com as classes da vic posteriormente
 class Treinador: #! classe temporária. usar a de vic como correta. 
     #não lembro precisamente como q eu faria para referenciar a classe Time.
     #? self.__time = Time      basta assim? ou preciso colocar no construtor      time: Time ?
@@ -101,7 +100,7 @@ class Treinador: #! classe temporária. usar a de vic como correta.
     
     @property
     def nome(self):
-        return self.__nome
+        return self.__nome'''
 
     #! ###########################################################################################
 
@@ -245,7 +244,7 @@ class CapturaPokemon:
 #! REMOVER LINHAS ABAIXO DEPOIS
 #! TUDO TEMPORÁRIO
 
-import json
+'''import json
 
 with open('populacao_pokemons.json', encoding='utf-8') as arquivo:
     dados = json.load(arquivo)
@@ -260,12 +259,7 @@ for pokemon_json in pokemons_json:
     pokemon = Pokemon(pokemon_json['nome'], pokemon_json['num'], pokemon_json['hp'], pokemon_json['ataque'])
     ControladorPokemon.add_lista(pokemon)
 
-'''for i in ControladorPokemon.lista_pokemons:
-    print(i.nome)'''
-'''pokemon_objs = [Pokemon(**poke_dict) for poke_dict in pokemon_testes]
-controlador_pokemon = ControladorPokemon()
-ControladorPokemon.add_lista(pokemon_objs)
-'''
+
 #controlador_pokemon = ControladorPokemon()
 #ControladorPokemon.add_lista(pokemon_testes)
 #controlador_pokemon.mostra_tudo()
@@ -302,4 +296,4 @@ for i in range(10):
 
 #* teste de vitórias e derrotas
 print('\nVitórias',win)
-print('Derrotas',derrotas)
+print('Derrotas',derrotas)'''

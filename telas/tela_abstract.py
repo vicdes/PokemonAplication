@@ -22,3 +22,5 @@ class AbstractTela(ABC):
     def titulo(self, mensagem):
         linha_separadora = "=" * 80
         print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
+
+    #* Talvez um método que leia sim ou não(1/2) já que está sendo usado com frequencia 

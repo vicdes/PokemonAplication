@@ -4,10 +4,6 @@ from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import *
 import json
 
-class ControladorSistema():
-    #temporário
-    pass
-
 
 class ControladorPokemon():
     
