@@ -1,7 +1,7 @@
-from controladores.ControladorTreinadores import ControladorTreinadores
-from controladores.ControladorTiposPokemons import ControladorTiposPokemons
-from controladores.ControladorPokemons import ControladorPokemons
-from telas.TelaSistema import TelaSistema
+from controladores.controlador_treinadores import ControladorTreinadores
+from controladores.controlador_tipos_pokemons import ControladorTiposPokemons
+from controladores.controlador_pokemons import ControladorPokemons
+from telas.tela_sistema import TelaSistema
 
 
 class ControladorSistema:

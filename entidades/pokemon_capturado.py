@@ -1,4 +1,4 @@
-from Pokemon import *
+from pokemon import *
 
 class PokemonCapturado(Pokemon):
     def __int__(self, nome: str, num: int, hp: int, ataque: int, tipos:[], peso: int, altura: float):

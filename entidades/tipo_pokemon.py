@@ -2,18 +2,12 @@ class TipoPokemon:
     def __init__(self, nome, descricao):
         if isinstance(nome, str):
             self.__nome = nome
-        if isinstance(descricao, str):
-            self.__descricao = descricao
         self.__fraquezas = []
         self.__vantagens = []
 
     @property
     def nome(self):
         return self.__nome
-
-    @property
-    def descricao(self):
-        return self.__descricao
 
     @property
     def fraquezas(self):
@@ -33,11 +27,11 @@ class TipoPokemon:
         if isinstance(descricao, str):
             self.__descricao = descricao
 
-    def add_fraqueza(self, tipo: TipoPokemon):
-        if isinstance(tipo, TipoPokemon):
+    def add_fraqueza(self, tipo: str):
+        if isinstance(tipo, str):
             self.__fraquezas.append(tipo)
 
-    def add_vantagem(self, tipo: TipoPokemon):
-        if isinstance(tipo, TipoPokemon):
+    def add_vantagem(self, tipo: str):
+        if isinstance(tipo, str):
             self.__fraquezas.append(tipo)
 q

@@ -1,7 +1,7 @@
 from exceptions.NicknameRepetidoException import NicknameRepetidoExcpetion
-from telas.TelaTreinador import TelaTreinador
-from controladores.ControladorSistema import ControladorSistema
-from entidades.Treinador import Treinador
+from telas.tela_treinador import TelaTreinador
+from controladores.controlador_sistema import ControladorSistema
+from entidades.treinador import Treinador
 
 class ControladorTreinadores:
     def __init__(self, tela_treinador: TelaTreinador, controlador_sistema: ControladorSistema):
@@ -44,7 +44,8 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem("ATENÇÃO: Treinador inexistente!")
 
     def add_time(self):
-        pass
+        for treinador in self.__treinadores:
+
 
     def del_time(self):
         pass
@@ -60,5 +61,5 @@ class ControladorTreinadores:
 
         continua = True
         while continua:
-            lista_opcoes[self.__tela_amigo.tela_opcoes()]
+            lista_opcoes[self.__tela_treinador.tela_opcoes()]
 

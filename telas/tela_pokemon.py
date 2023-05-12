@@ -1,4 +1,4 @@
-from controladores.ControladorPokemons import ControladorPokemons
+from controladores.controlador_pokemons import ControladorPokemons
 
 class TelaPokemon:
     def __init__(self, controlador_pokemons: ControladorPokemons):
