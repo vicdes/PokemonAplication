@@ -1,7 +1,7 @@
 
 from exceptions.pokemon_inexistente import PokemonInexistente
 from telas.tela_captura_pokemon import TelaCaptura
-from entidades.capturaPokemon import *
+from entidades.captura_pokemon import *
 
 class ControladorCaptura():
     capturas = []
