@@ -1,6 +1,6 @@
 
 import json
-from controladores.controladorPokemon import *
+from controladores.controlador_pokemon import *
 
 with open('populacao_pokemons.json', encoding='utf-8') as arquivo:
     dados = json.load(arquivo)
