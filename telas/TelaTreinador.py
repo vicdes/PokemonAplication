@@ -22,6 +22,10 @@ class TelaTreinador:
         nickname = input("Nickname do treinador que deseja selecionar: ")
         return nickname
 
+    def seleciona_pokemon_capturado(self):
+        codigo = input("Código do pokémon que deseja selecionar: ")
+        return codigo
+
     def mostra_mensagem(self, msg):
         print(msg)
 
