@@ -18,3 +18,7 @@ class AbstractTela(ABC):
                 print("\nValor incorreto! Tente novamente: ")
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)
+
+    def titulo(self, mensagem):
+        linha_separadora = "=" * 80
+        print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")

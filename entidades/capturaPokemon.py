@@ -71,10 +71,9 @@ class Treinador: #! classe temporária. usar a de vic como correta.
     def hp_equipe(self):
         return self.__hp_equipe
 
-    
+    @hp_equipe.setter
     def hp_equipe(self, valor):
         self.__hp_equipe = valor
-
    
     @property
     def ataque_equipe(self):
@@ -87,9 +86,8 @@ class Treinador: #! classe temporária. usar a de vic como correta.
 
    
     def verifica_numero_pokemon_capturado(self, numero_pokemon):
-        numeros_capturados = [p.num for p in self.__pokemons_capturados]
-        return numero_pokemon in numeros_capturados
-    
+        capturados = [p.num for p in self.__pokemons_capturados]
+        return numero_pokemon in capturados
     
     @property
     def equipe(self):
@@ -107,9 +105,9 @@ class Treinador: #! classe temporária. usar a de vic como correta.
 
     #! ###########################################################################################
 
-#####################################################################
-#####################################################################
-#####################################################################
+#############################################################
+####################### BAGUNÇA TOTAL #######################
+#############################################################
 
 #?      provavelmente dá pra usar isso na classe abstract tela? aí todos os títulos ficariam padronizados.
 def titulo(mensagem):
@@ -119,7 +117,7 @@ def titulo(mensagem):
 
 class CapturaPokemon:
     # ? tentei assim, mas não sei se tá correto. 
-    
+    #! APAGAR O QUE NÃO DEVE ESTAR AQUI, MAS SIM NO CONTROLADOR DEPOIS. 
     def __init__(self, treinador: Treinador):
         if (isinstance(treinador, Treinador)):
             self.__treinador = treinador
@@ -127,20 +125,21 @@ class CapturaPokemon:
 
     def escolher_pokemon_aleatorio(self):
         pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
-        return Pokemon(pokemon_aleatorio.nome, pokemon_aleatorio.num, pokemon_aleatorio.hp, pokemon_aleatorio.ataque)
-    
+        return pokemon_aleatorio
+        #return Pokemon(pokemon_aleatorio.nome, pokemon_aleatorio.num, pokemon_aleatorio.hp, pokemon_aleatorio.ataque)
+
     def iniciar_batalha(self):
         global win, derrotas
         capturado = False
-        rodada = 1
+        rodada = 0
         
         titulo('Batalha Pokémon')
 
         oponente = self.escolher_pokemon_aleatorio()
-        num = oponente.num
+        #num = oponente.num
         print(f"\nUm {oponente.nome} selvagem apareceu!")
         
-        if self.__treinador.verifica_numero_pokemon_capturado(num):
+        if self.__treinador.verifica_numero_pokemon_capturado(oponente.num):
             capturado = True
             resposta = input(f"\n[ATENÇÃO] Você já capturou um Pokémon {oponente.nome} #{oponente.num} antes. Você deseja fugir da batalha? \n1 - Sim     2 - Não\n")
             if resposta == '1':
@@ -164,13 +163,13 @@ class CapturaPokemon:
 
         print(f"O {oponente.nome} selvagem tem {oponente.ataque} de ataque (*{multiplicador_ataque}) e {oponente.hp} de HP (*{multiplicador})! ")
         
-        print(f'\nRodada {rodada}')
         print(f"\n{self.__treinador.nome}, sua equipe possui {self.__treinador.ataque_equipe} de ataque e {self.__treinador.hp_equipe} de HP.\n")
 
         #treinador sempre ataca primeiro. se der tempo:
         #* implementar algo que aleatoriza quem ataca primeiro.
-
         while self.__treinador.hp_equipe > 0 and oponente.hp > 0:
+            rodada += 1
+            print(f'\nRodada {rodada}')
             # turno do treinador
             equipe = self.__treinador.equipe
 
@@ -240,9 +239,9 @@ class CapturaPokemon:
             return 
 
 
-############################################################################################################
-##########################################     ÁREA DE TESTES     ##########################################
-############################################################################################################
+######################################################################
+#######################     ÁREA DE TESTES     #######################
+######################################################################
 #! REMOVER LINHAS ABAIXO DEPOIS
 #! TUDO TEMPORÁRIO
 
