@@ -31,7 +31,7 @@ class ControladorSistema:
         exit(0)
 
     def abre_tela(self):
-        lista_opcoes = {1: self.cadastra_livros, 2: self.cadastra_amigos, 3: self.cadastra_emprestimos,
+        lista_opcoes = {1: self.cadastra_treinadores, 2: self.cadastra_tipos_pokemons,
                         0: self.encerra_sistema}
 
         while True:
