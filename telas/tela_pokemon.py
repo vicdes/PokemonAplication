@@ -34,5 +34,6 @@ class TelaPokemon(AbstractTela):
             for i, (nome, num) in enumerate(lista):
                 print(f"- {nome} #{num}")
             print(f'\nTotal -> {len(lista)} pokémons.')
+    
     def mostra_mensagem(self, msg):
         print(msg)

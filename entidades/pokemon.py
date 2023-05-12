@@ -1,7 +1,3 @@
-class TipoPokemon:
-    def __init__(self, tipo):
-        self.tipo = tipo
-
 class Pokemon:
     
     def __init__(self, nome: str, num: int, hp: int, ataque: int):
@@ -18,8 +14,6 @@ class Pokemon:
     
     def restaurar_hp(self):
         self.__hp = self.__hp_max
-    '''def copiar_pokemon(self):
-        return Pokemon(self.__nome, self.__num, self.__hp, self.__ataque)'''
     
     @property
     def nome(self):
@@ -61,6 +55,6 @@ class Pokemon:
         if isinstance(ataque, int):
             self.__ataque = ataque
 
-    def add_tipo(self, tipo: TipoPokemon):
+    '''def add_tipo(self, tipo: TipoPokemon):
         if isinstance(tipo, TipoPokemon):
-            self.__tipos.append(tipo)
+            self.__tipos.append(tipo)'''

@@ -1,5 +1,5 @@
 
-
+from telas.tela_abstract import AbstractTela
 
 class TelaCaptura():
     def tela_opcoes(self):
