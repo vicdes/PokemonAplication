@@ -22,11 +22,6 @@ class TipoPokemon:
         if isinstance(nome, str):
             self.__nome = nome
 
-    @descricao.setter
-    def descricao(self, descricao):
-        if isinstance(descricao, str):
-            self.__descricao = descricao
-
     def add_fraqueza(self, tipo: str):
         if isinstance(tipo, str):
             self.__fraquezas.append(tipo)

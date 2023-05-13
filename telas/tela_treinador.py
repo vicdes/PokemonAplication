@@ -1,8 +1,10 @@
-from controladores.controlador_treinadores import ControladorTreinadores
+#from controladores.controlador_treinadores import ControladorTreinadores
+
+
 class TelaTreinador:
-    def __init__(self, controlador_treiandores: ControladorTreinadores):
-        if isinstance(controlador_treiandores, ControladorTreinadores):
-            self.__controlador_treinadores = controlador_treiandores
+    def __init__(self, controlador_treinadores):
+        if isinstance(controlador_treinadores):
+            self.__controlador_treinadores = controlador_treinadores
 
     def tela_opcoes(self):
         print("-------- TREINADORES ----------")
@@ -10,7 +12,6 @@ class TelaTreinador:
         print("1 - Incluir Treinador")
         print("2 - Excluir Treinador")
         print("3 - Listar Treinadores")
-        print("4 - Excluir Treinador")
         print("0 - Retornar")
 
     def pega_dados_treinador(self):

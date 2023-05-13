@@ -1,10 +1,10 @@
 class Treinador:
-    def __init__(self, nickname: str, porcentagem_pokedex: float, time: Time):
+    def __init__(self, nickname: str, porcentagem_pokedex: float, time):
         if isinstance(nickname, str):
             self.__nickname = nickname
         if isinstance(porcentagem_pokedex, float):
             self.__porcentagem_pokedex = porcentagem_pokedex
-        if isinstance(time, Time):
+        #if isinstance(time, Time):
             self.__time = time
         self.__pokemons_capturados = []
 

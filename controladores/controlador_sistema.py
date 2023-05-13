@@ -1,6 +1,7 @@
 from controladores.controlador_treinadores import ControladorTreinadores
 from controladores.controlador_tipos_pokemons import ControladorTiposPokemons
-from controladores.controlador_pokemons import ControladorPokemons
+from controladores.controlador_pokemon import ControladorPokemon
+
 from telas.tela_sistema import TelaSistema
 
 

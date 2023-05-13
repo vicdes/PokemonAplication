@@ -115,11 +115,8 @@ def titulo(mensagem):
     print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
 
 class CapturaPokemon:
-    # ? tentei assim, mas não sei se tá correto. 
-    #! APAGAR O QUE NÃO DEVE ESTAR AQUI, MAS SIM NO CONTROLADOR DEPOIS. 
-    def __init__(self, treinador: Treinador):
-        if (isinstance(treinador, Treinador)):
-            self.__treinador = treinador
+    def __init__(self, treinador):
+        self.__treinador = treinador
         self.__oponente = None
 
     def escolher_pokemon_aleatorio(self):

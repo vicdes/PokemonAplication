@@ -1,8 +1,7 @@
-from controladores.controlador_tipos_pokemons import ControladorTiposPokemons
 
 class TelaTiposPokemons:
-    def __init__(self, controlador_tipos_pokemons: ControladorTiposPokemons):
-        if isinstance(controlador_tipos_pokemons, ControladorTiposPokemons):
+    def __init__(self, controlador_tipos_pokemons):
+        if isinstance(controlador_tipos_pokemons):
             self.__controlador_tipos_pokemons = controlador_tipos_pokemons
 
     def tela_opcoes(self):
