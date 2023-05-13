@@ -114,11 +114,24 @@ def titulo(mensagem):
     linha_separadora = "=" * 80
     print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
 
+
+'''class CapturaPokemon: #* possível um update da classe CapturaPokemon, a depender de como o programa vai ser comportar.
+    def __init__(self, treinador_nickname, pokemons_equipe, pokemon_oponente, resultado_batalha, sucesso_batalha, resultado_captura):
+        self.__treinador_nickname = treinador_nickname
+        self.__pokemons_equipe = pokemons_equipe
+        self.__pokemon_oponente = pokemon_oponente
+        self.__resultado_batalha = resultado_batalha
+        self.__sucesso_batalha = sucesso_batalha
+        self.__resultado_captura = resultado_captura'''
+
+
 class CapturaPokemon:
     def __init__(self, treinador):
         self.__treinador = treinador
         self.__oponente = None
 
+
+    #! ignorar tudo abaixo
     def escolher_pokemon_aleatorio(self):
         pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
         return pokemon_aleatorio
