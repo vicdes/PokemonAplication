@@ -1,4 +1,5 @@
 from telas.tela_tipos_pokemons import TelaTiposPokemons
+<<<<<<< HEAD
 from entidades.tipo_pokemon import TipoPokemon
 
 
@@ -13,6 +14,18 @@ class ControladorTiposPokemons:
             if tipo.nome == nome:
                 return tipo
         return None
+=======
+#from controladores.controlador_sistema import ControladorSistema
+
+
+class ControladorTiposPokemons:
+    def __init__(self, tela_tipo_pokemon: TelaTiposPokemons, controlador_sistema):
+        self.__tipos = []
+        if isinstance(tela_tipo_pokemon, TelaTiposPokemons):
+            self.__tela_tipo_pokemon = tela_tipo_pokemon
+        #if isinstance(controlador_sistema, ControladorSistema):
+            self.__controlador_sistema = controlador_sistema
+>>>>>>> 6102591b8116d9b501981a833d200d76ab4ba5e0
 
     def add_tipo(self):
         dados_tipo = self.__tela_tipo_pokemon.pega_dados_tipo_pokemon()

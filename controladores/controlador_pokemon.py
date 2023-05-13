@@ -1,7 +1,7 @@
 
 from exceptions.pokemon_inexistente_exception import PokemonInexistente
 from telas.tela_pokemon import TelaPokemon
-from entidades.pokemon import *
+from entidades.pokemon import Pokemon
 import json
 
 
@@ -9,11 +9,11 @@ class ControladorPokemon():
     
     lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
 
-    def __init__(self):
+    def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
         '''if isinstance(controlador_sistema, ControladorSistema):
             self.__controlador_sistema = controlador_sistema'''
-        #self.__controlador_sistema = controlador_sistema
+        self.__controlador_sistema = controlador_sistema
         # * adicionar controlador_sistema: ControladorSistema no init depois
     
     
@@ -74,7 +74,7 @@ class ControladorPokemon():
     #        print(i['nome'], i['num'], i['hp'], i['ataque'])'''
 
     def retornar(self):
-        exit() # ! - Temporário, alterar para retornar ao controladorSistema depois.
+        self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
         lista_opcoes = {1: self.add_pokemon, 2: self.del_pokemon, 3: self.mostra_pokemons, 4:self.altera_status, 0: self.retornar}

@@ -1,4 +1,5 @@
 from entidades.time import Time
+
 class Treinador:
     def __init__(self, nickname: str, porcentagem_pokedex: float):
         self.__nickname = nickname
