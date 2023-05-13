@@ -5,14 +5,12 @@ class TelaTreinador:
         print("1 - Incluir Treinador")
         print("2 - Excluir Treinador")
         print("3 - Listar Treinadores")
-        print("4 - Excluir Treinador")
         print("0 - Retornar")
 
     def pega_dados_treinador(self):
         print("-------- CADASTRAR TREINADOR ---------")
         nickname = input("Nickname: ")
         return {"Nickname": nickname}
-
 
     def mostra_treinador(self, dados_treinador):
         print("Nickname: ", dados_treinador["nickname"])
