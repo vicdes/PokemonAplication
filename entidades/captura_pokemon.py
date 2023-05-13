@@ -240,7 +240,7 @@ class CapturaPokemon:
             if chance_captura >= 25:
                 self.__treinador.captura_pokemon(pokemon)
                 print('\nEsses são seus pokémons capturados até o momento: ')
-                for pokemon in ash.get_pokemons_capturados():
+                for pokemon in ash.get_pokemons_capturados(): #deve buscar os pokemons capturados do treinador atual
                     print(  pokemon.nome, "-", pokemon.hp, "-", pokemon.ataque)
             else:
                 print(f"\nQue pena, o {pokemon.nome} escapou...")
