@@ -16,7 +16,7 @@ class ControladorTreinadores:
 
     def lista_treinadores(self):
         for treinador in self.__treinadores:
-            self.__tela_treinador.mostra_treinador({"nickname": treinador.nickname, "pokedex": treinador.porcentagem_pokedex})
+            self.__tela_treinador.mostra_treinador({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
 
     def add_treinador(self):
         dados_treinador = self.__tela_treinador.pega_dados_treinador()
