@@ -58,7 +58,8 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
         if len(treinador.time.lista_pokemon) == 0:
             pokemon_novo = None
-            while True:
+            continuar = True
+            while continuar == True:
                 codigo_pokemon = self.__tela_treinador.seleciona_pokemon_capturado()
                 for pokemon in treinador.pokemons_capturados:
                     if codigo_pokemon == pokemon.codigo:
@@ -79,7 +80,7 @@ class ControladorTreinadores:
                     self.__tela_treinador.mostra_mensagem(e)
                 if len(treinador.time.lista_pokemon) == 3:
                     break
-                self.__tela_treinador.cadastrar_outro_pokemon()
+                continuar = self.__tela_treinador.cadastrar_outro_pokemon()
 
     def del_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()

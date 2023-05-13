@@ -31,9 +31,8 @@ class TelaTreinador:
         return codigo
 
     def cadastrar_outro_pokemon(self):
-
-        continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ")
-        self.seleciona_pokemon_capturado()
+        continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ") == "1"
+        return continuar
 
     def mostra_mensagem(self, msg):
         print(msg)
