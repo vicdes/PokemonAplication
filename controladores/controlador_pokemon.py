@@ -1,5 +1,5 @@
 
-from exceptions.pokemon_inexistente import PokemonInexistente
+from exceptions.pokemon_inexistente_exception import PokemonInexistente
 from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import *
 import json

@@ -5,6 +5,9 @@ class TelaTreinador:
         print("1 - Incluir Treinador")
         print("2 - Excluir Treinador")
         print("3 - Listar Treinadores")
+        print("4 - Cadastrar time")
+        print("5 - Deletar time")
+        print("6 - Alterar time")
         print("0 - Retornar")
         opcao = int(input("Escolha a opcao: "))
         return opcao
@@ -26,6 +29,11 @@ class TelaTreinador:
     def seleciona_pokemon_capturado(self):
         codigo = input("Código do pokémon que deseja selecionar: ")
         return codigo
+
+    def cadastrar_outro_pokemon(self):
+
+        continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ")
+        self.seleciona_pokemon_capturado()
 
     def mostra_mensagem(self, msg):
         print(msg)

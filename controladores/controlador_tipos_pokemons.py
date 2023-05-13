@@ -26,7 +26,10 @@ class ControladorTiposPokemons:
                     fraquezas_str = ", ".join(tipo.fraquezas)
                 else:
                     fraquezas_str = "nenhuma"
-                vantagens_str = ", ".join(tipo.vantagens)
+                if len(tipo.vantagens) > 0:
+                    vantagens_str = "nenhuma"
+                else:
+                    vantagens_str = ", ".join(tipo.vantagens)
                 self.__tela_tipo_pokemon.mostra_tipo_pokemon({"nome": tipo.nome, "fraquezas": fraquezas_str, "vantagens": vantagens_str})
 
     def del_tipo(self):
