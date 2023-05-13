@@ -20,7 +20,7 @@ class ControladorSistema:
     @property
     def controlador_tipos_pokemons(self):
         return self.__controlador_tipos_pokemons
-    
+
     @property
     def controlador_pokemon(self):
         return self.__controlador_pokemon
