@@ -1,48 +1,59 @@
 from entidades.time import Time
 
+
 class Treinador:
-    def __init__(self, nickname: str, porcentagem_pokedex: float):
+    def _init_(self, nickname: str, porcentagem_pokedex: float, pokemons_capturados=None):
         self.__nickname = nickname
         self.__porcentagem_pokedex = porcentagem_pokedex
         self.__time = Time()
-        self.__pokemons_capturados = []
+        self.__pokemons_capturados = pokemons_capturados or []
 
-        self.__ataque_equipe = 0
-        self.__hp_equipe = 0
-        
+        self.__ataque_time = 0
+        self.__hp_time = 0
+
     def verifica_numero_pokemon_capturado(self, numero_pokemon):
         capturados = [p.num for p in self.__pokemons_capturados]
         return numero_pokemon in capturados
 
-    @property
-    def hp_equipe(self):
-        return self.__hp_equipe
+    def get_pokemons_capturados(self):
+        return self.__pokemons_capturados
+    
+    def captura_pokemon(self, pokemon):
+        if pokemon in self.__pokemons_capturados:
+            print(f"Você já capturou o {pokemon.nome} antes!")
+        else:
+            self.__pokemons_capturados.append(pokemon)
+            print(f"\nParabéns, você capturou o {pokemon.nome}!")
 
-    @hp_equipe.setter
-    def hp_equipe(self, valor):
-        self.__hp_equipe = valor
+    @property
+    def hp_time(self):
+        return self.__hp_time
+
+    @hp_time.setter
+    def hp_time(self, valor):
+        self.__hp_time = valor
    
     @property
-    def ataque_equipe(self):
-        return self.__ataque_equipe
+    def ataque_time(self):
+        return self.__ataque_time
     
     
-    @ataque_equipe.setter
-    def ataque_equipe(self, valor):
-        self.__ataque_equipe = valor
+    @ataque_time.setter
+    def ataque_time(self, valor):
+        self.__ataque_time = valor
 
-    def calcular_ataque_equipe(self):
-        ataque_equipe = 0
-        for pokemon in self.__equipe:
-            ataque_equipe += pokemon.ataque
-        return ataque_equipe
+    def calcular_ataque_time(self):
+        ataque_time = 0
+        for pokemon in self.__time:
+            ataque_time += pokemon.ataque
+        return ataque_time
     
     
-    def calcular_hp_equipe(self):
-        hp_equipe = 0
-        for pokemon in self.__equipe:
-            hp_equipe += pokemon.hp
-        return hp_equipe
+    def calcular_hp_time(self):
+        hp_time = 0
+        for pokemon in self.__time:
+            hp_time += pokemon.hp
+        return hp_time
 
     @property
     def nickname(self):

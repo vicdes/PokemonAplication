@@ -1,3 +1,5 @@
+from telas.tela_abstract import AbstractTela
+
 class TelaTreinador:
     def tela_opcoes(self):
         print("\n-------- TREINADORES ----------")
@@ -8,10 +10,13 @@ class TelaTreinador:
         print("4 - Cadastrar time")
         print("5 - Deletar time")
         print("6 - Alterar time")
+        print("7 - Listar pokemons de um treinador")
         print("0 - Retornar")
         opcao = int(input("Escolha a opcao: "))
         return opcao
+    
 
+    
     def pega_dados_treinador(self):
         print("-------- CADASTRAR TREINADOR ---------")
         nickname = input("Nickname: ")
@@ -20,7 +25,6 @@ class TelaTreinador:
     def mostra_treinador(self, dados_treinador):
         print("Nickname: ", dados_treinador["nickname"])
         print("Porcentagem da pokedéx completa: ", dados_treinador["porcentagem_pokedex"], "%")
-        print("\n")
 
     def seleciona_treinador(self):
         nickname = input("Nickname do treinador que deseja selecionar: ")

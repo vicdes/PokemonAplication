@@ -1,5 +1,6 @@
+from telas.tela_abstract import AbstractTela
 
-class TelaTiposPokemons:
+class TelaTiposPokemons(AbstractTela):
     def tela_opcoes(self):
         print("--------- TIPOS DE POKÉMON ----------")
         print("Escolha a opcao")
