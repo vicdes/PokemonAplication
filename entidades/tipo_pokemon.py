@@ -1,9 +1,8 @@
 class TipoPokemon:
-    def __init__(self, nome):
-        if isinstance(nome, str):
-            self.__nome = nome
-        self.__fraquezas = []
-        self.__vantagens = []
+    def __init__(self, nome, fraquezas, vantagens):
+        self.__nome = nome
+        self.__fraquezas = fraquezas
+        self.__vantagens = vantagens
 
     @property
     def nome(self):
@@ -26,4 +25,3 @@ class TipoPokemon:
 
     def add_vantagem(self, tipo: str):
         self.__fraquezas.append(tipo)
-q

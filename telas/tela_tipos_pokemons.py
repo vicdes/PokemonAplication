@@ -13,21 +13,18 @@ class TelaTiposPokemons:
     def pega_dados_tipo_pokemon(self):
         print("-------- CADASTRAR TIPO DE POKÉMON ---------")
         nome = input("Nome: ")
-        #tirar:
         fraquezas = []
-        while True:
+        continuar = "1"
+        while continuar == "1":
             fraqueza = input("Fraqueza: ")
             fraquezas.append(fraqueza)
             continuar = input("Deseja digitar outra? \n1- sim \n2- não ")
-            if continuar != 1:
-                break
         vantagens = []
-        while True:
+        continuar = "1"
+        while continuar == "1":
             vantagem = input("Vantagem: ")
             vantagens.append(vantagem)
             continuar = input("Deseja digitar outra? \n1- sim \n2- não ")
-            if continuar != 1:
-                break
         return {"nome": nome, "fraquezas": fraquezas, "vantagens": vantagens}
 
     def mostra_tipo_pokemon(self, dados_tipo_pokemon):

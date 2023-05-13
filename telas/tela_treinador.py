@@ -12,7 +12,8 @@ class TelaTreinador:
     def pega_dados_treinador(self):
         print("-------- CADASTRAR TREINADOR ---------")
         nickname = input("Nickname: ")
-        return {"Nickname": nickname}
+        porcentagem_pokedex = 0
+        return {"nickname": nickname, "porcentagem_pokedex": porcentagem_pokedex}
 
     def mostra_treinador(self, dados_treinador):
         print("Nickname: ", dados_treinador["nickname"])

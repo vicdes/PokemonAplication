@@ -24,7 +24,7 @@ class ControladorTreinadores:
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador == None:
-                treinador = Treinador(dados_treinador["nickname"])
+                treinador = Treinador(dados_treinador["nickname"], dados_treinador["porcentagem_pokedex"])
                 self.__treinadores.append(treinador)
             else:
                 raise NicknameRepetidoExcpetion(nickname)
@@ -59,5 +59,4 @@ class ControladorTreinadores:
 
         continua = True
         while continua:
-            lista_opcoes[self.__tela_treinador.tela_opcoes()]
-
+            lista_opcoes[self.__tela_treinador.tela_opcoes()]()

@@ -1,12 +1,9 @@
 from entidades.time import Time
 class Treinador:
-    def __init__(self, nickname: str, porcentagem_pokedex: float, time: Time):
-        if isinstance(nickname, str):
-            self.__nickname = nickname
-        if isinstance(porcentagem_pokedex, float):
-            self.__porcentagem_pokedex = porcentagem_pokedex
-        if isinstance(time, Time):
-            self.__time = time
+    def __init__(self, nickname: str, porcentagem_pokedex: float):
+        self.__nickname = nickname
+        self.__porcentagem_pokedex = porcentagem_pokedex
+        self.__time = Time()
         self.__pokemons_capturados = []
 
     @property
@@ -32,8 +29,7 @@ class Treinador:
 
     @porcentagem_pokedex.setter
     def porcentagem_pokedex(self, porcentagem_pokedex: float):
-        if isinstance(porcentagem_pokedex, float):
-            self.__porcentagem_pokedex
+        self.__porcentagem_pokedex = porcentagem_pokedex
 
     @time.setter
     def time(self, time: Time):
