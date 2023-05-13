@@ -1,5 +1,5 @@
 
-from exceptions.pokemon_inexistente_exception import PokemonInexistente
+from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import Pokemon
 import json
@@ -29,7 +29,7 @@ class ControladorPokemon():
             ControladorPokemon.lista_pokemons.remove(pokemon)
             self.__tela_pokemon.mostra_mensagem(f"O pokemon {pokemon.nome} foi removido do jogo com sucesso.")
         
-        except PokemonInexistente as e:
+        except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e)
             #print deu ruim
         
@@ -39,7 +39,7 @@ class ControladorPokemon():
             if pokemon.num == num_pokemon:
                 return pokemon
         
-        raise PokemonInexistente(num_pokemon)
+        raise PokemonInexistenteException(num_pokemon)
         #self.__tela_pokemon.mostra_mensagem("Código de pokémon inválido!")
         #return None
 
@@ -57,7 +57,7 @@ class ControladorPokemon():
 
             self.__tela_pokemon.mostra_mensagem(f'\nPokemon selecionado com seus atributos alterados:\n     {pokemon.nome} #{pokemon.num}, {pokemon.hp}HP, {pokemon.ataque} Ataque')
         
-        except PokemonInexistente as e:
+        except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e)
             
     def mostra_pokemons(self):

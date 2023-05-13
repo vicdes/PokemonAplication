@@ -11,5 +11,11 @@ class TelaCaptura(AbstractTela):
         opcao = int(input("\nEscolha a opcao: "))
         return opcao
     
+    def pega_dados_captura(self):
+        print("-------- DADOS CAPTURA ----------")
+        nickname = input("Nickname do treinador: ")
+
+        return nickname
+    
     def mostra_mensagem(self, msg):
         print(msg)

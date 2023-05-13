@@ -1,6 +1,6 @@
 class TelaTreinador:
     def tela_opcoes(self):
-        print("-------- TREINADORES ----------")
+        print("\n-------- TREINADORES ----------")
         print("Escolha a opcao")
         print("1 - Incluir Treinador")
         print("2 - Excluir Treinador")

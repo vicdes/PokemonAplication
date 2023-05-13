@@ -8,8 +8,8 @@ class TelaSistema(AbstractTela):
         print("Escolha sua opcao")
         print("1 - Treinadores")
         print("2 - Tipos de Pokemons")
-        print("3 - Batalha Pokémon")
-        print("4 - Pokémons")
+        print("3 - Pokémons")
+        print("4 - Captura")
         
         print("0 - Finalizar sistema")
         opcao = self.le_num_inteiro("\nEscolha a opcao:",[0,1,2,3,4])

@@ -1,4 +1,4 @@
-from exceptions.nickname_repetido_exception import NicknameRepetidoExcpetion
+from exceptions.nickname_repetido_exception import NicknameRepetidoException
 from telas.tela_treinador import TelaTreinador
 from entidades.treinador import Treinador
 from exceptions.pokemon_ja_cadastrado_exception import PokemonJaCadastradoException
@@ -17,6 +17,10 @@ class ControladorTreinadores:
             if treinador.nickname == nickname:
                 return treinador
         return None
+    
+    def addLista(self, nome, float):
+        treinador = Treinador(nome, float)
+        self.__treinadores.append(treinador)
 
     def lista_treinadores(self):
         for treinador in self.__treinadores:
@@ -31,8 +35,8 @@ class ControladorTreinadores:
                 treinador = Treinador(dados_treinador["nickname"], dados_treinador["porcentagem_pokedex"])
                 self.__treinadores.append(treinador)
             else:
-                raise NicknameRepetidoExcpetion(nickname)
-        except NicknameRepetidoExcpetion as e:
+                raise NicknameRepetidoException(nickname)
+        except NicknameRepetidoException as e:
             self.__tela_treinador.mostra_mensagem(e)
 
     def del_treinador(self):
@@ -108,3 +112,8 @@ class ControladorTreinadores:
         continua = True
         while continua:
             lista_opcoes[self.__tela_treinador.tela_opcoes()]()
+
+
+
+'''ControladorTreinadores.addLista("José", 0.0)
+ControladorTreinadores.addLista("Vic", 0.0)'''

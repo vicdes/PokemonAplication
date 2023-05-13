@@ -1,8 +1,10 @@
+
+
 class TipoPokemon:
-    def __init__(self, nome, fraquezas, vantagens):
+    def __init__(self, nome):
         self.__nome = nome
-        self.__fraquezas = fraquezas
-        self.__vantagens = vantagens
+        self.__fraquezas = []
+        self.__vantagens = []
 
     @property
     def nome(self):

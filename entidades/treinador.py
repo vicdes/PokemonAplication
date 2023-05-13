@@ -7,6 +7,43 @@ class Treinador:
         self.__time = Time()
         self.__pokemons_capturados = []
 
+        self.__ataque_equipe = 0
+        self.__hp_equipe = 0
+        
+    def verifica_numero_pokemon_capturado(self, numero_pokemon):
+        capturados = [p.num for p in self.__pokemons_capturados]
+        return numero_pokemon in capturados
+
+    @property
+    def hp_equipe(self):
+        return self.__hp_equipe
+
+    @hp_equipe.setter
+    def hp_equipe(self, valor):
+        self.__hp_equipe = valor
+   
+    @property
+    def ataque_equipe(self):
+        return self.__ataque_equipe
+    
+    
+    @ataque_equipe.setter
+    def ataque_equipe(self, valor):
+        self.__ataque_equipe = valor
+
+    def calcular_ataque_equipe(self):
+        ataque_equipe = 0
+        for pokemon in self.__equipe:
+            ataque_equipe += pokemon.ataque
+        return ataque_equipe
+    
+    
+    def calcular_hp_equipe(self):
+        hp_equipe = 0
+        for pokemon in self.__equipe:
+            hp_equipe += pokemon.hp
+        return hp_equipe
+
     @property
     def nickname(self):
         return self.__nickname
