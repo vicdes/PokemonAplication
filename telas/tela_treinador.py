@@ -6,6 +6,8 @@ class TelaTreinador:
         print("2 - Excluir Treinador")
         print("3 - Listar Treinadores")
         print("0 - Retornar")
+        opcao = int(input("Escolha a opcao: "))
+        return opcao
 
     def pega_dados_treinador(self):
         print("-------- CADASTRAR TREINADOR ---------")
