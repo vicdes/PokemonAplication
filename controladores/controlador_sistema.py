@@ -1,22 +1,13 @@
 from controladores.controlador_treinadores import ControladorTreinadores
 from controladores.controlador_tipos_pokemons import ControladorTiposPokemons
-from controladores.controlador_pokemons import ControladorPokemons
 from telas.tela_sistema import TelaSistema
-
+from telas.tela_treinador import TelaTreinador
 
 class ControladorSistema:
     def __init__(self):
         self.__controlador_treinadores = ControladorTreinadores(self)
         self.__controlador_tipos_pokemons = ControladorTiposPokemons(self)
         self.__tela_sistema = TelaSistema()
-
-    @property
-    def controlador_treinadores(self):
-        return self.__controlador_treinadores
-
-    @property
-    def controlador_tipos_pokemons(self):
-        return self.__controlador_tipos_pokemons
 
     def inicializa_sistema(self):
         self.abre_tela()
@@ -37,4 +28,4 @@ class ControladorSistema:
         while True:
             opcao_escolhida = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]
-            funcao_escolhida()
+            return funcao_escolhida()

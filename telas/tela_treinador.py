@@ -1,9 +1,4 @@
-from controladores.controlador_treinadores import ControladorTreinadores
 class TelaTreinador:
-    def __init__(self, controlador_treiandores: ControladorTreinadores):
-        if isinstance(controlador_treiandores, ControladorTreinadores):
-            self.__controlador_treinadores = controlador_treiandores
-
     def tela_opcoes(self):
         print("-------- TREINADORES ----------")
         print("Escolha a opcao")

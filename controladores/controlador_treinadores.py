@@ -1,12 +1,11 @@
-from exceptions.NicknameRepetidoException import NicknameRepetidoExcpetion
+from exceptions.nickname_repetido_exception import NicknameRepetidoExcpetion
 from telas.tela_treinador import TelaTreinador
-from controladores.controlador_sistema import ControladorSistema
 from entidades.treinador import Treinador
 
 class ControladorTreinadores:
-    def __init__(self, tela_treinador: TelaTreinador, controlador_sistema: ControladorSistema):
+    def __init__(self, controlador_sistema):
         self.__treinadores = []
-        self.__tela_treinador = tela_treinador
+        self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
 
     def pega_treinador_por_nickname(self, nickname: str):
@@ -44,8 +43,7 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem("ATENÇÃO: Treinador inexistente!")
 
     def add_time(self):
-        for treinador in self.__treinadores:
-
+        pass
 
     def del_time(self):
         pass

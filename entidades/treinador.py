@@ -1,3 +1,4 @@
+from entidades.time import Time
 class Treinador:
     def __init__(self, nickname: str, porcentagem_pokedex: float, time: Time):
         if isinstance(nickname, str):
@@ -39,6 +40,5 @@ class Treinador:
         if isinstance(time, Time):
             self.__time = time
 
-    def add_pokemon_capturado(self, pokemon_capturado: PokemonCapturado):
-        if isinstance(pokemon_capturado, PokemonCapturado):
-            self.__pokemons_capturados.append(pokemon_capturado)
+    def add_pokemon_capturado(self, pokemon_capturado):
+        self.__pokemons_capturados.append(pokemon_capturado)
