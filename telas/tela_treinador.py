@@ -30,11 +30,11 @@ class TelaTreinador(AbstractTela):
         return nickname
 
     def seleciona_pokemon_capturado(self):
-        codigo = input("Código do pokémon que deseja selecionar: ")
+        codigo = int(input("Código do pokémon que deseja selecionar: "))
         return codigo
 
     def seleciona_pokemon_do_time(self):
-        codigo = input("Código do pokémon que deseja substituir: ")
+        codigo = int(input("Código do pokémon que deseja substituir: "))
         return codigo
     def cadastrar_outro_pokemon(self):
         continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ") == "1"
