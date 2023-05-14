@@ -26,12 +26,12 @@ class ControladorCaptura():
         except PokemonInexistenteException as e:
             self.__tela_captura.mostra_mensagem(e)
         treinador.pokemons_capturados.append(novo_pokemon)
+        self.__controlador_sistema.controlador_treinadores.pega_porcentagem(treinador)
 
     def escolher_pokemon_aleatorio(self):
         pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
         return Pokemon(pokemon_aleatorio.nome, pokemon_aleatorio.num, pokemon_aleatorio.hp, pokemon_aleatorio.ataque)
-    
-    
+
     def inicia_batalha(self):
         nickname = self.__tela_captura.pega_dados_captura()
         treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)

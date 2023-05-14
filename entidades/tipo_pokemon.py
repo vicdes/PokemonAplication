@@ -25,5 +25,11 @@ class TipoPokemon:
     def add_fraqueza(self, tipo: str):
         self.__fraquezas.append(tipo)
 
+    def del_fraqueza(self, tipo: str):
+        self.__fraquezas.remove(tipo)
+
     def add_vantagem(self, tipo: str):
         self.__fraquezas.append(tipo)
+
+    def del_vantagem(self, tipo: str):
+        self.__fraquezas.remove(tipo)
