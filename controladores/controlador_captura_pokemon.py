@@ -48,7 +48,7 @@ class ControladorCaptura():
         num = pokemon_oponente.num
 
         time = treinador.time 
-        info_pokemons_time = [pokemon.nome for pokemon in treinador.time.lista_pokemon]  # Lista com nomes dos Pokémon da time do treinador
+        info_pokemons_time = [pokemon.nome for pokemon in treinador.time.lista_pokemons]  # Lista com nomes dos Pokémon da time do treinador
             
         info_batalha = {
                 'treinador': treinador.nickname,
@@ -89,7 +89,7 @@ class ControladorCaptura():
         ataque_original = pokemon_oponente.ataque    #! talvez não seja necessário mais visto q é o pokémon aleatório esta sendo reinstanciado. 
 
         #talvez fazer um método na classe treinador para ver o tamanho da len e retornar ele.
-        tamanho_time = len(treinador.time.lista_pokemon) #provavelmente o nome vai voltar pra time
+        tamanho_time = len(treinador.time.lista_pokemons) #provavelmente o nome vai voltar pra time
         print(f'tamanho do time de {treinador.nickname} = {tamanho_time}') #! APAGAR
         #talvez dê pra fazer um método que faça esses multiplicadores isso de um jeito mais bonito
         multiplicador_hp = random.choice([tamanho_time, tamanho_time, tamanho_time, tamanho_time, tamanho_time, 4, 4, 4, 5,5])
@@ -112,7 +112,7 @@ class ControladorCaptura():
             #! TREINADOR.TIME.LISTA_POKEMON
 
             #* treinador ataca.
-            for pokemon in treinador.time.lista_pokemon:
+            for pokemon in treinador.time.lista_pokemons:
                 if pokemon.hp > 0:
                     self.__tela_captura.mostra_mensagem(f"{pokemon.nome} ataca!")
                     pokemon_oponente.hp -= pokemon.ataque

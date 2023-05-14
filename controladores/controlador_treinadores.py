@@ -12,26 +12,22 @@ from entidades.time import Time
 
 class ControladorTreinadores:
     def __init__(self, controlador_sistema):
-<<<<<<< HEAD
         self.__treinadores = [Treinador(
-        "Ash",
-        0.0,
-        [
-            Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
-            Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
-            Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
-        ],
-        Time([
-            Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
-            Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
-            Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
-        ])
-    )
-]
+            "Ash",
+            0.0,
+            [
+                Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+                Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+                Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+            ],
+            Time([
+                Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+                Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+                Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+            ])
+        )
+    ]
             #(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
-=======
-        self.__treinadores = [(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45), Pokemon("Caterpie", 10, 45, 30)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
->>>>>>> c61808f157528d2f5bb3d0ea41c0f46091a086ec
         self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
 

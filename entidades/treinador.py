@@ -51,13 +51,13 @@ class Treinador:
 
     def calcular_hp_time(self):
         hp_time = 0
-        for pokemon in self.__time.lista_pokemon:
+        for pokemon in self.__time.lista_pokemons:
             hp_time += pokemon.hp
         return hp_time
 
     def calcular_ataque_time(self):
         ataque_time = 0
-        for pokemon in self.__time.lista_pokemon:
+        for pokemon in self.__time.lista_pokemons:
             ataque_time += pokemon.ataque
         return ataque_time
 

@@ -2,13 +2,14 @@
 from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import Pokemon
+from entidades.tipo_pokemon import TipoPokemon
+
 import json
 
 
 class ControladorPokemon():
     lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
-    lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49), Pokemon("Charmander", 4, 39, 52), Pokemon("Squirtle", 7, 44, 48)]
-
+    lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49, [TipoPokemon("Grama")]), Pokemon("Charmander", 4, 39, 52,[TipoPokemon("Fogo")]), Pokemon("Squirtle", 7, 44, 48,[TipoPokemon("Água")])]
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
         '''if isinstance(controlador_sistema, ControladorSistema):
