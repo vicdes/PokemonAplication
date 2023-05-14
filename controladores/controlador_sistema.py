@@ -1,6 +1,6 @@
 from controladores.controlador_treinadores import ControladorTreinadores
 from controladores.controlador_pokemon import ControladorPokemon, Pokemon
-from controladores.controlador_tipos_pokemons import ControladorTiposPokemons
+from controladores.controlador_tipos_pokemons import ControladorTiposPokemons, TipoPokemon
 from controladores.controlador_captura_pokemon import ControladorCaptura
 from telas.tela_sistema import TelaSistema
 
@@ -14,7 +14,7 @@ class ControladorSistema:
 
 
     #instancia os pokémons e adiciona eles na lista de pokémons que existem no jogo
-    import json
+    '''import json
 
     with open('populacao_pokemons.json', encoding='utf-8') as arquivo:
         dados = json.load(arquivo)
@@ -26,6 +26,40 @@ class ControladorSistema:
         #tipo = Tipo(tipo_json['nome'], tipo_json['fraquezas'], tipo_json['vantagens'])
         pokemon = Pokemon(pokemon_json['nome'], pokemon_json['num'], pokemon_json['hp'], pokemon_json['ataque'])
         ControladorPokemon.add_lista(pokemon)
+'''
+    import json
+
+    with open("teste_pokemons_com_tipos.json", encoding="utf-8") as arquivo:
+        dados_json = arquivo.read()
+
+    # Converter JSON para dicionário Python
+    dados = json.loads(dados_json)
+
+    # Criar objetos Pokemon e TipoPokemon
+    pokemons = []
+    tipos_pokemon = {}
+
+    for pokemon_data in dados["pokemons"]:
+        nome = pokemon_data["nome"]
+        num = pokemon_data["num"]
+        hp = pokemon_data["hp"]
+        ataque = pokemon_data["ataque"]
+        tipos_data = pokemon_data["tipo"]
+
+        tipos_nome = tipos_data["nome"]
+        vantagens = tipos_data["vantagens"]
+        fraquezas = tipos_data["fraquezas"]
+
+        tipos = []
+        for tipo_nome in tipos_nome:
+            tipo = TipoPokemon(tipo_nome, vantagens, fraquezas)
+            tipos.append(tipo)
+            if tipo_nome not in tipos_pokemon:
+                tipos_pokemon[tipo_nome] = tipo
+
+        pokemon = Pokemon(nome, num, hp, ataque, tipos)
+        ControladorPokemon.add_lista(pokemon)
+
 
 
     @property

@@ -7,7 +7,9 @@ import json
 
 class ControladorPokemon():
     
-    lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
+    lista_pokemons = [] 
+    #lista pokémons iniciais
+
 
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
@@ -27,7 +29,7 @@ class ControladorPokemon():
         try:
             pokemon = self.selecionar_pokemon()
             ControladorPokemon.lista_pokemons.remove(pokemon)
-            self.__tela_pokemon.mostra_mensagem(f"O pokemon {pokemon.nome} foi removido do jogo com sucesso.")
+            self.__tela_pokemon.mostra_mensagem(f"O pokemon {({pokemon.nome}.upper())} foi removido do jogo com sucesso.")
         
         except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e)

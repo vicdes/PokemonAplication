@@ -2,16 +2,16 @@ from telas.tela_abstract import AbstractTela
 
 class TelaTiposPokemons(AbstractTela):
     def tela_opcoes(self):
-        print("--------- TIPOS DE POKÉMON ----------")
-        print("Escolha a opcao")
-        print("1 - Incluir tipo de pokémon")
-        print("2 - Excluir tipo de pokémon")
-        print("3 - Listar tipos de pokémon")
-        print("0 - Retornar")
-        opcao = self.le_num_inteiro("\nEscolha a opcao:", [0, 1, 2, 3])
+        self.titulo("Tipos de Pokémon")
+        print("\nEscolha a opcao")
+        print("  1 - Incluir tipo de pokémon")
+        print("  2 - Excluir tipo de pokémon")
+        print("  3 - Listar tipos de pokémon")
+        print("  0 - Retornar")
+        opcao = self.le_num_inteiro("\nEscolha a opcao: ", [0, 1, 2, 3])
 
     def pega_dados_tipo_pokemon(self):
-        print("-------- CADASTRAR TIPO DE POKÉMON ---------")
+        self.titulo2("Cadastrar Tipo de Pokémon")
         nome = input("Nome: ")
         fraquezas = []
         continuar = "1"

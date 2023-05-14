@@ -5,12 +5,13 @@ class TelaPokemon(AbstractTela):
     def tela_opcoes(self):
         #* talvez dê pra pedir uma senha para acessar essa sessão. como se fosse algo restrito a um admin. 
         #* aí bota como senha e nome, admin admin
-
-        print("\n--------- TESTE TELA POKEMON ---------")
-        print("1 - Adicionar Pokémons") #! isso tbm acho meio estranho    implementar código que impede um pokémon de mesmo código ser adicionado.
-        print("2 - Deletar Pokémon")                    
-        print("3 - Mostrar Pokémons existentes")
-        print("4 - Alterar HP ou Ataque de Pokémon") #! sou meio contra isso
+        
+        self.titulo("Tela Pokémon")
+        print("\nEscolha sua opcao")
+        print("  1 - Adicionar Pokémons") #! isso tbm acho meio estranho    implementar código que impede um pokémon de mesmo código ser adicionado.
+        print("  2 - Deletar Pokémon")                    
+        print("  3 - Mostrar Pokémons existentes")
+        print("  4 - Alterar HP ou Ataque de Pokémon") #! sou meio contra isso
         #! se tivermos algum crude de alteração prefiro excluir isso
         #! podemos ver com a patrícia se trocar um pokémon do time é válido
         #! talvez até possa ter um método q faça um swap de pokémons baseado no num

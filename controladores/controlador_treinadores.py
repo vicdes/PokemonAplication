@@ -5,11 +5,27 @@ from exceptions.pokemon_ja_cadastrado_exception import PokemonJaCadastradoExcept
 from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoException
 from entidades.pokemon import Pokemon
+from entidades.tipo_pokemon import TipoPokemon
 from entidades.time import Time
 
 class ControladorTreinadores:
     def __init__(self, controlador_sistema):
-        self.__treinadores = [(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
+        self.__treinadores = [Treinador(
+        "Ash",
+        0.0,
+        [
+            Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+            Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+            Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+        ],
+        Time([
+            Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+            Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+            Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+        ])
+    )
+]
+            #(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
         self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
 

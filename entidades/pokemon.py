@@ -1,6 +1,6 @@
 class Pokemon:
     
-    def __init__(self, nome: str, num: int, hp: int, ataque: int):
+    def __init__(self, nome: str, num: int, hp: int, ataque: int, tipos):
         if isinstance(nome, str):
             self.__nome = nome
         if isinstance(num, int):
@@ -9,7 +9,8 @@ class Pokemon:
             self.__hp = hp
         if isinstance(ataque, int):
             self.__ataque = ataque
-        self.__tipos = []
+        self.__tipos = tipos
+        
         self.__hp_max = hp
     
     def restaurar_hp(self):
@@ -55,6 +56,9 @@ class Pokemon:
         if isinstance(ataque, int):
             self.__ataque = ataque
 
-    '''def add_tipo(self, tipo: TipoPokemon):
-        if isinstance(tipo, TipoPokemon):
-            self.__tipos.append(tipo)'''
+    def adicionar_tipo(self, tipo):
+        self.__tipos.append(tipo)
+
+    def remover_tipo(self, tipo):
+        if tipo in self.__tipos:
+            self.__tipos.remove(tipo)

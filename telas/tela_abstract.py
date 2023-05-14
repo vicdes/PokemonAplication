@@ -46,8 +46,29 @@ class AbstractTela(ABC):
                 if str_validos:
                     print("Valores válidos: ", str_validos)
 
+    def titulo_sistema(self, mensagem):
+        tamanho_linha = 60
+        linha = "~" * tamanho_linha
+        primeira_palavra = mensagem.split()[0]
+        segunda_palavra = mensagem.split()[1]
+        centralizado_primeira = primeira_palavra.center(tamanho_linha)
+        centralizado_segunda = segunda_palavra.center(tamanho_linha)
+        print(f"\n{linha}\n\n{centralizado_primeira}\n{centralizado_segunda}\n\n{linha}")
+
+
     def titulo(self, mensagem):
         linha_separadora = "=" * 80
         print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
 
+    def titulo2(self, mensagem):
+        tamanho_linha = 80
+        linha_superior = "=" * tamanho_linha
+        linha_inferior = "-" * tamanho_linha
+        print(f"\n{linha_superior}\n{mensagem.center(tamanho_linha)}\n{linha_inferior}")
+
+    def titulo3(self, mensagem):
+        tamanho_linha = 80
+        linha_superior = "-" * tamanho_linha
+        linha_inferior = "-" * tamanho_linha
+        print(f"\n{linha_superior}\n{mensagem.center(tamanho_linha)}\n{linha_inferior}")
     #* Talvez um método que leia sim ou não(1/2) já que está sendo usado com frequencia 
