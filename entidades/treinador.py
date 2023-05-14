@@ -10,9 +10,11 @@ class Treinador:
         self.__ataque_time = 0
         self.__hp_time = 0
 
-    def verifica_numero_pokemon_capturado(self, numero_pokemon):
-        capturados = [p.num for p in self.__pokemons_capturados]
-        return numero_pokemon in capturados
+    def verifica_numero_pokemon_capturado(self, num):
+        for pokemon in self.__pokemons_capturados:
+            if pokemon.num == num:
+                return True
+        return False
 
     def get_pokemons_capturados(self):
         return self.__pokemons_capturados
@@ -44,6 +46,21 @@ class Treinador:
     def ataque_time(self):
         return self.__ataque_time
     
+    @property
+    def nickname(self):
+        return self.__nickname
+
+    @property
+    def porcentagem_pokedex(self):
+        return self.__porcentagem_pokedex
+
+    @property
+    def time(self):
+        return self.__time
+
+    @property
+    def pokemons_capturados(self):
+        return self.__pokemons_capturados
     
     @ataque_time.setter
     def ataque_time(self, valor):
@@ -60,22 +77,6 @@ class Treinador:
         for pokemon in self.__time.lista_pokemons:
             ataque_time += pokemon.ataque
         return ataque_time
-
-    @property
-    def nickname(self):
-        return self.__nickname
-
-    @property
-    def porcentagem_pokedex(self):
-        return self.__porcentagem_pokedex
-
-    @property
-    def time(self):
-        return self.__time
-
-    @property
-    def pokemons_capturados(self):
-        return self.__pokemons_capturados
 
     @nickname.setter
     def nickname(self, nickname: str):

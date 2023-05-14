@@ -13,7 +13,7 @@ from entidades.time import Time
 class ControladorTreinadores:
     def __init__(self, controlador_sistema):
         self.__treinadores = [Treinador(
-            "Ash",
+            "1",
             0.0,
             [
                 Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),

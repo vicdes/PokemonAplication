@@ -10,6 +10,7 @@ import json
 class ControladorPokemon():
     lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
     lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49, [TipoPokemon("Grama")]), Pokemon("Charmander", 4, 39, 52,[TipoPokemon("Fogo")]), Pokemon("Squirtle", 7, 44, 48,[TipoPokemon("Água")])]
+    
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
         '''if isinstance(controlador_sistema, ControladorSistema):

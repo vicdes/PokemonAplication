@@ -36,6 +36,7 @@ class TelaTreinador(AbstractTela):
     def seleciona_pokemon_do_time(self):
         codigo = int(input("Código do pokémon que deseja substituir: "))
         return codigo
+    
     def cadastrar_outro_pokemon(self):
         continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ") == "1"
         return continuar
