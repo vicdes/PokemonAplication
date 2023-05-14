@@ -8,7 +8,7 @@ class TelaCaptura(AbstractTela):
         print("2 - Log?")
         print("0 - Retornar")
 
-        opcao = int(input("\nEscolha a opcao: "))
+        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 0])
         return opcao
     
     def pega_dados_captura(self):

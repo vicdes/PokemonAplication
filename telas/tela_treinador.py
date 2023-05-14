@@ -24,7 +24,6 @@ class TelaTreinador(AbstractTela):
     def mostra_treinador(self, dados_treinador):
         print("Nickname: ", dados_treinador["nickname"])
         print("Porcentagem da pokedéx completa: ", dados_treinador["porcentagem_pokedex"], "%")
-        print("\n")
 
     def seleciona_treinador(self):
         nickname = input("Nickname do treinador que deseja selecionar: ")

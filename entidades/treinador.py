@@ -1,18 +1,28 @@
 from entidades.time import Time
 
+
 class Treinador:
     def __init__(self, nickname: str, porcentagem_pokedex: float, pokemons_capturados=None, time=None):
         self.__nickname = nickname
         self.__porcentagem_pokedex = porcentagem_pokedex
         self.__time = time or Time()
         self.__pokemons_capturados = pokemons_capturados or []
-
         self.__ataque_time = 0
         self.__hp_time = 0
-        
+
     def verifica_numero_pokemon_capturado(self, numero_pokemon):
         capturados = [p.num for p in self.__pokemons_capturados]
         return numero_pokemon in capturados
+
+    def get_pokemons_capturados(self):
+        return self.__pokemons_capturados
+    
+    def captura_pokemon(self, pokemon):
+        if pokemon in self.__pokemons_capturados:
+            print(f"Você já capturou o {pokemon.nome} antes!")
+        else:
+            self.__pokemons_capturados.append(pokemon)
+            print(f"\nParabéns, você capturou o {pokemon.nome}!")
 
     @property
     def hp_time(self):

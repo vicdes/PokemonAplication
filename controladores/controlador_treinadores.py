@@ -13,6 +13,7 @@ class ControladorTreinadores:
         self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
 
+
     def pega_treinador_por_nickname(self, nickname: str):
         for treinador in self.__treinadores:
             if treinador.nickname == nickname:
@@ -41,6 +42,7 @@ class ControladorTreinadores:
         nickname = self.__tela_treinador.seleciona_treinador()
         treinador = self.pega_treinador_por_nickname(nickname)
 
+
         if treinador is not None:
             self.__treinadores.remove(treinador)
             self.lista_treinadores()
@@ -53,8 +55,7 @@ class ControladorTreinadores:
         pokemons_str = ""
         for pokemon in treinador.pokemons_capturados:
             pokemons_str += pokemon.nome + " "
-            self.__tela_treinador.mostra_mensagem(pokemons_str)
-
+        self.__tela_treinador.mostra_mensagem(pokemons_str)
 
     def mostrar_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
@@ -100,6 +101,7 @@ class ControladorTreinadores:
                     break
                 continuar = self.__tela_treinador.cadastrar_outro_pokemon()
 
+
     def del_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
         treinador = self.pega_treinador_por_nickname(nickname)
@@ -126,5 +128,3 @@ class ControladorTreinadores:
         continua = True
         while continua:
             lista_opcoes[self.__tela_treinador.tela_opcoes()]()
-
-
