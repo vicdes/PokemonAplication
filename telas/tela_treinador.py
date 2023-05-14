@@ -1,4 +1,6 @@
-class TelaTreinador:
+from telas.tela_abstract import AbstractTela
+
+class TelaTreinador(AbstractTela):
     def tela_opcoes(self):
         print("\n-------- TREINADORES ----------")
         print("Escolha a opcao")
@@ -8,8 +10,10 @@ class TelaTreinador:
         print("4 - Cadastrar time")
         print("5 - Deletar time")
         print("6 - Alterar time")
+        print("7 - Listar pokemons de um treinador")
+        print("8 - Mostrar time de um treinador")
         print("0 - Retornar")
-        opcao = int(input("Escolha a opcao: "))
+        opcao = self.le_num_inteiro("\nEscolha a opcao:", [0, 1, 2, 3, 4, 5, 7, 8])
         return opcao
 
     def pega_dados_treinador(self):

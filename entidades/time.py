@@ -1,6 +1,6 @@
 class Time:
-    def __init__(self):
-        self.__lista_pokemons = []
+    def __init__(self, lista_pokemons=None):
+        self.__lista_pokemons = lista_pokemons or []
 
     @property
     def lista_pokemon(self):

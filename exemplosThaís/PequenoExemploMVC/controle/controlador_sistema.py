@@ -44,3 +44,6 @@ class ControladorSistema:
             opcao_escolhida = self.__tela_sistema.tela_opcoes()
             funcao_escolhida = lista_opcoes[opcao_escolhida]
             funcao_escolhida()
+
+
+ctrl_sistema = ControladorSistema()

@@ -4,11 +4,12 @@ from entidades.treinador import Treinador
 from exceptions.pokemon_ja_cadastrado_exception import PokemonJaCadastradoException
 from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoException
-
+from entidades.pokemon import Pokemon
+from entidades.time import Time
 
 class ControladorTreinadores:
     def __init__(self, controlador_sistema):
-        self.__treinadores = []
+        self.__treinadores = [(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
         self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
 
@@ -17,10 +18,6 @@ class ControladorTreinadores:
             if treinador.nickname == nickname:
                 return treinador
         return None
-    
-    def addLista(self, nome, float):
-        treinador = Treinador(nome, float)
-        self.__treinadores.append(treinador)
 
     def lista_treinadores(self):
         for treinador in self.__treinadores:
@@ -49,6 +46,23 @@ class ControladorTreinadores:
             self.lista_treinadores()
         else:
             self.__tela_treinador.mostra_mensagem("ATENÇÃO: Treinador inexistente!")
+
+    def listar_pokemons_capturados(self):
+        nickname = self.__tela_treinador.seleciona_treinador()
+        treinador = self.pega_treinador_por_nickname(nickname)
+        pokemons_str = ""
+        for pokemon in treinador.pokemons_capturados:
+            pokemons_str += pokemon.nome + " "
+            self.__tela_treinador.mostra_mensagem(pokemons_str)
+
+
+    def mostrar_time(self):
+        nickname = self.__tela_treinador.seleciona_treinador()
+        treinador = self.pega_treinador_por_nickname(nickname)
+        pokemons_str = ""
+        for pokemon in treinador.time.lista_pokemon:
+            pokemons_str += pokemon.nome + " "
+        self.__tela_treinador.mostra_mensagem(pokemons_str)
 
     def add_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
@@ -107,13 +121,10 @@ class ControladorTreinadores:
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.add_treinador, 2: self.del_treinador, 3: self.lista_treinadores, 4: self.add_time, 5: self.del_time, 6: self.alterar_time, 0: self.retornar}
+        lista_opcoes = {1: self.add_treinador, 2: self.del_treinador, 3: self.lista_treinadores, 4: self.add_time, 5: self.del_time, 6: self.alterar_time, 7: self.listar_pokemons_capturados, 8: self.mostrar_time, 0: self.retornar}
 
         continua = True
         while continua:
             lista_opcoes[self.__tela_treinador.tela_opcoes()]()
 
 
-
-'''ControladorTreinadores.addLista("José", 0.0)
-ControladorTreinadores.addLista("Vic", 0.0)'''
