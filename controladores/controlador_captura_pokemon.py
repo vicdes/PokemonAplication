@@ -47,7 +47,7 @@ class ControladorCaptura():
 
         #talvez fazer um método na classe treinador para ver o tamanho da len e retornar ele.
         tamanho_time = len(treinador.time.lista_pokemon) #provavelmente o nome vai voltar pra time
-        print(tamanho_time)
+        print(f'tamanho do time de {treinador.nickname} = {tamanho_time}')
         #talvez dê pra fazer um método que faça esses multiplicadores isso de um jeito mais bonito
         multiplicador_hp = random.choice([tamanho_time, tamanho_time, tamanho_time, tamanho_time, tamanho_time, 4, 4, 4, 5,5])
         pokemon_oponente.hp = int(pokemon_oponente.hp * multiplicador_hp)

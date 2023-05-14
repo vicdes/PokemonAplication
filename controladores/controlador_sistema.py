@@ -27,6 +27,7 @@ class ControladorSistema:
         pokemon = Pokemon(pokemon_json['nome'], pokemon_json['num'], pokemon_json['hp'], pokemon_json['ataque'])
         ControladorPokemon.add_lista(pokemon)
 
+
     @property
     def controlador_treinadores(self):
         return self.__controlador_treinadores

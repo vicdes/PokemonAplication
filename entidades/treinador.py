@@ -2,10 +2,10 @@ from entidades.time import Time
 
 
 class Treinador:
-    def _init_(self, nickname: str, porcentagem_pokedex: float, pokemons_capturados=None):
+    def __init__(self, nickname: str, porcentagem_pokedex: float, pokemons_capturados=None, time=None):
         self.__nickname = nickname
         self.__porcentagem_pokedex = porcentagem_pokedex
-        self.__time = Time()
+        self.__time = time or Time()
         self.__pokemons_capturados = pokemons_capturados or []
 
         self.__ataque_time = 0

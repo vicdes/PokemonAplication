@@ -8,7 +8,7 @@ class TelaTiposPokemons(AbstractTela):
         print("2 - Excluir tipo de pokémon")
         print("3 - Listar tipos de pokémon")
         print("0 - Retornar")
-        opcao = int(input("Escolha a opcao: "))
+        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 0])
         return opcao
 
     def pega_dados_tipo_pokemon(self):
