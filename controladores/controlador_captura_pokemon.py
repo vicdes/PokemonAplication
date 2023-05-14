@@ -13,6 +13,22 @@ class ControladorCaptura():
         self.__tela_captura = TelaCaptura()
         self.__controlador_sistema = controlador_sistema
 
+    def captura_pokemon_inicial(self, nickname=None):
+        codigo_inicial = self.__tela_captura.seleciona_pokemon_inicial()
+        treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)
+        novo_pokemon = None
+        for pokemon in self.__controlador_sistema.controlador_pokemon.lista_pokemons_iniciais:
+            if pokemon.num == codigo_inicial:
+                novo_pokemon = pokemon
+                break
+        try:
+            if novo_pokemon is not None:
+                pass
+            else:
+                raise PokemonInexistenteException(codigo_inicial)
+        except PokemonInexistenteException as e:
+            self.__tela_captura.mostra_mensagem(e)
+        treinador.pokemons_capturados.append(novo_pokemon)
 
     def escolher_pokemon_aleatorio(self):
         pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)

@@ -3,9 +3,9 @@ class Time:
         self.__lista_pokemons = lista_pokemons or []
 
     @property
-    def lista_pokemon(self):
+    def lista_pokemons(self):
         return self.__lista_pokemons
 
-    @lista_pokemon.setter
-    def lista_pokemon(self, pokemon):
+    @lista_pokemons.setter
+    def lista_pokemons(self, pokemon):
         self.__lista_pokemons.append(pokemon)

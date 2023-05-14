@@ -55,6 +55,8 @@ class AbstractTela(ABC):
         centralizado_segunda = segunda_palavra.center(tamanho_linha)
         print(f"\n{linha}\n\n{centralizado_primeira}\n{centralizado_segunda}\n\n{linha}")
 
+    def cadastrado_com_sucesso(self):
+        print("Cadastro realizado com sucesso!")
 
     def titulo(self, mensagem):
         linha_separadora = "=" * 80

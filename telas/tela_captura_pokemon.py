@@ -17,6 +17,10 @@ class TelaCaptura(AbstractTela):
         nickname = input("Nickname do treinador: ")
 
         return nickname
+
+    def seleciona_pokemon_inicial(self):
+        codigo_inicial = int(input("Digite o código do inicial que deseja capturar:\n#1 Bulbasaur\n#4 Charmander\n#7 Squirtle"))
+        return codigo_inicial
     
     def mostra_mensagem(self, msg):
         print(msg)

@@ -6,10 +6,8 @@ import json
 
 
 class ControladorPokemon():
-    
-    lista_pokemons = [] 
-    #lista pokémons iniciais
-
+    lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
+    lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49), Pokemon("Charmander", 4, 39, 52), Pokemon("Squirtle", 7, 44, 48)]
 
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
