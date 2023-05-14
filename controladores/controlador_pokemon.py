@@ -4,17 +4,12 @@ from telas.tela_pokemon import TelaPokemon
 from entidades.pokemon import Pokemon
 from entidades.tipo_pokemon import TipoPokemon
 
-import json
-
-
 class ControladorPokemon():
-    lista_pokemons = [] #! TENHO QUE DEIXAR FIXA ESSA LISTA
+    lista_pokemons = [] 
     lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49, [TipoPokemon("Grama")]), Pokemon("Charmander", 4, 39, 52,[TipoPokemon("Fogo")]), Pokemon("Squirtle", 7, 44, 48,[TipoPokemon("Água")])]
     
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()
-        '''if isinstance(controlador_sistema, ControladorSistema):
-            self.__controlador_sistema = controlador_sistema'''
         self.__controlador_sistema = controlador_sistema
         # * adicionar controlador_sistema: ControladorSistema no init depois
     
@@ -25,11 +20,11 @@ class ControladorPokemon():
     def add_lista(pokemon):
         ControladorPokemon.lista_pokemons.append(pokemon)
 
-    def del_pokemon(self): # ! Fazer LOOP de "deseja remover outro pokemon? " + loop q faça o else ir direto para a função de novo.
+    def del_pokemon(self):
         try:
             pokemon = self.selecionar_pokemon()
             ControladorPokemon.lista_pokemons.remove(pokemon)
-            self.__tela_pokemon.mostra_mensagem(f"O pokemon {({pokemon.nome}.upper())} foi removido do jogo com sucesso.")
+            self.__tela_pokemon.mostra_mensagem(f"\n[!] O pokemon {pokemon.nome} foi removido do jogo com sucesso.")
         
         except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e)
@@ -42,14 +37,10 @@ class ControladorPokemon():
                 return pokemon
         
         raise PokemonInexistenteException(num_pokemon)
-        #self.__tela_pokemon.mostra_mensagem("Código de pokémon inválido!")
-        #return None
 
     def altera_status(self):
-            #num_pokemon = self.__tela_pokemon.seleciona_pokemon_numero()
         try:
             pokemon = self.selecionar_pokemon()
-            #pokemon = self.selecionar_pokemon(num_pokemon)
             self.__tela_pokemon.mostra_mensagem(f'\nPokemon selecionado:\n     {pokemon.nome} #{pokemon.num}, {pokemon.hp}HP, {pokemon.ataque} Ataque')
             
             novo_hp = self.__tela_pokemon.le_num_inteiro("\nDigite o novo valor de HP: ")
@@ -69,17 +60,11 @@ class ControladorPokemon():
             nomes_e_nums.append((pokemon.nome, pokemon.num))
         self.__tela_pokemon.mostrar_pokemons(nomes_e_nums)
 
-
-    #def mostra_tudo(self):          #* TESTANDO LOCAL DE MEMÓRIA DA LISTA
-    #    print(self.lista_pokemons)
-    #    '''for i in self.lista_pokemons:
-    #        print(i['nome'], i['num'], i['hp'], i['ataque'])'''
-
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.add_pokemon, 2: self.del_pokemon, 3: self.mostra_pokemons, 4:self.altera_status, 0: self.retornar}
+        lista_opcoes = {1: self.del_pokemon, 2: self.mostra_pokemons, 3:self.altera_status, 0: self.retornar}
 
         while True:
             opcao_escolhida = self.__tela_pokemon.tela_opcoes()

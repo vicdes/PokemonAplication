@@ -11,31 +11,16 @@ class ControladorSistema:
         self.__controlador_pokemon = ControladorPokemon(self)
         self.__controlador_captura = ControladorCaptura(self)
         self.__tela_sistema = TelaSistema()
-
-
-    #instancia os pokémons e adiciona eles na lista de pokémons que existem no jogo
-    '''import json
-
-    with open('populacao_pokemons.json', encoding='utf-8') as arquivo:
-        dados = json.load(arquivo)
-
-    pokemons_json = dados['pokemons']
-
-    for pokemon_json in pokemons_json:
-        #tipo_json = pokemon_json['tipo']
-        #tipo = Tipo(tipo_json['nome'], tipo_json['fraquezas'], tipo_json['vantagens'])
-        pokemon = Pokemon(pokemon_json['nome'], pokemon_json['num'], pokemon_json['hp'], pokemon_json['ataque'])
-        ControladorPokemon.add_lista(pokemon)
-'''
+  
     import json
 
     with open("teste_pokemons_com_tipos.json", encoding="utf-8") as arquivo:
         dados_json = arquivo.read()
 
-    # Converter JSON para dicionário Python
+    # Converte JSON para dicionário Python
     dados = json.loads(dados_json)
 
-    # Criar objetos Pokemon e TipoPokemon
+    # Cria objetos Pokemon e TipoPokemon
     pokemons = []
     tipos_pokemon = {}
 
@@ -59,8 +44,6 @@ class ControladorSistema:
 
         pokemon = Pokemon(nome, num, hp, ataque, tipos)
         ControladorPokemon.add_lista(pokemon)
-
-
 
     @property
     def controlador_treinadores(self):

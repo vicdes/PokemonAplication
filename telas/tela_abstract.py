@@ -46,6 +46,9 @@ class AbstractTela(ABC):
                 if str_validos:
                     print("Valores válidos: ", str_validos)
 
+    def cadastrado_com_sucesso(self):
+        print("Cadastro realizado com sucesso!")
+
     def titulo_sistema(self, mensagem):
         tamanho_linha = 60
         linha = "~" * tamanho_linha
@@ -54,9 +57,6 @@ class AbstractTela(ABC):
         centralizado_primeira = primeira_palavra.center(tamanho_linha)
         centralizado_segunda = segunda_palavra.center(tamanho_linha)
         print(f"\n{linha}\n\n{centralizado_primeira}\n{centralizado_segunda}\n\n{linha}")
-
-    def cadastrado_com_sucesso(self):
-        print("Cadastro realizado com sucesso!")
 
     def titulo(self, mensagem):
         linha_separadora = "=" * 80
@@ -73,4 +73,3 @@ class AbstractTela(ABC):
         linha_superior = "-" * tamanho_linha
         linha_inferior = "-" * tamanho_linha
         print(f"\n{linha_superior}\n{mensagem.center(tamanho_linha)}\n{linha_inferior}")
-    #* Talvez um método que leia sim ou não(1/2) já que está sendo usado com frequencia 

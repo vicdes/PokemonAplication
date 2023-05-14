@@ -11,5 +11,5 @@ class TelaSistema(AbstractTela):
         print("  3 - Pokémons")
         print("  4 - Captura")
         print("  0 - Finalizar sistema")
-        opcao = self.le_num_inteiro("\nEscolha a opcao: ",[0,1,2,3,4])
+        opcao = self.le_num_inteiro("\nEscolha a opcao: ",[0,1,2,3,4]) #* tratamento de exceção FEITO
         return opcao

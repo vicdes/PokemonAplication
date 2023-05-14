@@ -1,10 +1,10 @@
 
+#* Tratamentos CHECK
+
 from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from telas.tela_captura_pokemon import TelaCaptura
 from entidades.captura_pokemon import *
-
-
-
+from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoException
 
 class ControladorCaptura():
     capturas = []
@@ -36,13 +36,21 @@ class ControladorCaptura():
         return pokemon_aleatorio
     
     def inicia_batalha(self):
-        nickname = self.__tela_captura.pega_dados_captura()
-        treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)
+
+        while True:
+            try: #checa se o nome do treinador digitado existe na lista de treinadores
+                nickname = self.__tela_captura.pega_dados_captura()
+                treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)
+                if treinador is not None:
+                    break
+                else:
+                    raise NicknameNaoEncontradoException(nickname)
+            except NicknameNaoEncontradoException as e:
+                self.__tela_captura.mostra_mensagem(e)
+                self.__tela_captura.mostra_mensagem('Tente novamente.')
         
         capturado = False
         rodada = 0
-        continuar_batalha = True
-
 
         self.__tela_captura.titulo('Batalha Pokémon')
 
@@ -146,7 +154,7 @@ class ControladorCaptura():
                 treinador.hp_time = 0
 
                 self.__tela_captura.mostra_mensagem(f'💤 {treinador.nickname}, seu time está desmaiada!') 
-                print(f'{treinador.hp_time} de hp restantes!') #! teste, apagar depois
+                self.__tela_captura.mostra_mensagem(f'{treinador.hp_time} de hp restantes!') #! teste, apagar depois
                 self.__tela_captura.mostra_mensagem(f'\n💥Você perdeu a batalha.')
                 info_batalha['resultado_batalha'] = 'Derrota'
                 info_batalha['resultado_captura'] = '---'
