@@ -46,6 +46,9 @@ class AbstractTela(ABC):
                 if str_validos:
                     print("Valores válidos: ", str_validos)
 
+    def cadastrado_com_sucesso(self):
+        print("Cadastro realizado com sucesso!")
+
     def titulo(self, mensagem):
         linha_separadora = "=" * 80
         print(f"\n{linha_separadora}\n{mensagem.center(len(linha_separadora))}\n{linha_separadora}")
