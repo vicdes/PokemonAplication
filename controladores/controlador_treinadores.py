@@ -129,7 +129,7 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
         try:
             if treinador.time.lista_pokemons is not None:
-                self.mostrar_time()
+                self.mostrar_time(nickname)
                 pokemon_antigo = None
                 pokemon_novo = None
                 continuar = True
