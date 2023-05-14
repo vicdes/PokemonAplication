@@ -53,7 +53,16 @@ class ControladorTreinadores:
             if treinador.nickname == nickname:
                 return treinador
         return None
-    
+
+    def pega_porcentagem(self, treinador):
+        if treinador is not None:
+            total_pokemons_capturados = len(treinador.pokemons_capturados)
+            total_pokemons = len(self.__controlador_sistema.controlador_pokemon.lista_pokemons)
+            porcentagem = total_pokemons_capturados*100/total_pokemons
+            treinador.porcentagem_pokedex = porcentagem
+        else:
+            return
+
     def lista_treinadores(self):
         for treinador in self.__treinadores:
             self.__tela_treinador.mostra_treinador({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
@@ -138,9 +147,7 @@ class ControladorTreinadores:
                         raise PokemonInexistenteException(codigo_pokemon)
                 except PokemonInexistenteException as e:
                     self.__tela_treinador.mostra_mensagem(e)
-
                 treinador.time.lista_pokemons.append(pokemon_novo)
-
                 if len(treinador.time.lista_pokemons) == 3:
                     break
                 continuar = self.__tela_treinador.cadastrar_outro_pokemon()

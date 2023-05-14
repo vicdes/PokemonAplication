@@ -6,6 +6,14 @@ class TipoPokemon:
         self.vantagens = vantagens or []
         self.fraquezas = fraquezas or []
 
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
+
     def adicionar_vantagem(self, tipo):
         self.vantagens.append(tipo)
 
