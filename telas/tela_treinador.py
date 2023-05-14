@@ -13,7 +13,7 @@ class TelaTreinador(AbstractTela):
         print("7 - Listar pokemons de um treinador")
         print("8 - Mostrar time de um treinador")
         print("0 - Retornar")
-        opcao = self.le_num_inteiro("\nEscolha a opcao:", [0, 1, 2, 3, 4, 5, 7, 8])
+        opcao = self.le_num_inteiro("\nEscolha a opcao:", [0, 1, 2, 3, 4, 5, 6, 7, 8])
         return opcao
 
     def pega_dados_treinador(self):
@@ -33,6 +33,9 @@ class TelaTreinador(AbstractTela):
         codigo = input("Código do pokémon que deseja selecionar: ")
         return codigo
 
+    def seleciona_pokemon_do_time(self):
+        codigo = input("Código do pokémon que deseja substituir: ")
+        return codigo
     def cadastrar_outro_pokemon(self):
         continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ") == "1"
         return continuar
