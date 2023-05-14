@@ -3,6 +3,9 @@ from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from telas.tela_captura_pokemon import TelaCaptura
 from entidades.captura_pokemon import *
 
+
+
+
 class ControladorCaptura():
     capturas = []
     
@@ -28,19 +31,45 @@ class ControladorCaptura():
         pokemon_oponente = self.escolher_pokemon_aleatorio()
         num = pokemon_oponente.num
 
+        time = treinador.time 
+        info_pokemons_time = [pokemon.nome for pokemon in treinador.time.lista_pokemon]  # Lista com nomes dos Pokémon da time do treinador
+            
+        info_batalha = {
+                'treinador': treinador.nickname,
+                'pokemons_time': info_pokemons_time, 
+                'pokemon_oponente': pokemon_oponente.nome,
+                'resultado_batalha': None,  
+                'resultado_captura': None  
+            }
+
+        '''capturado = False
+        rodada = 0
+
+        self.__tela_captura.titulo('Batalha Pokémon')
+
+        pokemon_oponente = self.escolher_pokemon_aleatorio()
+        num = pokemon_oponente.num'''
+
         #* usando 'selvagem' como referencias aos jogos
         self.__tela_captura.mostra_mensagem(f"\n[❓❔❓] Um {pokemon_oponente.nome} selvagem apareceu!")
 
         if treinador.verifica_numero_pokemon_capturado(num): #* codigo implementado de vic
             capturado = True
+            info_batalha['resultado_captura'] = 'Já capturado anteriormente'
             fugir_batalha = self.__tela_captura.le_num_inteiro(f"\n[ATENÇÃO] Você já capturou um Pokémon {pokemon_oponente.nome} #{pokemon_oponente.num} antes. Você deseja fugir da batalha?\n1 - Sim     2 - Não\n",[1,2])
             if fugir_batalha == '1':
+                info_batalha['resultado_batalha'] = 'Fugiu'
+                
                 self.__tela_captura.mostra_mensagem("\nVocê fugiu da batalha.")
+                
                 return
         else:
-            print('não foi capturado ainda')
+            print('não foi capturado ainda') #! apagar
             capturado = False
-    
+
+        treinador.hp_time = treinador.calcular_hp_time()
+        treinador.ataque_time = treinador.calcular_ataque_time()
+
         #salva os hps originais do pokemon. talvez dê pra corrigir depois de alguma maneira mais bonita
         hp_original = pokemon_oponente.hp
         ataque_original = pokemon_oponente.ataque
@@ -66,18 +95,21 @@ class ControladorCaptura():
             rodada += 1
             self.__tela_captura.mostra_mensagem(f'\n Rodada {rodada}')
 
-            time = treinador.time 
-            pokemons_time = [pokemon.nome for pokemon in time]  # Lista com nomes dos Pokémon da time do treinador
+            #! TREINADOR.TIME.LISTA_POKEMON
+
+            '''time = treinador.time 
+            info_pokemons_time = [pokemon.nome for pokemon in treinador.time.lista_pokemon]  # Lista com nomes dos Pokémon da time do treinador
             
             info_batalha = {
-                'pokemons_time': pokemons_time, #se possível usar o próprio getter da time
+                'treinador': treinador.nickname,
+                'pokemons_time': info_pokemons_time, 
                 'pokemon_oponente': pokemon_oponente.nome,
                 'resultado_batalha': None,  
                 'resultado_captura': None  
             }
-
+'''
             #* treinador ataca.
-            for pokemon in time:
+            for pokemon in treinador.time.lista_pokemon:
                 if pokemon.hp > 0:
                     print(f"{pokemon.nome} ataca!")
                     pokemon_oponente.hp -= pokemon.ataque
@@ -88,17 +120,17 @@ class ControladorCaptura():
                 pokemon_oponente.hp = 0 #apenas para evitar printar um valor negativo de hp.
 
                 self.__tela_captura.mostra_mensagem(f"\n💤 O {pokemon_oponente.nome} está desmaiado! \nREF: {pokemon_oponente.hp} de hp restantes. {pokemon_oponente.ataque} de ataque")
-                self.__tela_captura.mostra_mensagem(f"\n🎉 {self.__treinador.nome} ganhou a batalha!")
+                self.__tela_captura.mostra_mensagem(f"\n🎉 {treinador.nickname} ganhou a batalha!")
                 info_batalha['resultado_batalha'] = 'Vitória'
 
                 treinador.restaurar_hp_time() #método que restaura a vida dos pokemons do time para o valor original
                 
                 pokemon_oponente.hp = hp_original
                 pokemon_oponente.ataque = ataque_original
-                win += 1
+                #win += 1
 
                 if capturado == False:
-                    self.tentar_captura(pokemon_oponente)
+                    self.tentar_captura(pokemon_oponente, info_batalha, treinador)
 
                 treinador.restaurar_hp_time() #* função do treinador que cura os pokemons
                 break
@@ -112,55 +144,58 @@ class ControladorCaptura():
             if treinador.hp_time < 0:
                 treinador.hp_time = 0
 
-                self.__tela_captura.mostra_mensagem(f'💤 {treinador.nome}, seu time está desmaiada!') 
+                self.__tela_captura.mostra_mensagem(f'💤 {treinador.nickname}, seu time está desmaiada!') 
                 print(f'{treinador.hp_time} de hp restantes!') #! teste, apagar depois
                 self.__tela_captura.mostra_mensagem(f'\n💥Você perdeu a batalha.')
                 info_batalha['resultado_batalha'] = 'Derrota'
+                info_batalha['resultado_captura'] = '---'
+                self.add_captura(info_batalha)
+                print('adicionou log derrota')
                 treinador.restaurar_hp_time()
 
                 pokemon_oponente.hp = hp_original
                 pokemon_oponente.ataque = ataque_original
-                derrotas += 1
+                #derrotas += 1
 
                 break
 
-    def tentar_captura(self, pokemon, info_batalha):
+    def tentar_captura(self, pokemon, info_batalha, treinador):
         escolha_captura = self.__tela_captura.le_num_inteiro(f"Deseja tentar capturar {pokemon.nome}?\n1 - Sim     2 - Não\n",[1,2])
         if escolha_captura == 1:
             chance_captura = random.randint(1,100) #gera um número aleatório entre 1 e 100.
             self.__tela_captura.mostra_mensagem('Pokebola lançada...')
+            print(chance_captura)
 
             if chance_captura >= 25:
-                self.__treinador.captura_pokemon(pokemon)
+                treinador.add_pokemon_capturado(pokemon)
                 self.__tela_captura.mostra_mensagem(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!')
                 info_batalha['resultado_captura'] = "Capturado! "
+                self.add_captura(info_batalha)
                 escolha_mostra_pokemons_capturados = self.__tela_captura.le_num_inteiro(f"Deseja ver todos os pokémons capturados até o momento?\n1 - Sim     2 - Não\n",[1,2])
                 if escolha_mostra_pokemons_capturados == 1:
-                    pass #* implementar função que mostra os pokemons capturados
-                    #* imagino que deva pegar de treinador
-                    #* chamar a função que mostra todos os pokemons capturados
+                    treinador.mostrar_pokemons_capturados()
             else:
                 self.__tela_captura.mostra_mensagem(f'\n Que pena, o {pokemon.nome} escapou...')
                 info_batalha['resultado_captura'] = "Pokémon fugiu da Pokébola"
+                self.add_captura(info_batalha)
         else:
             return
 
     def add_captura(self, info_batalha): #! requer teste
-        self.__capturas.append(info_batalha)
-        self.__tela_captura.mostra_mensagem("Uma nova captura foi registrada com sucesso nos logs!")
+        self.capturas.append(info_batalha)
+        self.__tela_captura.mostra_mensagem("\nUma nova captura foi registrada com sucesso nos logs!")
     
     def log_capturas(self):
         if len(self.capturas) == 0:
-            self.__tela_captura.mostra_mensagem("[!] Nenhuma captura registrada até o momento.")
+            self.__tela_captura.mostra_mensagem("\n[!] Nenhuma captura registrada até o momento.")
         else:
-            self.__tela_captura.mostra_mensagem("Registro de Capturas:")
+            self.__tela_captura.titulo("Registro de Capturas:") #* colocar um titulo mais bonitinho
             for captura in self.capturas:
-                self.__tela_captura.mostra_mensagem(f"Treinador: {captura.treinador_nickname}")
-                self.__tela_captura.mostra_mensagem(f"Pokémons time: {captura.pokemons_time}")
-                self.__tela_captura.mostra_mensagem(f"Pokémon Oponente: {captura.pokemon_oponente}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura.resultado_batalha}")
-                self.__tela_captura.mostra_mensagem(f"Sucesso na Batalha: {captura.sucesso_batalha}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura.resultado_captura}")
+                self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
+                self.__tela_captura.mostra_mensagem(f"Pokémons no time: {captura['pokemons_time']}")
+                self.__tela_captura.mostra_mensagem(f"Pokémon Oponente: {captura['pokemon_oponente']}")
+                self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
+                self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()

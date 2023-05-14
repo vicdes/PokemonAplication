@@ -24,6 +24,14 @@ class Treinador:
             self.__pokemons_capturados.append(pokemon)
             print(f"\nParabéns, você capturou o {pokemon.nome}!")
 
+    def mostrar_pokemons_capturados(self):
+        if self.__pokemons_capturados:
+            print("Pokémons capturados:")
+            for pokemon in self.__pokemons_capturados:
+                print(pokemon.nome)
+        else:
+            print("Nenhum Pokémon foi capturado ainda.")
+
     @property
     def hp_time(self):
         return self.__hp_time
@@ -41,17 +49,17 @@ class Treinador:
     def ataque_time(self, valor):
         self.__ataque_time = valor
 
-    def calcular_ataque_time(self):
-        ataque_time = 0
-        for pokemon in self.__time:
-            ataque_time += pokemon.ataque
-        return ataque_time
-
     def calcular_hp_time(self):
         hp_time = 0
-        for pokemon in self.__time:
+        for pokemon in self.__time.lista_pokemon:
             hp_time += pokemon.hp
         return hp_time
+
+    def calcular_ataque_time(self):
+        ataque_time = 0
+        for pokemon in self.__time.lista_pokemon:
+            ataque_time += pokemon.ataque
+        return ataque_time
 
     @property
     def nickname(self):
@@ -73,6 +81,9 @@ class Treinador:
     def nickname(self, nickname: str):
         if isinstance(nickname, str):
             self.__nickname = nickname
+
+    def restaurar_hp_time(self):
+        self.__hp_time = self.calcular_hp_time()
 
     @porcentagem_pokedex.setter
     def porcentagem_pokedex(self, porcentagem_pokedex: float):
