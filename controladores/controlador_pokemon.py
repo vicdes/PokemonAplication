@@ -6,7 +6,7 @@ from entidades.tipo_pokemon import TipoPokemon
 
 class ControladorPokemon():
     lista_pokemons = [] 
-    lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 45, 49, [TipoPokemon("Grama")]), Pokemon("Charmander", 4, 39, 52,[TipoPokemon("Fogo")]), Pokemon("Squirtle", 7, 44, 48,[TipoPokemon("Água")])]
+    lista_pokemons_iniciais = [Pokemon("Bulbasaur", 1, 55, 59, [TipoPokemon("Grama")]), Pokemon("Charmander", 4, 49, 62,[TipoPokemon("Fogo")]), Pokemon("Squirtle", 7, 54, 58,[TipoPokemon("Água")])] #pokemons iniciais foram um pouco buffados
     
     def __init__(self, controlador_sistema):
         self.__tela_pokemon = TelaPokemon()

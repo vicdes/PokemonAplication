@@ -223,13 +223,25 @@ class ControladorCaptura():
                 self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
                 self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
 
-
-
+    def ranking_treinadores(self):
+        if not self.logs_treinadores:
+            self.__tela_captura.mostra_mensagem("\n[!] Nenhuma captura registrada até o momento.")
+        else:
+            self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
+            ranking = sorted(self.logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
+            for i, (treinador, capturas) in enumerate(ranking, start=1):
+                self.__tela_captura.mostra_mensagem(f"\n{i}. Treinador: {treinador}")
+                self.__tela_captura.mostra_mensagem(f"Total de Batalhas: {len(capturas)}")
+                soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
+                self.__tela_captura.mostra_mensagem(f"Total de Capturas: {soma_capturas_com_sucesso}")
+                taxa_de_vitória = float(soma_capturas_com_sucesso/len(capturas)) * 100
+                self.__tela_captura.mostra_mensagem(f"Taxa de Vitória: {taxa_de_vitória}%")
+    
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.inicia_batalha, 2: self.log_capturas, 3: self.log_treinador, 0: self.retornar}
+        lista_opcoes = {1: self.inicia_batalha, 2: self.log_capturas, 3: self.log_treinador, 4: self.ranking_treinadores, 0: self.retornar}
 
         while True:
             opcao_escolhida = self.__tela_captura.tela_opcoes()

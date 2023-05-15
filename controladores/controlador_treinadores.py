@@ -106,6 +106,22 @@ class ControladorTreinadores:
             pokemons_str += "#" + str(pokemon.num) + " " + pokemon.nome + "\n"
         self.__tela_treinador.mostra_mensagem(pokemons_str)
 
+
+
+    '''  while True:
+            try: #checa se o nome do treinador digitado existe na lista de treinadores
+                nickname = self.__tela_treinador.seleciona_treinador()
+                if nickname == '0':
+                    break
+                treinador = self.pega_treinador_por_nickname(nickname)
+                if treinador is not None:
+                    return treinador
+                else:
+                    raise NicknameNaoEncontradoException(nickname)
+            except NicknameNaoEncontradoException as e:
+                self.__tela_treinador.mostra_mensagem(e)
+                self.__tela_treinador.mostra_mensagem('Tente novamente ou digite 0 para sair')'''
+    
     def mostrar_time(self, nickname=None):
         if nickname is None:
             nickname = self.__tela_treinador.seleciona_treinador()
@@ -133,6 +149,7 @@ class ControladorTreinadores:
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
+                self.listar_pokemons_capturados(nickname)
                 pass
             else:
                 raise NicknameNaoEncontradoException(nickname)

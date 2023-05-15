@@ -8,9 +8,10 @@ class TelaCaptura(AbstractTela):
         print("  1 - Procurar Pokémons nas redondezas")
         print("  2 - Log Geral")
         print("  3 - Log Treinador")
+        print("  4 - Ranking de Treinadores")
         print("  0 - Retornar")
 
-        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 0]) #* tratamento de exceção FEITO
+        opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 4, 0]) #* tratamento de exceção FEITO
         return opcao
     
     def pega_dados_captura(self): #* tratamento de exceção FEITO
