@@ -30,15 +30,18 @@ class TelaTreinador(AbstractTela):
         return nickname
 
     def seleciona_pokemon_capturado(self):
-        codigo = int(input("Código do pokémon que deseja selecionar: "))
+        print("\nCódigo do pokémon que deseja selecionar: ")
+        codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         return codigo
 
     def seleciona_pokemon_do_time(self):
-        codigo = int(input("Código do pokémon que deseja substituir: "))
+        print("\nCódigo do pokémon que deseja substituir: ")
+        codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         return codigo
     
     def cadastrar_outro_pokemon(self):
-        continuar = input("Deseja inserir outro pokémon? \n1- sim \n2- não ") == "1"
+        print("\nDeseja inserir outro pokémon? \n1- sim \n2- não ")
+        continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
         return continuar
 
     def mostra_mensagem(self, msg):

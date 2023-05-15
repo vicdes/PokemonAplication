@@ -9,3 +9,5 @@ class Time:
     @lista_pokemons.setter
     def lista_pokemons(self, pokemon):
         self.__lista_pokemons.append(pokemon)
+
+

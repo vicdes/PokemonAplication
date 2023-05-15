@@ -15,11 +15,12 @@ class ControladorTreinadores:
         #deixamos o treinador Ash temporário pra fazer testes mais rapidamente.
         self.__treinadores = [Treinador(
             "Ash",
-            0.0,
+            6.98,
             [
                 Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
                 Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
                 Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+                Pokemon("Caterpie", 10, 45, 3, [TipoPokemon("Inseto")])
             ],
             Time([
                 Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
@@ -46,7 +47,6 @@ class ControladorTreinadores:
             except NicknameNaoEncontradoException as e:
                 self.__tela_treinador.mostra_mensagem(e)
                 self.__tela_treinador.mostra_mensagem('Tente novamente ou digite 0 para sair')
-
 
     def pega_treinador_por_nickname(self, nickname: str):
         for treinador in self.__treinadores:
@@ -110,9 +110,12 @@ class ControladorTreinadores:
             nickname = self.__tela_treinador.seleciona_treinador()
         treinador = self.pega_treinador_por_nickname(nickname)
         pokemons_str = ""
-        for pokemon in treinador.time.lista_pokemons:
-            pokemons_str += pokemon.nome + " "
-        self.__tela_treinador.mostra_mensagem(pokemons_str)
+        if treinador.time is not None:
+            for pokemon in treinador.time.lista_pokemons:
+                pokemons_str += pokemon.nome + " "
+            self.__tela_treinador.mostra_mensagem(pokemons_str)
+        else:
+            self.__tela_treinador.mostra_mensagem("Não há time cadastrado para esse treinador!")
 
     def add_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
@@ -124,17 +127,20 @@ class ControladorTreinadores:
                 raise NicknameNaoEncontradoException(nickname)
         except NicknameNaoEncontradoException as e:
             self.__tela_treinador.mostra_mensagem(e)
-
+            return
         if len(treinador.time.lista_pokemons) == 0:
             pokemon_novo = None
             continuar = True
             while continuar == True:
                 codigo_pokemon = self.__tela_treinador.seleciona_pokemon_capturado()
+                codigo = self.existe_na_pokedex(codigo_pokemon)
+                if codigo_pokemon != codigo:
+                    return
                 for pokemon in treinador.pokemons_capturados:
                     if codigo_pokemon == pokemon.num:
                         pokemon_novo = pokemon
                 try:
-                    if pokemon_novo is not None:
+                    if pokemon_novo is not None and len(treinador.time.lista_pokemons) > 0:
                         for pokemon_cadastrado in treinador.time.lista_pokemons:
                             try:
                                 if pokemon_cadastrado.num != pokemon_novo.num:
@@ -143,7 +149,7 @@ class ControladorTreinadores:
                                     raise PokemonJaCadastradoException(pokemon_novo.num)
                             except PokemonJaCadastradoException as e:
                                 self.__tela_treinador.mostra_mensagem(e)
-                    else:
+                    elif pokemon_novo is None:
                         raise PokemonInexistenteException(codigo_pokemon)
                 except PokemonInexistenteException as e:
                     self.__tela_treinador.mostra_mensagem(e)
@@ -151,6 +157,21 @@ class ControladorTreinadores:
                 if len(treinador.time.lista_pokemons) == 3:
                     break
                 continuar = self.__tela_treinador.cadastrar_outro_pokemon()
+        else:
+            self.__tela_treinador.mostra_mensagem("Já existe um time cadastrado para esse treinador!")
+
+    def existe_na_pokedex(self, codigo):
+        flag = False
+        for pokemon in self.__controlador_sistema.controlador_pokemon.lista_pokemons:
+            if pokemon.num == codigo:
+                flag = True
+        try:
+            if flag == True:
+                return codigo
+            else:
+                raise PokemonInexistenteException(codigo)
+        except PokemonInexistenteException as e:
+            self.__tela_treinador.mostra_mensagem(e)
 
     def del_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
@@ -159,18 +180,18 @@ class ControladorTreinadores:
             if treinador is not None:
                 try:
                     if treinador.time is not None:
-                        treinador.time(None)
+                        treinador.del_time()
+                        self.__tela_treinador.mostra_mensagem("Time deletado!")
+                        return
                     else:
                         raise NaoHaTimeCadastradoException()
                 except NaoHaTimeCadastradoException as e:
                     self.__tela_treinador.mostra_mensagem(e)
             else:
                 raise NicknameNaoEncontradoException(nickname)
-                return
         except NicknameNaoEncontradoException as e:
             self.__tela_treinador.mostra_mensagem(e)
             return
-        self.__tela_treinador.mostra_mensagem("Time deletado!")
 
     def alterar_time(self):
         nickname = self.__tela_treinador.seleciona_treinador()
@@ -197,39 +218,17 @@ class ControladorTreinadores:
                             pokemon_antigo = pokemon
                     try:
                         if pokemon_antigo is not None:
-                            flag = False
-                            for pokemon_cadastrado in treinador.time.lista_pokemons:
-                                if pokemon_cadastrado.num == pokemon_antigo.num:
-                                    flag = True
-                                    break
-                            try:
-                                if flag == True:
-                                    pass
-                                else:
-                                    raise PokemonInexistenteException(pokemon_antigo.num)
-                            except PokemonInexistenteException as e:
-                                self.__tela_treinador.mostra_mensagem(e)
+                            pass
                         else:
                             raise PokemonInexistenteException(codigo_pokemon_antigo)
                     except PokemonInexistenteException as e:
                         self.__tela_treinador.mostra_mensagem(e)
+                        return
                     for pokemon in treinador.pokemons_capturados:
                         if codigo_pokemon_novo == pokemon.num:
                             pokemon_novo = pokemon
                     try:
                         if pokemon_novo is not None:
-                            flag = False
-                            for pokemon_capturado in treinador.pokemons_capturados:
-                                if pokemon_capturado == pokemon_novo:
-                                    flag = True
-                                    break
-                            try:
-                                if flag == True:
-                                    pass
-                                else:
-                                    raise PokemonInexistenteException(pokemon_novo.num)
-                            except PokemonInexistenteException as e:
-                                self.__tela_treinador.mostra_mensagem(e)
                             for pokemon_cadastrado in treinador.time.lista_pokemons:
                                 try:
                                     if pokemon_cadastrado.num != pokemon_novo.num:
@@ -247,6 +246,7 @@ class ControladorTreinadores:
                             raise PokemonInexistenteException(codigo_pokemon_novo)
                     except PokemonInexistenteException as e:
                         self.__tela_treinador.mostra_mensagem(e)
+                        return
                     continuar = self.__tela_treinador.cadastrar_outro_pokemon()
             else:
                 raise NaoHaTimeCadastradoException()

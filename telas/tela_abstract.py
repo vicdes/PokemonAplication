@@ -19,33 +19,6 @@ class AbstractTela(ABC):
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)
 
-
-    def le_num_float(self, mensagem="", floats_validos=None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                valor_float = float(valor_lido)
-                if floats_validos and valor_float not in floats_validos:
-                    raise ValueError
-                return valor_float
-            except ValueError:
-                print("\nValor incorreto! Tente novamente: ")
-                if floats_validos:
-                    print("Valores válidos: ", floats_validos)
-
-    def le_string(self, mensagem="", str_validos=None):
-        while True:
-            valor_lido = input(mensagem)
-            try:
-                valor_str = str(valor_lido)
-                if str_validos and valor_str not in str_validos:
-                    raise ValueError
-                return valor_str
-            except ValueError:
-                print("\nValor incorreto! Tente novamente: ")
-                if str_validos:
-                    print("Valores válidos: ", str_validos)
-
     def cadastrado_com_sucesso(self):
         print("Cadastro realizado com sucesso!")
 

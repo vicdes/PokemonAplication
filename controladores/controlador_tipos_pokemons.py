@@ -15,11 +15,11 @@ class ControladorTiposPokemons:
     def lista_tipos(self):
         if self.__tipos is not None:
             for tipo in self.__tipos:
-                if len(tipo.fraquezas) > 0:
+                if len(tipo.fraquezas) == 0:
                     fraquezas_str = ", ".join(tipo.fraquezas)
                 else:
                     fraquezas_str = "nenhuma"
-                if len(tipo.vantagens) > 0:
+                if len(tipo.vantagens) <= 0:
                     vantagens_str = "nenhuma"
                 else:
                     vantagens_str = ", ".join(tipo.vantagens)
