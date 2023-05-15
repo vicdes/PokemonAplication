@@ -1,10 +1,12 @@
 
 #* Tratamentos CHECK
 
-from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from telas.tela_captura_pokemon import TelaCaptura
-from entidades.captura_pokemon import *
+from entidades.captura_pokemon import CapturaPokemon
+
+from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoException
+import random
 
 class ControladorCaptura():
     capturas = []
@@ -33,7 +35,8 @@ class ControladorCaptura():
         self.__controlador_sistema.controlador_treinadores.pega_porcentagem(treinador)
 
     def escolher_pokemon_aleatorio(self):
-        pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
+        #pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
+        pokemon_aleatorio = random.choice(self.__controlador_sistema.controlador_pokemon.lista_pokemons)
         return pokemon_aleatorio
 
     def inicia_batalha(self):
