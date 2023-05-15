@@ -1,5 +1,7 @@
 from telas.tela_abstract import AbstractTela
 
+#imagino que não há necessidade de tratar as exceções que recebem strings. 
+
 class TelaTiposPokemons(AbstractTela):
     def tela_opcoes(self):
         self.titulo("Tipos de Pokémon")
@@ -13,22 +15,24 @@ class TelaTiposPokemons(AbstractTela):
 
     def pega_dados_tipo_pokemon(self):
         self.titulo2("Cadastrar Tipo de Pokémon")
-        nome = input("Nome: ") #! tratamento de exceção
-        
+        nome = input("\nNome: ").capitalize()
         fraquezas = []
-        continuar = "1"
-        while continuar == "1":
-            fraqueza = input("Fraqueza: ") #! tratamento de exceção
-            fraquezas.append(fraqueza)
-            continuar = self.le_num_inteiro("Deseja digitar outra? \n1- sim \n2- não ", [1,2]) #* tratamento de exceção FEITO
-        
+        while True:
+            fraqueza = input("\nFraqueza: ").capitalize()
+            fraquezas.append(fraqueza) 
+            continuar = self.le_num_inteiro("\nDeseja digitar outra? \n1- Sim \n2- Não\n", [1, 2]) #* tratamento de exceção FEITO
+            if continuar == 2:
+                break
+
         vantagens = []
-        continuar = "1"
-        while continuar == "1":
-            vantagem = input("Vantagem: ") #! tratamento de exceção
+        while True:
+            vantagem = input("\nVantagem: ").capitalize()
             vantagens.append(vantagem)
-            continuar = self.le_num_inteiro("Deseja digitar outra? \n1- sim \n2- não ", [1,2]) #* tratamento de exceção FEITO
-        return {"nome": nome, "fraquezas": fraquezas, "vantagens": vantagens}
+            continuar = self.le_num_inteiro("\nDeseja digitar outra? \n1- Sim \n2- Não\n", [1, 2]) #* tratamento de exceção FEITO
+            if continuar == 2:
+                break
+
+        return {"nome": nome, "vantagens": vantagens, "fraquezas": fraquezas,}
 
     def mostra_tipo_pokemon(self, dados_tipo_pokemon):
         print("Nome: ", dados_tipo_pokemon["nome"])
@@ -38,7 +42,7 @@ class TelaTiposPokemons(AbstractTela):
 
 
     def seleciona_tipo_pokemon(self):
-        nome = input("Nome do tipo de pokémon que deseja selecionar: ") #! tratamento de exceção
+        nome = input("Nome do tipo de pokémon que deseja selecionar: ") #não posso colocar capitalize aqui pq quebra.
         return nome
 
     def mostra_mensagem(self, msg):

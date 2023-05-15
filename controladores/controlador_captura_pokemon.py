@@ -178,6 +178,7 @@ class ControladorCaptura():
                 treinador.add_pokemon_capturado(pokemon)
                 self.__tela_captura.mostra_mensagem(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!')
                 info_batalha['resultado_captura'] = "Capturado! "
+                self.__controlador_sistema.controlador_treinadores.pega_porcentagem(treinador)
                 escolha_mostra_pokemons_capturados = self.__tela_captura.le_num_inteiro(f"\nDeseja ver todos os pokémons capturados até o momento?\n   1 - Sim     2 - Não\n",[1,2])
                 if escolha_mostra_pokemons_capturados == 1:
                     treinador.mostrar_pokemons_capturados()
