@@ -12,6 +12,22 @@ class ControladorSistema:
         self.__controlador_captura = ControladorCaptura(self)
         self.__tela_sistema = TelaSistema()
   
+    @property
+    def controlador_treinadores(self):
+        return self.__controlador_treinadores
+
+    @property
+    def controlador_tipos_pokemons(self):
+        return self.__controlador_tipos_pokemons
+
+    @property
+    def controlador_pokemon(self):
+        return self.__controlador_pokemon
+    
+    @property
+    def controlador_captura(self):
+        return self.__controlador_captura
+
     import json
 
     with open("teste_pokemons_com_tipos.json", encoding="utf-8") as arquivo:
@@ -41,25 +57,10 @@ class ControladorSistema:
             tipos.append(tipo)
             if tipo_nome not in tipos_pokemon:
                 tipos_pokemon[tipo_nome] = tipo
-
+ 
         pokemon = Pokemon(nome, num, hp, ataque, tipos)
         ControladorPokemon.add_lista(pokemon)
 
-    @property
-    def controlador_treinadores(self):
-        return self.__controlador_treinadores
-
-    @property
-    def controlador_tipos_pokemons(self):
-        return self.__controlador_tipos_pokemons
-
-    @property
-    def controlador_pokemon(self):
-        return self.__controlador_pokemon
-    
-    @property
-    def controlador_captura(self):
-        return self.__controlador_captura
 
     def inicializa_sistema(self):
         self.abre_tela()

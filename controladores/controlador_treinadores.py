@@ -15,7 +15,7 @@ class ControladorTreinadores:
         #deixamos o treinador Ash temporário pra fazer testes mais rapidamente.
         self.__treinadores = [Treinador(
             "Ash",
-            0.0,
+            6.98,
             [
                 Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
                 Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
