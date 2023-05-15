@@ -99,4 +99,4 @@ class Treinador:
         self.__pokemons_capturados.append(pokemon_capturado)
 
     def del_time(self):
-        self.__time = None
+        self.__time = Time()

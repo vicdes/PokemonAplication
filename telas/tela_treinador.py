@@ -3,25 +3,26 @@ from telas.tela_abstract import AbstractTela
 class TelaTreinador(AbstractTela): 
     def tela_opcoes(self):
         self.titulo("Tela Treinadores")
-        print("\nEscolha a opcao")
-        print("  1 - Incluir Treinador INCLUINDO CORRETAMENTE")
-        print("  2 - Excluir Treinador DELETANDO CORRETAMENTE")
-        print("  3 - Listar Treinadores LISTANDO CORRETAMENTE")
+        print("\nEscolha uma opção")
+        print("  1 - Incluir novo Treinador")
+        print("  2 - Excluir Treinador")
+        print("  3 - Listar Treinadores + Porcentagem Pokedex")
         print("\n  4 - Cadastrar time")
         print("  5 - Deletar time")
         print("  6 - Alterar time")
-        print("\n  7 - Listar pokemons de um treinador LISTANDO CORRETAMENTE")
-        print("  8 - Mostrar time de um treinador LISTANDO CORRETAMENTE")
-        print("  0 - Retornar")
-        opcao = self.le_num_inteiro("\nEscolha a opcao: ", [0, 1, 2, 3, 4, 5,6, 7, 8]) #* tratamento de exceção FEITO
+        print("\n  7 - Listar pokemons de um treinador")
+        print("  8 - Mostrar time de um treinador")
+        print("\n  0 - Retornar")
+
+        opcao = self.le_num_inteiro("\nEscolha uma opção: ", [0, 1, 2, 3, 4, 5,6, 7, 8]) #* tratamento de exceção FEITO
         return opcao
 
     def seleciona_funcao_alterar_time(self):
-        print("\nEscolha a opcao")
+        print("\nEscolha uma opção")
         print("  1 - Incluir pokemon")
         print("  2 - Excluir pokemon")
         print("  3 - Trocar pokemon")
-        opcao = self.le_num_inteiro("\nEscolha a opcao: ", [1, 2, 3])  # * tratamento de exceção FEITO
+        opcao = self.le_num_inteiro("\nEscolha uma opção: ", [1, 2, 3])  # * tratamento de exceção FEITO
         return opcao
 
 

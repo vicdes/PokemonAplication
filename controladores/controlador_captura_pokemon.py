@@ -34,7 +34,6 @@ class ControladorCaptura():
 
     def escolher_pokemon_aleatorio(self):
         pokemon_aleatorio = random.choice(ControladorPokemon.lista_pokemons)
-        #return Pokemon(pokemon_aleatorio.nome, pokemon_aleatorio.num, pokemon_aleatorio.hp, pokemon_aleatorio.ataque, pokemon_aleatorio.tipos)
         return pokemon_aleatorio
 
     def inicia_batalha(self):
@@ -95,7 +94,6 @@ class ControladorCaptura():
         ataque_original = pokemon_oponente.ataque    #! talvez não seja necessário mais visto q é o pokémon aleatório esta sendo reinstanciado. 
 
         tamanho_time = len(treinador.time.lista_pokemons) #provavelmente o nome vai voltar pra time
-        #print(f'tamanho do time de {treinador.nickname} = {tamanho_time}') #! APAGAR
         
         #talvez dê pra fazer um método que faça esses multiplicadores isso de um jeito mais bonito
         multiplicador_hp = random.choice([tamanho_time, tamanho_time, tamanho_time, tamanho_time, tamanho_time, 4, 4, 4, 5,5])
@@ -107,7 +105,9 @@ class ControladorCaptura():
         self.__tela_captura.mostra_mensagem(f"\nO {pokemon_oponente.nome} selvagem tem {pokemon_oponente.ataque} de ataque (*{multiplicador_ataque}) e {pokemon_oponente.hp} de HP (*{multiplicador_hp})! ")
 
         self.__tela_captura.mostra_mensagem(f"\n{treinador.nickname}, seu time possui {treinador.ataque_time} de ataque e {treinador.hp_time} de HP.")
-
+        
+        if treinador.ataque_time == 0 and treinador.hp_time == 0:
+            self.__tela_captura.mostra_mensagem('[!!!] Você provavelmente esqueceu de adicionar pokémons ao seu time!')
         # treinador sempre ataca primeiro. 
 
         while treinador.hp_time > 0 and pokemon_oponente.hp > 0:
@@ -142,7 +142,7 @@ class ControladorCaptura():
                     self.__tela_captura.mostra_mensagem('\n Você já capturou esse pokémon antes, portanto não pode capturá-lo de novo!')
                     info_batalha['resultado_captura'] = 'Já capturado anteriormente'
                     self.add_captura(info_batalha)
-                    
+                self.__tela_captura.digite_para_continuar() # como não consigo usar a função sleep
                 treinador.restaurar_hp_time() #* função do treinador que cura os pokemons
                 break
             
@@ -166,7 +166,7 @@ class ControladorCaptura():
                 pokemon_oponente.hp = hp_original
                 pokemon_oponente.ataque = ataque_original
                 #derrotas += 1
-
+                self.__tela_captura.digite_para_continuar()
                 break
 
     def tentar_captura(self, pokemon, info_batalha, treinador):
@@ -205,10 +205,10 @@ class ControladorCaptura():
             self.__tela_captura.titulo3("Registro de Capturas Gerais:")
             for captura in self.capturas:
                 self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
-                self.__tela_captura.mostra_mensagem(f"Pokémons no time: {captura['pokemons_time']}")
-                self.__tela_captura.mostra_mensagem(f"Pokémon Oponente: {captura['pokemon_oponente']}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
+                self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
+                self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")
 
     def log_treinador(self, nickname = None):
         nickname = self.__tela_captura.log_treinador()
@@ -218,10 +218,10 @@ class ControladorCaptura():
             self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
             for captura in self.logs_treinadores[nickname]:
                 self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
-                self.__tela_captura.mostra_mensagem(f"Pokémons no time: {captura['pokemons_time']}")
-                self.__tela_captura.mostra_mensagem(f"Pokémon Oponente: {captura['pokemon_oponente']}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
+                self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
+                self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")
 
     def ranking_treinadores(self):
         if not self.logs_treinadores:
@@ -231,11 +231,11 @@ class ControladorCaptura():
             ranking = sorted(self.logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
             for i, (treinador, capturas) in enumerate(ranking, start=1):
                 self.__tela_captura.mostra_mensagem(f"\n{i}. Treinador: {treinador}")
-                self.__tela_captura.mostra_mensagem(f"Total de Batalhas: {len(capturas)}")
+                self.__tela_captura.mostra_mensagem(f"   Total de Batalhas: {len(capturas)}")
                 soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
-                self.__tela_captura.mostra_mensagem(f"Total de Capturas: {soma_capturas_com_sucesso}")
+                self.__tela_captura.mostra_mensagem(f"   Total de Capturas: {soma_capturas_com_sucesso}")
                 taxa_de_vitória = float(soma_capturas_com_sucesso/len(capturas)) * 100
-                self.__tela_captura.mostra_mensagem(f"Taxa de Vitória: {taxa_de_vitória}%")
+                self.__tela_captura.mostra_mensagem(f"   Taxa de Vitória: {taxa_de_vitória:.1f}%")
     
     def retornar(self):
         self.__controlador_sistema.abre_tela()

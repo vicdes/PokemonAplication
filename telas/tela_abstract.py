@@ -20,7 +20,7 @@ class AbstractTela(ABC):
                     print("Valores válidos: ", ints_validos)
 
     def cadastrado_com_sucesso(self):
-        print("Cadastro realizado com sucesso!")
+        print("\n[!] Cadastro realizado com sucesso!")
 
     def titulo_sistema(self, mensagem):
         tamanho_linha = 60
