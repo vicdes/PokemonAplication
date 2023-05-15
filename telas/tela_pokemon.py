@@ -5,9 +5,9 @@ class TelaPokemon(AbstractTela):
     def tela_opcoes(self):
         self.titulo("Tela Pokémon")
         print("\nEscolha sua opcao")
-        print("  1 - Deletar Pokémon")                    
-        print("  2 - Mostrar Pokémons existentes")
-        print("  3 - Alterar HP ou Ataque de Pokémon")
+        print("  1 - Deletar Pokémon OK")                    
+        print("  2 - Mostrar Pokémons existentes OK")
+        print("  3 - Alterar HP ou Ataque de Pokémon OK")
         print("  0 - Retornar")
         print('[OBS.] Essas alterações causam impacto em todo o jogo. Faça com moderação.')
         opcao = self.le_num_inteiro("\nEscolha a opção: ", [1, 2, 3, 0]) #* tratamento de exceção FEITO

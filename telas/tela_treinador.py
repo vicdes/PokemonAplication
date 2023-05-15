@@ -4,17 +4,31 @@ class TelaTreinador(AbstractTela):
     def tela_opcoes(self):
         self.titulo("Tela Treinadores")
         print("\nEscolha a opcao")
-        print("  1 - Incluir Treinador")
-        print("  2 - Excluir Treinador")
-        print("  3 - Listar Treinadores")
+        print("  1 - Incluir Treinador INCLUINDO CORRETAMENTE")
+        print("  2 - Excluir Treinador DELETANDO CORRETAMENTE")
+        print("  3 - Listar Treinadores LISTANDO CORRETAMENTE")
         print("\n  4 - Cadastrar time")
         print("  5 - Deletar time")
         print("  6 - Alterar time")
-        print("\n  7 - Listar pokemons de um treinador")
-        print("  8 - Mostrar time de um treinador")
+        print("\n  7 - Listar pokemons de um treinador LISTANDO CORRETAMENTE")
+        print("  8 - Mostrar time de um treinador LISTANDO CORRETAMENTE")
         print("  0 - Retornar")
         opcao = self.le_num_inteiro("\nEscolha a opcao: ", [0, 1, 2, 3, 4, 5,6, 7, 8]) #* tratamento de exceção FEITO
         return opcao
+
+    def seleciona_funcao_alterar_time(self):
+        print("\nEscolha a opcao")
+        print("  1 - Incluir pokemon")
+        print("  2 - Excluir pokemon")
+        print("  3 - Trocar pokemon")
+        opcao = self.le_num_inteiro("\nEscolha a opcao: ", [1, 2, 3])  # * tratamento de exceção FEITO
+        return opcao
+
+
+    def cadastrar_outro_pokemon(self):
+        print("\nDeseja continuar? \n1- sim \n2- não ")
+        continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
+        return continuar
 
     def pega_dados_treinador(self):
         self.titulo2("Cadastrar Treinador")

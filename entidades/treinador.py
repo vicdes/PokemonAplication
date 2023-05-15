@@ -9,7 +9,7 @@ class Treinador:
         self.__pokemons_capturados = pokemons_capturados or []
         self.__ataque_time = 0
         self.__hp_time = 0
-
+    
     def verifica_numero_pokemon_capturado(self, num):
         for pokemon in self.__pokemons_capturados:
             if pokemon.num == num:

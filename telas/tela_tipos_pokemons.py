@@ -6,9 +6,9 @@ class TelaTiposPokemons(AbstractTela):
     def tela_opcoes(self):
         self.titulo("Tipos de Pokémon")
         print("\nEscolha a opcao")
-        print("  1 - Incluir tipo de pokémon")
-        print("  2 - Excluir tipo de pokémon")
-        print("  3 - Listar tipos de pokémon")
+        print("  1 - Incluir tipo de pokémon OK")
+        print("  2 - Excluir tipo de pokémon OK")
+        print("  3 - Listar tipos de pokémon OK")
         print("  0 - Retornar")
         opcao = self.le_num_inteiro("\nEscolha a opcao: ", [0, 1, 2, 3])  #* tratamento de exceção FEITO
         return opcao

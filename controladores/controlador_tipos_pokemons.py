@@ -61,7 +61,7 @@ class ControladorTiposPokemons:
                     self.__tela_tipo_pokemon.mostra_mensagem(f'\n[!] {tipo.nome} removido da lista de Tipos.')
                     self.__tipos.remove(tipo)
 
-                self.lista_tipos()
+                #self.lista_tipos()
                 
             else:
                 raise TipoInexistenteException(nome_tipo)

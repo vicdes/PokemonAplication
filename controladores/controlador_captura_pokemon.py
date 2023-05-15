@@ -8,7 +8,8 @@ from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoEx
 
 class ControladorCaptura():
     capturas = []
-    
+    logs_treinadores = {}
+
     def __init__(self, controlador_sistema):   #! posteriomente recebe controlador_sistema
         self.__tela_captura = TelaCaptura()
         self.__controlador_sistema = controlador_sistema
@@ -189,15 +190,19 @@ class ControladorCaptura():
             info_batalha['resultado_captura'] = "Não quis capturar."
         self.add_captura(info_batalha)
 
-    def add_captura(self, info_batalha): 
+    def add_captura(self, info_batalha):
         self.capturas.append(info_batalha)
+        treinador = info_batalha['treinador']
+        if treinador not in self.logs_treinadores:
+            self.logs_treinadores[treinador] = []
+        self.logs_treinadores[treinador].append(info_batalha)
         self.__tela_captura.mostra_mensagem("\nUm novo registro foi adicionado com sucesso nos logs!")
     
     def log_capturas(self):
         if len(self.capturas) == 0:
             self.__tela_captura.mostra_mensagem("\n[!] Nenhuma captura registrada até o momento.")
         else:
-            self.__tela_captura.titulo3("Registro de Capturas:")
+            self.__tela_captura.titulo3("Registro de Capturas Gerais:")
             for captura in self.capturas:
                 self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
                 self.__tela_captura.mostra_mensagem(f"Pokémons no time: {captura['pokemons_time']}")
@@ -205,17 +210,30 @@ class ControladorCaptura():
                 self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
                 self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
 
+    def log_treinador(self, nickname = None):
+        nickname = self.__tela_captura.log_treinador()
+        if nickname not in self.logs_treinadores or len(self.logs_treinadores[nickname]) == 0:
+            self.__tela_captura.mostra_mensagem(f"\n[!] Nenhuma captura registrada para o treinador {nickname}.")
+        else:
+            self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
+            for captura in self.logs_treinadores[nickname]:
+                self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
+                self.__tela_captura.mostra_mensagem(f"Pokémons no time: {captura['pokemons_time']}")
+                self.__tela_captura.mostra_mensagem(f"Pokémon Oponente: {captura['pokemon_oponente']}")
+                self.__tela_captura.mostra_mensagem(f"Resultado da Batalha: {captura['resultado_batalha']}")
+                self.__tela_captura.mostra_mensagem(f"Resultado da Captura: {captura['resultado_captura']}")
+
+
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.inicia_batalha, 2: self.log_capturas, 0: self.retornar}
+        lista_opcoes = {1: self.inicia_batalha, 2: self.log_capturas, 3: self.log_treinador, 0: self.retornar}
 
         while True:
             opcao_escolhida = self.__tela_captura.tela_opcoes()
-            if opcao_escolhida == 1:
-                self.inicia_batalha()
-            elif opcao_escolhida in lista_opcoes:
+            if opcao_escolhida in lista_opcoes:
                 funcao_escolhida = lista_opcoes[opcao_escolhida]
                 funcao_escolhida()
             else:
