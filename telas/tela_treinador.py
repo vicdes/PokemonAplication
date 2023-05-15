@@ -52,11 +52,6 @@ class TelaTreinador(AbstractTela):
         print("\nCódigo do pokémon que deseja substituir: ")
         codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         return codigo
-    
-    def cadastrar_outro_pokemon(self):
-        print("\nDeseja inserir outro pokémon? \n1- sim \n2- não ")
-        continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
-        return continuar
 
     def mostra_mensagem(self, msg):
         print(msg)
