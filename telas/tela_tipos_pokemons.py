@@ -1,17 +1,59 @@
 from telas.tela_abstract import AbstractTela
+import PySimpleGUI as sg
 
 #imagino que não há necessidade de tratar as exceções que recebem strings. 
 
 class TelaTiposPokemons(AbstractTela):
+    def __init__(self):
+        self.__window = None
+        self.init_opcoes()
+
+    # def tela_opcoes(self):
+    #     self.titulo("Tipos de Pokémon")
+    #     print("\nEscolha uma opção")
+    #     print("  1 - Incluir tipo de pokémon")
+    #     print("  2 - Excluir tipo de pokémon")
+    #     print("  3 - Listar tipos de pokémon")
+    #     print("\n  0 - Retornar")
+    #     opcao = self.le_num_inteiro("\nEscolha uma opção: ", [0, 1, 2, 3])  #* tratamento de exceção FEITO
+    #     return opcao
+
     def tela_opcoes(self):
-        self.titulo("Tipos de Pokémon")
-        print("\nEscolha uma opção")
-        print("  1 - Incluir tipo de pokémon")
-        print("  2 - Excluir tipo de pokémon")
-        print("  3 - Listar tipos de pokémon")
-        print("\n  0 - Retornar")
-        opcao = self.le_num_inteiro("\nEscolha uma opção: ", [0, 1, 2, 3])  #* tratamento de exceção FEITO
+        self.init_opcoes()
+        button, values = self.open()
+        if values['1']:
+            opcao = 1
+        if values['2']:
+            opcao = 2
+        if values['3']:
+            opcao = 3
+        # cobre os casos de Retornar, fechar janela, ou clicar cancelar
+        # Isso faz com que retornemos a tela do sistema caso qualquer uma dessas coisas aconteca
+        if values['0'] or button in (None, 'Cancelar'):
+            opcao = 0
+        self.close()
         return opcao
+
+    def init_opcoes(self):
+        # sg.theme_previewer()
+        sg.ChangeLookAndFeel('DarkAmber')
+        layout = [
+            [sg.Text('-------- Tipo Pokémon ----------', font=("Helvica", 25))],
+            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Radio('Incluir tipo de pokémon', "RD1", key='1')],
+            [sg.Radio('Excluir tipo de pokémon', "RD1", key='2')],
+            [sg.Radio('Listar tipos de pokémon', "RD1", key='3')],
+            [sg.Radio('Retornar', "RD1", key='0')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Cadastrar Tipo').Layout(layout)
+
+    def close(self):
+        self.__window.Close()
+
+    def open(self):
+        button, values = self.__window.Read()
+        return button, values
 
     def pega_dados_tipo_pokemon(self):
         self.titulo2("Cadastrar Tipo de Pokémon")
