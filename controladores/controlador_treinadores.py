@@ -34,19 +34,18 @@ class ControladorTreinadores:
         self.__controlador_sistema = controlador_sistema
     
     def verifica_treinador(self): #vê se o nome do treinador é existente na lista de treinadores
-        while True:
-            try: #checa se o nome do treinador digitado existe na lista de treinadores
-                nickname = self.__tela_treinador.seleciona_treinador()
-                if nickname == '0':
-                    break
-                treinador = self.pega_treinador_por_nickname(nickname)
-                if treinador is not None:
-                    return treinador
-                else:
-                    raise NicknameNaoEncontradoException(nickname)
-            except NicknameNaoEncontradoException as e:
-                self.__tela_treinador.mostra_mensagem(e)
-                self.__tela_treinador.mostra_mensagem('Tente novamente ou digite 0 para sair')
+        #while True:
+        try: #checa se o nome do treinador digitado existe na lista de treinadores
+            nickname = self.__tela_treinador.seleciona_treinador()
+            #if nickname == '0':
+              # break
+            treinador = self.pega_treinador_por_nickname(nickname)
+            if treinador is not None:
+                return treinador
+            else:
+                raise NicknameNaoEncontradoException(nickname)
+        except NicknameNaoEncontradoException as e:
+            self.__tela_treinador.mostra_mensagem(e)
 
     def pega_treinador_por_nickname(self, nickname: str):
         for treinador in self.__treinadores:
@@ -64,9 +63,10 @@ class ControladorTreinadores:
             return
 
     def lista_treinadores(self):
+        dados_treinador = []
         for treinador in self.__treinadores:
-            self.__tela_treinador.mostra_mensagem("")
-            self.__tela_treinador.mostra_treinador({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
+            dados_treinador.append({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
+        self.__tela_treinador.mostra_treinador(dados_treinador)
 
     def add_treinador(self):
         dados_treinador = self.__tela_treinador.pega_dados_treinador()
@@ -86,13 +86,12 @@ class ControladorTreinadores:
 
     def del_treinador(self):
         self.lista_treinadores()
-
-        treinador = self.verifica_treinador()
-
-        if treinador is not None:
-            self.__treinadores.remove(treinador)
-            self.lista_treinadores()
-            self.__tela_treinador.mostra_mensagem("\n[!] Treinador deletado!")
+        if len(self.__treinadores) > 0:
+            treinador = self.verifica_treinador()
+            if treinador is not None:
+                self.__treinadores.remove(treinador)
+                self.__tela_treinador.mostra_mensagem("\n[!] Treinador deletado!")
+                self.lista_treinadores()
 
     def listar_pokemons_capturados(self, nickname=None):
         if nickname is None:
@@ -101,10 +100,9 @@ class ControladorTreinadores:
         pokemons_str = ""
         try:
             if treinador is not None:
-                self.__tela_treinador.mostra_mensagem("\nSeus pokémons capturados: ")
                 for pokemon in treinador.pokemons_capturados:
                     pokemons_str += "#" + str(pokemon.num) + " " + pokemon.nome + "\n"
-                self.__tela_treinador.mostra_mensagem(pokemons_str)
+                self.__tela_treinador.mostra_mensagem("\nSeus pokémons capturados: \n\n" + pokemons_str)
             else:
                 raise NicknameNaoEncontradoException(nickname)
         except NicknameNaoEncontradoException as e:
@@ -121,10 +119,9 @@ class ControladorTreinadores:
                     if treinador.time is not None:
                         try:
                             if len(treinador.time.lista_pokemons) > 0:
-                                self.__tela_treinador.mostra_mensagem("\nSeu time: ")
                                 for pokemon in treinador.time.lista_pokemons:
-                                    pokemons_str += pokemon.nome + " "
-                                self.__tela_treinador.mostra_mensagem(pokemons_str)
+                                    pokemons_str += "#" + str(pokemon.num) + " " + pokemon.nome + "\n"
+                                self.__tela_treinador.mostra_mensagem("\nSeu time: \n\n" + pokemons_str)
                             else:
                                 raise NaoHaTimeCadastradoException()
                         except NaoHaTimeCadastradoException as e:
