@@ -75,17 +75,40 @@ class TelaTreinador(AbstractTela):
         self.__window = sg.Window('Pokémon Application').Layout(layout)
 
     def seleciona_funcao_alterar_time(self):
-        print("\nEscolha uma opção")
-        print("  1 - Incluir pokemon")
-        print("  2 - Excluir pokemon")
-        print("  3 - Trocar pokemon")
-        opcao = self.le_num_inteiro("\nEscolha uma opção: ", [1, 2, 3])  # * tratamento de exceção FEITO
-        return opcao
+        # print("\nEscolha uma opção")
+        # print("  1 - Incluir pokemon")
+        # print("  2 - Excluir pokemon")
+        # print("  3 - Trocar pokemon")
+        # opcao = self.le_num_inteiro("\nEscolha uma opção: ", [1, 2, 3])  # * tratamento de exceção FEITO
+        # return opcao
+
+        sg.ChangeLookAndFeel('DarkAmber')
+        layout = [
+            [sg.Text('Treinadores', font=("GOST Common", 25))],
+            [sg.Text('Escolha sua opção', font=("Roboto", 15))],
+            [sg.Radio('Incluir pokémon', "RD1", key='1')],
+            [sg.Radio('Excluir pokémon', "RD1", key='2')],
+            [sg.Radio('Trocar pokémon', "RD1", key='3')],
+            [sg.Button('Escolher'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Pokémon Application').Layout(layout)
 
 
     def cadastrar_outro_pokemon(self):
-        print("\nDeseja continuar? \n1- sim \n2- não ")
-        continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
+        # print("\nDeseja continuar? \n1- sim \n2- não ")
+        # continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
+        # return continuar
+
+        layout = [
+            [sg.Text('Deseja continuar? ', size=(15,1)), sg.InputText('',key='continuar')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Treinador').Layout(layout)
+
+        button, values = self.open()
+        continuar = values['continuar']
+
+        self.close()
         return continuar
 
     def pega_dados_treinador(self):
@@ -133,13 +156,37 @@ class TelaTreinador(AbstractTela):
         return nickname
 
     def seleciona_pokemon_capturado(self):
-        print("\nCódigo do pokémon que deseja selecionar: ")
-        codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
+        # print("\nCódigo do pokémon que deseja selecionar: ")
+        # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
+        # return codigo
+
+        layout = [
+            [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Treinador').Layout(layout)
+
+        button, values = self.open()
+        codigo = values['codigo']
+
+        self.close()
         return codigo
 
     def seleciona_pokemon_do_time(self):
-        print("\nCódigo do pokémon que deseja substituir: ")
-        codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
+        # print("\nCódigo do pokémon que deseja substituir: ")
+        # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
+        # return codigo
+
+        layout = [
+            [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Treinador').Layout(layout)
+
+        button, values = self.open()
+        codigo = values['codigo']
+
+        self.close()
         return codigo
 
     def mostra_mensagem(self, msg):
