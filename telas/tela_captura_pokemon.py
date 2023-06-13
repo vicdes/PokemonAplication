@@ -56,9 +56,20 @@ class TelaCaptura(AbstractTela):
         input('\nAperte qualquer coisa para continuar...') #apenas pra dar uma pausa antes de retornar a tela
 
     def pega_dados_captura(self): #* tratamento de exceção FEITO
-        self.titulo2("Dados Captura") 
-        nickname = input("\nNickname do treinador: ")
+        '''self.titulo2("Dados Captura") 
+        nickname = input("\nNickname do treinador: ")'''
+        sg.ChangeLookAndFeel('DarkAmber')
 
+        layout = [
+            [sg.Text('Nickname: ', size=(15,1)), sg.InputText('',key='nickname')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Treinador').Layout(layout)
+
+        button, values = self.open()
+        nickname = values['nickname']
+
+        self.close()
         return nickname
 
     def seleciona_pokemon_inicial(self): #* tratamento de exceção FEITO
@@ -66,11 +77,25 @@ class TelaCaptura(AbstractTela):
         return codigo_inicial
     
     def log_treinador(self):
-        nickname = input("\nDigite o nickname do treinador: ")
+        '''nickname = input("\nDigite o nickname do treinador: ")
+        return nickname'''
+        sg.ChangeLookAndFeel('DarkAmber')
+
+        layout = [
+            [sg.Text('Nickname: ', size=(15,1)), sg.InputText('',key='nickname')],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Treinador').Layout(layout)
+
+        button, values = self.open()
+        nickname = values['nickname']
+
+        self.close()
         return nickname
 
+
     def mostra_mensagem(self, msg):
-        print(msg)
+        sg.Popup('', msg)
 
     def close(self):
         self.__window.Close()

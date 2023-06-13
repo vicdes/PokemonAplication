@@ -32,7 +32,7 @@ class TelaSistema(AbstractTela):
         if values['4']:
             opcao = 4
         # cobre os casos de voltar, não clicar em nada e fechar janela, ou clicar cancelar
-        if values['0'] or button in (None, 'Cancelar'):
+        if values['0'] or button in (None, 'Cancelar') or button == sg.WIN_CLOSED:
             opcao = 0
         self.close()
         return opcao
