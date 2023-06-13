@@ -103,11 +103,8 @@ class TelaPokemon(AbstractTela):
     def alterar_hp_ou_ataque(self, dados_pokemon_selecionado): #* TRATAR EXCEÇÃO SOMENTE INTS PARA HP E ATAQUE
         while True:
             sg.ChangeLookAndFeel('DarkAmber')
-            nome_selecionado = dados_pokemon_selecionado[0]
-            hp_atual = dados_pokemon_selecionado[1]
-            ataque_atual = dados_pokemon_selecionado[2]
 
-            status_atuais = f'{nome_selecionado} - HP: {hp_atual} - Ataque: {ataque_atual}'
+            status_atuais = f'{dados_pokemon_selecionado[0]} - HP: {dados_pokemon_selecionado[1]} - Ataque: {dados_pokemon_selecionado[2]}'
 
             layout = [
                 #[sg.Text('Digite o número do Pokémon: ', size=(25,1)), sg.InputText('',key='num_pokemon')],
@@ -154,10 +151,8 @@ class TelaPokemon(AbstractTela):
         if len(lista) == 0:
             sg.popup("Algo está errado... não existem pokémons registrados no jogo.")
         else:
-            # criar duas colunas de textos
             dados = [[nome, num] for nome, num in lista]
 
-            # criar layout com tabela
             layout = [
                 [sg.Text('Pokémons disponíveis no jogo')],
                 [sg.Table(values=dados, headings=['Nome', 'Número'], display_row_numbers=False,
@@ -165,7 +160,6 @@ class TelaPokemon(AbstractTela):
                 [sg.Button('Voltar')]
             ]
 
-            # criar e mostrar janela
             janela = sg.Window('Pokémons', layout, modal=True, element_justification='c', size=(300, 500)) #largura x altura
             while True:
                 event, values = janela.read()
