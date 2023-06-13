@@ -100,13 +100,16 @@ class TelaTreinador(AbstractTela):
         # return continuar
 
         layout = [
-            [sg.Text('Deseja continuar? ', size=(15,1)), sg.InputText('',key='continuar')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            [sg.Text('Deseja continuar? ', size=(15,1))],
+            [sg.Button('Confirmar', key='1'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Treinador').Layout(layout)
 
-        button, values = self.open()
-        continuar = values['continuar']
+        button = self.open()
+        if button == '1':
+            continuar = True
+        else:
+            continuar = False
 
         self.close()
         return continuar
@@ -159,7 +162,6 @@ class TelaTreinador(AbstractTela):
         # print("\nCódigo do pokémon que deseja selecionar: ")
         # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         # return codigo
-
         layout = [
             [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
@@ -168,6 +170,7 @@ class TelaTreinador(AbstractTela):
 
         button, values = self.open()
         codigo = values['codigo']
+        codigo = int(codigo)
 
         self.close()
         return codigo
@@ -176,7 +179,7 @@ class TelaTreinador(AbstractTela):
         # print("\nCódigo do pokémon que deseja substituir: ")
         # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         # return codigo
-
+        #while True:
         layout = [
             [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
@@ -185,6 +188,7 @@ class TelaTreinador(AbstractTela):
 
         button, values = self.open()
         codigo = values['codigo']
+        self.le_num_inteiro(codigo)
 
         self.close()
         return codigo
