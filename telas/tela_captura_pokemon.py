@@ -55,9 +55,9 @@ class TelaCaptura(AbstractTela):
     def digite_para_continuar(self):
         input('\nAperte qualquer coisa para continuar...') #apenas pra dar uma pausa antes de retornar a tela
 
-    def pega_dados_captura(self): #* tratamento de exceção FEITO
-        '''self.titulo2("Dados Captura") 
-        nickname = input("\nNickname do treinador: ")'''
+    '''def pega_dados_captura(self): #* tratamento de exceção FEITO
+        self.titulo2("Dados Captura") 
+        nickname = input("\nNickname do treinador: ")
         sg.ChangeLookAndFeel('DarkAmber')
 
         layout = [
@@ -70,29 +70,68 @@ class TelaCaptura(AbstractTela):
         nickname = values['nickname']
 
         self.close()
-        return nickname
+        return nickname'''
 
     def seleciona_pokemon_inicial(self): #* tratamento de exceção FEITO
         codigo_inicial = self.le_num_inteiro("\nDigite o código do pokémon que deseja selecionar:\n#1 Bulbasaur\n#4 Charmander\n#7 Squirtle\n", [1,4,7]) 
         return codigo_inicial
-    
-    def log_treinador(self):
-        '''nickname = input("\nDigite o nickname do treinador: ")
-        return nickname'''
-        sg.ChangeLookAndFeel('DarkAmber')
 
-        layout = [
+    def pega_dados_treinador(self, treinadores):
+        sg.ChangeLookAndFeel('DarkAmber')
+        lista_treinadores = treinadores
+        '''layout = [
             [sg.Text('Nickname: ', size=(15,1)), sg.InputText('',key='nickname')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
-        self.__window = sg.Window('Treinador').Layout(layout)
+        self.__window = sg.Window('Dado Treinador').Layout(layout)'''
+        layout = [
+        [sg.Text('Nickname: ', size=(15,1)), sg.Combo(lista_treinadores, key='nickname', readonly=True)],
+        [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Dado Treinador').Layout(layout)
 
-        button, values = self.open()
-        nickname = values['nickname']
+        while True:
+            button, values = self.open()
+            if button == 'Confirmar' and values['nickname']:
+                nickname = values['nickname']
+                self.close()
+                return nickname
+            elif button == 'Cancelar' or button is None:
+                self.close()
+                return None
+            else:
+                sg.popup("Você deve selecionar um treinador!")
 
-        self.close()
-        return nickname
 
+    def log_treinador(self, nickname, dado_treinador):
+
+        nome_treinador = str(nickname) # usando apenas para o título da janela
+        dados = dado_treinador
+        
+        sg.change_look_and_feel('DarkAmber')
+
+        layout = [[sg.Text(f'Log Treinador - {nome_treinador}', font = ("Helvica"))]]
+        layout.append([sg.Text('-' * 40)])
+        for dado in dados:
+            #layout.append([sg.Text('Treinador: ', size=(15, 1)), sg.Text(dado['treinador'])])
+            layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado['pokemons_time'])])
+            layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado['pokemon_oponente'])])
+            layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado['resultado_batalha'])])
+            layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado['resultado_captura'])])
+            layout.append([sg.Text('-' * 40)])
+
+        layout.append([sg.Button('Voltar')])
+
+        window = sg.Window(f'Log Treinador', layout, modal=True, auto_size_text= True) #largura x altura
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Voltar':
+                break
+        window.close()
+
+
+    def log_geral(self):
+        pass
 
     def mostra_mensagem(self, msg):
         sg.Popup('', msg)

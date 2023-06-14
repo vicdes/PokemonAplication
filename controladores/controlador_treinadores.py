@@ -67,6 +67,14 @@ class ControladorTreinadores:
         for treinador in self.__treinadores:
             self.__tela_treinador.mostra_mensagem("")
             self.__tela_treinador.mostra_treinador({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
+    
+    #! importantíssimo!
+    def nome_treinadores(self): #isso retorna uma lista com os nomes dos treinadores
+        lista_nomes = []
+        for treinador in self.__treinadores:
+            lista_nomes.append(treinador.nickname)
+        return lista_nomes
+    
 
     def add_treinador(self):
         dados_treinador = self.__tela_treinador.pega_dados_treinador()

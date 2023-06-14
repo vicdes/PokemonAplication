@@ -43,7 +43,9 @@ class ControladorCaptura():
 
         while True:
             try: #checa se o nome do treinador digitado existe na lista de treinadores
-                nickname = self.__tela_captura.pega_dados_captura()
+                nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
+                if nickname is None:
+                    return
                 treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)
                 if treinador is not None:
                     break
@@ -199,36 +201,43 @@ class ControladorCaptura():
         if treinador not in self.logs_treinadores:
             self.logs_treinadores[treinador] = []
         self.logs_treinadores[treinador].append(info_batalha)
-        self.__tela_captura.mostra_mensagem("\nUm novo registro foi adicionado com sucesso nos logs!")
+        self.__tela_captura.mostra_mensagem("Um novo registro foi adicionado com sucesso nos logs!")
     
     def log_capturas(self):
         if len(self.capturas) == 0:
-            self.__tela_captura.mostra_mensagem("\n[!] Nenhuma captura registrada até o momento.")
+            self.__tela_captura.mostra_mensagem("\nNenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Registro de Capturas Gerais:")
+            dados_captura = []
             for captura in self.capturas:
-                self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
+                '''self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
                 self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")'''
+                dados_captura.append([captura['treinador'], captura['pokemons_time'], captura['pokemon_oponente'], captura['resultado_batalha'], captura['resultado_captura']])     
+            self.__tela_captura.log_geral(dados_captura)
 
     def log_treinador(self, nickname = None):
-        nickname = self.__tela_captura.log_treinador()
+        nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
         if nickname not in self.logs_treinadores or len(self.logs_treinadores[nickname]) == 0:
-            self.__tela_captura.mostra_mensagem(f"\n[!] Nenhuma captura registrada para o treinador {nickname}.")
+            self.__tela_captura.mostra_mensagem(f"\nNenhuma captura registrada para o treinador {nickname}.")
         else:
             self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
+            dados_captura = []
             for captura in self.logs_treinadores[nickname]:
-                self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
+                dados_captura.append(captura)
+
+                '''self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
                 self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")
+                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")'''
+            self.__tela_captura.log_treinador(nickname, dados_captura)
 
     def ranking_treinadores(self):
         if not self.logs_treinadores:
-            self.__tela_captura.mostra_mensagem("\n[!] Nenhuma captura registrada até o momento.")
+            self.__tela_captura.mostra_mensagem("\nNenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
             ranking = sorted(self.logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
