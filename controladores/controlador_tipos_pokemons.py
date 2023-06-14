@@ -10,6 +10,8 @@ class ControladorTiposPokemons:
 
     def add_tipo(self):
         dados_tipo = self.__tela_tipo_pokemon.pega_dados_tipo_pokemon()
+        if dados_tipo is None or dados_tipo == "":
+            return
         tipo_pokemon = TipoPokemon(dados_tipo["nome"], dados_tipo["vantagens"], dados_tipo["fraquezas"])
         self.__tipos.append(tipo_pokemon)
 

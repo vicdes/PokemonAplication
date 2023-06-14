@@ -91,56 +91,62 @@ class TelaTiposPokemons(AbstractTela):
                 window.close()
                 return True
 
-    def pega_dados_tipo_pokemon(self):
+    def pega_dados_tipo_pokemon(self): #* acho que os returns estão funcionando corretamente.
         sg.ChangeLookAndFeel('DarkAmber')
-
-        nome = sg.popup_get_text('Cadastrar Tipo de Pokémon', 'Nome:').capitalize()
-
-        fraquezas = []
         while True:
-            fraqueza = sg.popup_get_text('Cadastrar Fraqueza', 'Fraqueza:').capitalize()
-            fraquezas.append(fraqueza)
-
-            if not self.popup_sim_nao('Deseja digitar outra fraqueza?'):
-                break
-
-        vantagens = []
-        while True:
-            vantagem = sg.popup_get_text('Cadastrar Vantagem', 'Vantagem:').capitalize()
-            vantagens.append(vantagem)
-
-            if not self.popup_sim_nao('Deseja digitar outra vantagem?'):
-                break
+            nome = sg.popup_get_text('Cadastrar Tipo de Pokémon', 'Nome:')
+            if nome == None or nome == '':
+                return None
             
-        sg.popup('Tipo de Pokémon cadastrado com sucesso!')
-        return {"nome": nome, "vantagens": vantagens, "fraquezas": fraquezas}
+            fraquezas = []
+            while True:
+                fraqueza = sg.popup_get_text('Cadastrar Fraqueza', 'Fraqueza:')
+                if fraqueza == None or fraqueza == '':
+                    return None
+                fraquezas.append(fraqueza)
+
+                if not self.popup_sim_nao('Deseja digitar outra fraqueza?'):
+                    break
+
+            vantagens = []
+            while True:
+                vantagem = sg.popup_get_text('Cadastrar Vantagem', 'Vantagem:')
+                if vantagem == None or vantagem == '':
+                    return None
+                vantagens.append(vantagem)
+
+                if not self.popup_sim_nao('Deseja digitar outra vantagem?'):
+                    break
+                
+            sg.popup('Tipo de Pokémon cadastrado com sucesso!')
+            return {"nome": nome, "vantagens": vantagens, "fraquezas": fraquezas}
 
 
-    def mostra_tipo_pokemon(self, dados_tipo_pokemon):
+    '''def mostra_tipo_pokemon(self, dados_tipo_pokemon):
         #tipos = dados_tipo_pokemon
 
-        '''print("Nome: ", dados_tipo_pokemon["nome"])
+        print("Nome: ", dados_tipo_pokemon["nome"])
         print("Fraquezas: ", dados_tipo_pokemon["fraquezas"])
         print("Vantagens: ", dados_tipo_pokemon["vantagens"])
         print("\n")'''
 
-    def mostra_tipo_pokemon(self, dados_tipo_pokemon): #! ainda não funcionando
+    def mostra_tipo_pokemon(self, dados_tipo_pokemon):
         layout = [[sg.Text('Tipos Registrados', font = ("Helvica bold", 25))]]
 
         for tipo in dados_tipo_pokemon:
-            layout.append([sg.Text('Nome: ', size=(15, 1)), sg.Text(dados_tipo_pokemon["nome"])])
-            layout.append([sg.Text('Fraquezas: ', size=(15, 1)), sg.Text(", ".join(dados_tipo_pokemon["fraquezas"]))])
-            layout.append([sg.Text('Vantagens: ', size=(15, 1)), sg.Text(", ".join(dados_tipo_pokemon["vantagens"]))])
+            layout.append([sg.Text('Nome: ', size=(15, 1)), sg.Text(tipo["nome"])])
+            layout.append([sg.Text('Fraquezas: ', size=(15, 1)), sg.Text(tipo["fraquezas"])])
+            layout.append([sg.Text('Vantagens: ', size=(15, 1)), sg.Text(tipo["vantagens"])])
             layout.append([sg.Text('-' * 40)])
 
         layout.append([sg.Button('Voltar')])
 
-        janela = sg.Window('Tipos', layout, modal=True, auto_size_text= True, size=(300, 500)) #largura x altura
+        window = sg.Window('Tipos', layout, modal=True, auto_size_text= True, size=(300, 500)) #largura x altura
         while True:
-            event, values = janela.read()
+            event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == 'Voltar':
                 break
-        janela.close()
+        window.close()
 
     def seleciona_tipo_pokemon(self):
         nome = input("Nome do tipo de pokémon que deseja selecionar: ") #não posso colocar capitalize aqui pq quebra.
