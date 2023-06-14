@@ -129,12 +129,60 @@ class TelaCaptura(AbstractTela):
                 break
         window.close()
 
+    def pokemon_ja_capturado(self, pokemon):
+        sg.change_look_and_feel('DarkAmber')
+
+        layout = [[sg.Text(f'Você já capturou um {pokemon.nome}!\nVocê pode fugir ou continuar para a batalha.')],
+                  [sg.Text(f'Lembrando que você não poderá capturá-lo novamente!',font = ('Helvetica',10,'italic'))],
+                  [sg.Button('Fugir'), sg.Button('Batalhar')]]
+
+        self.__window = sg.Window('Escolha').Layout(layout)
+
+        button, values = self.open()
+        self.close()
+        if button == 'Fugir' or sg.WINDOW_CLOSED:
+            return True
+        return False
+
+
+    def pokemon_encontrado(self, pokemon, capturado, treinador):
+        sg.change_look_and_feel('DarkAmber')
+        
+        if capturado:
+            capturado = 'Sim'
+        else:
+            capturado = 'Não'
+
+        layout = [[sg.Text(f'O {pokemon.nome} selvagem tem {pokemon.ataque} ATK e {pokemon.hp} HP.')],
+                [sg.Text(f'Já capturado? {capturado}')],
+                [sg.Text(f'{treinador.nickname}, seu time possui {treinador.ataque_time} de ataque e {treinador.hp_time} de HP.')],
+                [sg.Button('OK')]]
+
+        window = sg.Window(f'Pokemon Encontrado', layout, modal=True, auto_size_text= True) #largura x altura
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'OK':
+                break
+        window.close()
+
+    def batalha_pokemon(self, window1):
+        sg.change_look_and_feel('DarkAmber')
+    
+        layout = [[sg.Text('Batalha Pokémon', font = ("Helvica"))]]
+        layout.append([sg.Text('-' * 40)])
+        layout.append([sg.Text('pokemon_sorteado: ', size=(20, 1)), sg.Text(window1['pokemon_sorteado'])])
 
     def log_geral(self):
         pass
 
+    def mostra_mensagem1(self, msg , titulo = None):
+        sg.Popup(msg, title = titulo)
+
+    def rodadas(self, rodada):
+        sg.Popup(rodada, custom_text='Continuar')
+
     def mostra_mensagem(self, msg):
-        sg.Popup('', msg)
+        print('',msg)
 
     def close(self):
         self.__window.Close()

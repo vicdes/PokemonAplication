@@ -63,6 +63,8 @@ class ControladorCaptura():
         pokemon_oponente = self.escolher_pokemon_aleatorio()
         num = pokemon_oponente.num
 
+        self.__tela_captura.mostra_mensagem1(f'Você encontrou um {pokemon_oponente.nome}!', '???')
+
         time = treinador.time 
         info_pokemons_time = [pokemon.nome for pokemon in treinador.time.lista_pokemons]  # Lista com nomes dos Pokémon da time do treinador
             
@@ -73,27 +75,22 @@ class ControladorCaptura():
                 'resultado_batalha': None,  
                 'resultado_captura': None  
             }
-
+        
         #* usando 'selvagem' como referencias aos jogos
-        self.__tela_captura.mostra_mensagem(f"\n[❓❔❓] Um {pokemon_oponente.nome} selvagem apareceu! [❓❔❓]")
+        #self.__tela_captura.mostra_mensagem(f"\n[❓❔❓] Um {pokemon_oponente.nome} selvagem apareceu! [❓❔❓]")
         
-        capturado = False
+        #tela1 pokemon capturado
+        capturado = treinador.verifica_numero_pokemon_capturado(num)
         
-        if treinador.verifica_numero_pokemon_capturado(num) == True:
-            capturado = True
-            info_batalha['resultado_captura'] = 'Já capturado anteriormente'
-            fugir_batalha = self.__tela_captura.le_num_inteiro(f"\n[⚠️  ] Você já capturou um Pokémon {pokemon_oponente.nome} #{pokemon_oponente.num} antes. Você deseja fugir da batalha?\n   1 - Sim     2 - Não\n", [1, 2])
-            
-            if fugir_batalha == 1:
-                info_batalha['resultado_batalha'] = 'Fugiu'
-                self.__tela_captura.mostra_mensagem("\nVocê fugiu da batalha.")
-                self.add_captura(info_batalha)  # Salva as informações da batalha no log
-                return
-            
+        
 
         treinador.hp_time = treinador.calcular_hp_time()
         treinador.ataque_time = treinador.calcular_ataque_time()
 
+        if treinador.ataque_time == 0 or treinador.hp_time == 0 or treinador.ataque_time == None or treinador.hp_time == None:
+            self.__tela_captura.mostra_mensagem('[!!!] Você provavelmente esqueceu de adicionar pokémons ao seu time!')
+            return
+        
         #salva os hps originais do pokemon. talvez dê pra corrigir depois de alguma maneira mais bonita
         hp_original = pokemon_oponente.hp
         ataque_original = pokemon_oponente.ataque    #! talvez não seja necessário mais visto q é o pokémon aleatório esta sendo reinstanciado. 
@@ -107,17 +104,32 @@ class ControladorCaptura():
         multiplicador_ataque = random.choice([2,2,2,3,3,3,4])
         pokemon_oponente.ataque = int(pokemon_oponente.ataque * multiplicador_ataque)
     
-        self.__tela_captura.mostra_mensagem(f"\nO {pokemon_oponente.nome} selvagem tem {pokemon_oponente.ataque} de ataque (*{multiplicador_ataque}) e {pokemon_oponente.hp} de HP (*{multiplicador_hp})! ")
+        #self.__tela_captura.mostra_mensagem(f"\nO {pokemon_oponente.nome} selvagem tem {pokemon_oponente.ataque} de ataque (*{multiplicador_ataque}) e {pokemon_oponente.hp} de HP (*{multiplicador_hp})! ")
 
-        self.__tela_captura.mostra_mensagem(f"\n{treinador.nickname}, seu time possui {treinador.ataque_time} de ataque e {treinador.hp_time} de HP.")
+        self.__tela_captura.pokemon_encontrado(pokemon_oponente, capturado, treinador) #! perguntar para Thaís se posso fazer isso ou se fere o mvc
+
+        if capturado:
+            info_batalha['resultado_captura'] = 'Já capturado anteriormente'
+            #fugir_batalha = self.__tela_captura.le_num_inteiro(f"\n[⚠️  ] Você já capturou um Pokémon {pokemon_oponente.nome} #{pokemon_oponente.num} antes. Você deseja fugir da batalha?\n   1 - Sim     2 - Não\n", [1, 2])
+            
+            fugir_batalha = self.__tela_captura.pokemon_ja_capturado(pokemon_oponente)
+            
+            if fugir_batalha == True:
+                info_batalha['resultado_batalha'] = 'Fugiu'
+                self.__tela_captura.mostra_mensagem("\nVocê fugiu da batalha.")
+                self.add_captura(info_batalha)  # Salva as informações da batalha no log
+                return
+
+
+
+        #self.__tela_captura.mostra_mensagem(f"\n{treinador.nickname}, seu time possui {treinador.ataque_time} de ataque e {treinador.hp_time} de HP.")
+
         
-        if treinador.ataque_time == 0 and treinador.hp_time == 0:
-            self.__tela_captura.mostra_mensagem('[!!!] Você provavelmente esqueceu de adicionar pokémons ao seu time!')
         # treinador sempre ataca primeiro. 
 
         while treinador.hp_time > 0 and pokemon_oponente.hp > 0:
             rodada += 1
-            self.__tela_captura.mostra_mensagem(f'\n[ Rodada {rodada} ]\n')
+            self.__tela_captura.rodadas(f'Rodada {rodada}')
 
             #* treinador ataca.
             for pokemon in treinador.time.lista_pokemons:
