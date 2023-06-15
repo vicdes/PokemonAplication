@@ -1,6 +1,7 @@
 
 from telas.tela_abstract import AbstractTela
 import PySimpleGUI as sg
+import time
 
 class TelaCaptura(AbstractTela):
     def __init__(self):
@@ -52,9 +53,9 @@ class TelaCaptura(AbstractTela):
         ]
         self.__window = sg.Window('Captura').Layout(layout)
 
-    def digite_para_continuar(self):
+    '''def digite_para_continuar(self):
         input('\nAperte qualquer coisa para continuar...') #apenas pra dar uma pausa antes de retornar a tela
-
+    '''
     '''def pega_dados_captura(self): #* tratamento de exceção FEITO
         self.titulo2("Dados Captura") 
         nickname = input("\nNickname do treinador: ")
@@ -132,7 +133,7 @@ class TelaCaptura(AbstractTela):
     def pokemon_ja_capturado(self, pokemon):
         sg.change_look_and_feel('DarkAmber')
 
-        layout = [[sg.Text(f'Você já capturou um {pokemon.nome}!\nVocê pode fugir ou continuar para a batalha.')],
+        layout = [[sg.Text(f'Você já capturou um {pokemon.nome}!\nPode fugir ou continuar para a batalha.')],
                   [sg.Text(f'Lembrando que você não poderá capturá-lo novamente!',font = ('Helvetica',10,'italic'))],
                   [sg.Button('Fugir'), sg.Button('Batalhar')]]
 
@@ -165,21 +166,124 @@ class TelaCaptura(AbstractTela):
                 break
         window.close()
 
-    def batalha_pokemon(self, window1):
+    def time_ataca(self, time_ataques):
+        
+        ataques = time_ataques
+
         sg.change_look_and_feel('DarkAmber')
-    
-        layout = [[sg.Text('Batalha Pokémon', font = ("Helvica"))]]
+        #layout = [[sg.Text(f'Log Treinador - {nome_treinador}', font = ("Helvica"))]]
+        #layout.append([sg.Text('-' * 40)])
+
+        layout = [[sg.Text(f'Seu time ataca primeiro: ')]]
         layout.append([sg.Text('-' * 40)])
-        layout.append([sg.Text('pokemon_sorteado: ', size=(20, 1)), sg.Text(window1['pokemon_sorteado'])])
+        for pokemon in ataques:
+            #layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado['pokemons_time'])])
+            layout.append([sg.Text(f'{pokemon.nome} ataca com {pokemon.ataque} ATK!')])
+
+        #como faço para colocar o botão a direita? 
+
+        layout.append([sg.Button('>')]) 
+
+        self.__window = sg.Window('Batalha Pokémon', layout)
+
+        while True:
+            event, values = self.open()
+            if event == sg.WINDOW_CLOSED or event == '>':
+                break
+        self.close()
+
+    def oponente_ataca(self, pokemon_oponente):
+
+        layout = [[sg.Text(f'O Pokémon oponente ataca: ')]]
+        layout.append([sg.Text('-' * 40)])
+
+        layout.append([sg.Text(f'{pokemon_oponente.nome} ataca com {pokemon_oponente.ataque} ATK!')])
+        
+        layout.append([sg.Button('>')]) 
+        self.__window = sg.Window('Batalha Pokémon', layout)
+
+        while True:
+            event, values = self.open()
+            if event == sg.WINDOW_CLOSED or event == '>':
+                break
+        self.close()  
+       
+
+    def popup_sim_nao(self, mensagem): #* talvez seja interessante adicionar isso na classe abstrata 
+        layout = [[sg.Text(mensagem)], 
+                [sg.Button('Sim', button_color=('white', 'green')), #apenas teste de cores
+                sg.Button('Não', button_color=('white', 'red'))]]
+
+        window = sg.Window('SimNão', layout, size = (300, 80))
+
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Não':
+                window.close()
+                return False
+            elif event == 'Sim':
+                window.close()
+                return True
+            
+    '''def batalha_pokemon(self, time_ataques, pokemon_oponente):
+        print('dentro da função batalha')
+        print(time_ataques)
+        sg.change_look_and_feel('DarkAmber')
+
+        layout = [
+            [sg.Text('Batalha Pokémon', font=("Helvica"))],
+            [sg.Text('-' * 40)],
+            [sg.Multiline(size=(30, 10), key='batalha', disabled=True, autoscroll=False, justification='center',
+                        no_scrollbar=True, background_color=None)]
+        ]
+
+        self.__window = sg.Window('Batalha Pokémon', layout, finalize=True)
+
+        attack_index = 0
+        attack_time = time.time()
+        print(len(time_ataques))
+
+        while True:
+            event, values = self.__window.read(timeout=100)
+
+            if event == sg.WINDOW_CLOSED:
+                break
+
+            if attack_index < len(time_ataques) and time.time() - attack_time >= 2:
+                print(attack_index)
+                print('dentro do if attack_index')
+                self.__window['batalha'].update(f'{time_ataques[attack_index]} atacou!\n', append=True)
+                attack_index += 1
+                attack_time = time.time()
+
+            if attack_index >= len(time_ataques) and pokemon_oponente.hp <= 0:
+                time.sleep(1)  # Adicione um atraso antes de fechar a janela
+                break
+
+        self.__window.close()'''
 
     def log_geral(self):
         pass
 
-    def mostra_mensagem1(self, msg , titulo = None):
+    def mostra_popup(self, msg , titulo = None):
         sg.Popup(msg, title = titulo)
 
-    def rodadas(self, rodada):
-        sg.Popup(rodada, custom_text='Continuar')
+    def rodada_popup(self, message, auto_close_duration = 1):
+        layout = [[sg.Text(message)]]
+
+        self.__window = sg.Window('Popup', layout, auto_close=True, auto_close_duration=auto_close_duration, element_justification='c')
+
+        event, values = self.open()
+        self.close()
+
+    def resultado_batalha_popup(self, msg1, msg2, auto_close_duration = 3):
+            layout = [[sg.Text(msg1)],
+                      [sg.Text(msg2)]]
+
+            self.__window = sg.Window('Popup', layout, auto_close=True, auto_close_duration=auto_close_duration, element_justification='c')
+
+            event, values = self.open()
+            self.close()
 
     def mostra_mensagem(self, msg):
         print('',msg)
