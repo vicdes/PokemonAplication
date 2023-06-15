@@ -88,7 +88,7 @@ class ControladorCaptura():
         treinador.ataque_time = treinador.calcular_ataque_time()
 
         if treinador.ataque_time == 0 or treinador.hp_time == 0 or treinador.ataque_time == None or treinador.hp_time == None:
-            self.__tela_captura.mostra_mensagem('[!!!] Você provavelmente esqueceu de adicionar pokémons ao seu time!')
+            self.__tela_captura.mostra_popup('[!!!] Você provavelmente esqueceu de adicionar pokémons ao seu time!')
             return
         
         #salva os hps originais do pokemon. talvez dê pra corrigir depois de alguma maneira mais bonita
@@ -116,7 +116,7 @@ class ControladorCaptura():
             
             if fugir_batalha == True:
                 info_batalha['resultado_batalha'] = 'Fugiu'
-                self.__tela_captura.mostra_mensagem("\nVocê fugiu da batalha.")
+                self.__tela_captura.mostra_popup("Você fugiu da batalha.",'💨💨💨')
                 self.add_captura(info_batalha)  # Salva as informações da batalha no log
                 return
 
@@ -140,7 +140,6 @@ class ControladorCaptura():
                     time_ataques.append(pokemon)
                     pokemon_oponente.hp -= pokemon.ataque
                     if pokemon_oponente.hp <= 0:
-                        print('if dentro do contorlador')
                         break
                     
             self.__tela_captura.time_ataca(time_ataques)
@@ -148,12 +147,12 @@ class ControladorCaptura():
             if pokemon_oponente.hp <= 0:
                 pokemon_oponente.hp = 0 #apenas para evitar printar um valor negativo de hp.
 
-                msg_oponente = (f"\n💤 O {pokemon_oponente.nome} está desmaiado!") 
-                msg_hp = (f'\nREF: {pokemon_oponente.hp} de hp restantes. {pokemon_oponente.ataque} de ataque')
+                msg_oponente = (f"O {pokemon_oponente.nome} está desmaiado!") 
+                msg_hp = (f'REF: {pokemon_oponente.hp} ❤️ restantes. {pokemon_oponente.ataque} 🗡️')
                 
                 self.__tela_captura.resultado_batalha_popup(msg_oponente, msg_hp)
                 
-                self.__tela_captura.mostra_popup(f"\n🎉 {treinador.nickname} ganhou a batalha!","Vitória")
+                self.__tela_captura.mostra_popup(f"🥇 {treinador.nickname} ganhou a batalha!","🎉🎉🎉")
 
                 info_batalha['resultado_batalha'] = 'Vitória'
                 #self.add_captura(info_batalha)
@@ -167,7 +166,7 @@ class ControladorCaptura():
                     self.tentar_captura(pokemon_oponente, info_batalha, treinador)
 
                 else: #não estava funcionando de outra maneira
-                    self.__tela_captura.mostra_popup('\n Você já capturou esse pokémon antes, portanto não pode capturá-lo de novo!')
+                    self.__tela_captura.mostra_popup('Você já capturou esse pokémon antes, portanto não pode capturá-lo de novo!', 'Pokémon já capturado')
                     info_batalha['resultado_captura'] = 'Já capturado anteriormente'
                     self.add_captura(info_batalha)
                 #self.__tela_captura.digite_para_continuar() # como não consigo usar a função sleep
@@ -186,13 +185,13 @@ class ControladorCaptura():
 
                 #self.__tela_captura.mostra_mensagem(f'💤 {treinador.nickname}, seu time está desmaiada!') 
                 #self.__tela_captura.mostra_mensagem(f'{treinador.hp_time} de hp restantes!') #! teste, apagar depois
-                msg_time = (f'💤 {treinador.nickname}, seu time está desmaiado!')
-                msg_hp = (f'{treinador.hp_time} de hp restantes!')
+                msg_time = (f'💤 {treinador.nickname}, seu time está desmaiado! 💤')
+                msg_hp = (f'{treinador.hp_time} ❤️ restantes!')
                 
                 self.__tela_captura.resultado_batalha_popup(msg_time, msg_hp)
 
 
-                self.__tela_captura.mostra_popup(f'\n💥Você perdeu a batalha.', 'Derrota')
+                self.__tela_captura.mostra_popup(f'💔 Você perdeu a batalha.', '💥💥💥')
                 info_batalha['resultado_batalha'] = 'Derrota'
                 info_batalha['resultado_captura'] = '---'
                 self.add_captura(info_batalha)
@@ -205,20 +204,20 @@ class ControladorCaptura():
                 break
 
     def tentar_captura(self, pokemon, info_batalha, treinador):
-        escolha_captura = self.__tela_captura.popup_sim_nao(f"\n[🎱 ] Deseja tentar capturar {pokemon.nome}?")
+        escolha_captura = self.__tela_captura.popup_sim_nao(f"Deseja tentar capturar {pokemon.nome}?", "🎱🎱🎱")
         
         if escolha_captura == True:
             chance_captura = random.randint(1,100) #gera um número aleatório entre 1 e 100.
-            self.__tela_captura.mostra_mensagem('\nPokebola lançada...')
+            self.__tela_captura.mostra_popup('Pokebola lançada...', 'Pokebola')
 
             if chance_captura >= 25:
                 treinador.add_pokemon_capturado(pokemon)
-                self.__tela_captura.mostra_mensagem(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!')
+                self.__tela_captura.mostra_popup(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!', "Capturado")
                 info_batalha['resultado_captura'] = "Capturado! "
                 self.__controlador_sistema.controlador_treinadores.pega_porcentagem(treinador)
 
             else:
-                self.__tela_captura.mostra_mensagem(f'\nQue pena, o {pokemon.nome} escapou...')
+                self.__tela_captura.mostra_popup(f'Que pena, o {pokemon.nome} escapou...', "Fugiu")
                 info_batalha['resultado_captura'] = "Pokémon fugiu da Pokébola"
         else:
             info_batalha['resultado_captura'] = "Não quis capturar."
@@ -230,11 +229,11 @@ class ControladorCaptura():
         if treinador not in self.logs_treinadores:
             self.logs_treinadores[treinador] = []
         self.logs_treinadores[treinador].append(info_batalha)
-        self.__tela_captura.mostra_mensagem("Um novo registro foi adicionado com sucesso nos logs!")
+        self.__tela_captura.mostra_popup("Um novo registro foi adicionado com sucesso nos logs!", "Registro")
     
     def log_capturas(self):
         if len(self.capturas) == 0:
-            self.__tela_captura.mostra_mensagem("\nNenhuma captura registrada até o momento.")
+            self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Registro de Capturas Gerais:")
             dados_captura = []
@@ -250,7 +249,7 @@ class ControladorCaptura():
     def log_treinador(self, nickname = None):
         nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
         if nickname not in self.logs_treinadores or len(self.logs_treinadores[nickname]) == 0:
-            self.__tela_captura.mostra_mensagem(f"\nNenhuma captura registrada para o treinador {nickname}.")
+            self.__tela_captura.mostra_popup(f"Nenhuma captura registrada para o treinador {nickname}.")
         else:
             self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
             dados_captura = []
@@ -266,12 +265,12 @@ class ControladorCaptura():
 
     def ranking_treinadores(self):
         if not self.logs_treinadores:
-            self.__tela_captura.mostra_mensagem("\nNenhuma captura registrada até o momento.")
+            self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
             ranking = sorted(self.logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
             for i, (treinador, capturas) in enumerate(ranking, start=1):
-                self.__tela_captura.mostra_mensagem(f"\n{i}. Treinador: {treinador}")
+                self.__tela_captura.mostra_mensagem(f"{i}. Treinador: {treinador}")
                 self.__tela_captura.mostra_mensagem(f"   Total de Batalhas: {len(capturas)}")
                 soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
                 self.__tela_captura.mostra_mensagem(f"   Total de Capturas: {soma_capturas_com_sucesso}")
