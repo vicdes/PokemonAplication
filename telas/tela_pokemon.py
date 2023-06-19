@@ -42,9 +42,9 @@ class TelaPokemon(AbstractTela):
         layout = [
             [sg.Text('-------- Pokémon ----------', font=("Helvica", 25))],
             [sg.Text('Escolha sua opção', font=("Helvica", 15))],
-            [sg.Radio('Deletar Pokémon', "RD1", key='1')],
-            [sg.Radio('Mostrar Pokémons existentes', "RD1", key='2')],
-            [sg.Radio('Alterar HP ou Ataque de Pokémon', "RD1", key='3')],
+            [sg.Radio('Deletar Pokémon TRATADO ', "RD1", key='1')],
+            [sg.Radio('Mostrar Pokémons existentes TRATADO ', "RD1", key='2')],
+            [sg.Radio('Alterar HP ou Ataque de Pokémon TRATADO', "RD1", key='3')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
@@ -66,7 +66,7 @@ class TelaPokemon(AbstractTela):
             sg.ChangeLookAndFeel('DarkAmber')
 
             layout = [
-                [sg.Text('Digite o número do Pokémon: ', size=(25,1)), sg.InputText('',key='num_pokemon')], 
+                [sg.Text('Digite o número do Pokémon: ', size=(30,1)), sg.InputText('',key='num_pokemon')], 
                 [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
             ]
             self.__window = sg.Window('Selecionar Pokemon').Layout(layout)
@@ -78,9 +78,13 @@ class TelaPokemon(AbstractTela):
 
             if button == 'Cancelar' or button == None: #! se clicar em cancelar ou fechar a janela, deveria retornar para a tela anterior (tela_pokemon) e não para o menu principal
                 return None   
-            if num_pokemon is not None and num_pokemon != '':
-                return int(num_pokemon) #! é preciso colocar int para converter a string em int
-    
+            #if num_pokemon is not None and num_pokemon != '':
+            try:
+                return int(num_pokemon) 
+            except ValueError:
+                self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
+                
+
     def mostra_status_pokemon(self, pokemon, nome_janela): #! é preciso fazer o usuário retornar pra tela anterior caso selecione cancelar na janela de status
         sg.ChangeLookAndFeel('DarkAmber')
         
@@ -124,8 +128,11 @@ class TelaPokemon(AbstractTela):
             if button == 'Cancelar' or button == None:
                 return None
             
-            if hp is not None and hp != '' and ataque is not None and ataque != '':
+            #if hp is not None and hp != '' and ataque is not None and ataque != '':
+            try:
                 return int(hp), int(ataque)
+            except ValueError:
+                self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
         
     '''def pega_dados_amigo(self):
         sg.ChangeLookAndFeel('DarkTeal4')
@@ -184,5 +191,5 @@ class TelaPokemon(AbstractTela):
 
     sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_amigos)'''
 
-    def mostra_mensagem(self, msg):
-        sg.popup(msg)
+    def mostra_mensagem(self, msg, titulo = ''):
+        sg.popup(msg, title = titulo)
