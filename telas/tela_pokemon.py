@@ -89,7 +89,7 @@ class TelaPokemon(AbstractTela):
         sg.ChangeLookAndFeel('DarkAmber')
         
         layout = [[sg.Text('Pokémon selecionado com seus atributos alterados:', size=(40, 1), font=("Helvetica", 14))],
-                [sg.Text(pokemon.nome, size=(15, 1)), sg.Text(pokemon.nome, size=(25, 1))],
+                [sg.Text('Pokémon:', size=(15, 1)), sg.Text(pokemon.nome, size=(25, 1))],
                 [sg.Text('Número:', size=(15, 1)), sg.Text(pokemon.num, size=(25, 1))],
                 [sg.Text('HP:', size=(15, 1)), sg.Text(pokemon.hp, size=(25, 1))],
                 [sg.Text('Ataque:', size=(15, 1)), sg.Text(pokemon.ataque, size=(25, 1))],
