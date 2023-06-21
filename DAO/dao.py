@@ -28,14 +28,14 @@ class DAO(ABC):
             if(self.__cache[key] != None):
                 self.__cache[key] = obj #atualiza a entrada
                 self.__dump()  #atualiza o arquivo
-        except KeyErrorException as e:
+        except KeyError as e:
             print(e)
             return
 
     def get(self, key):
         try:
             return self.__cache[key]
-        except KeyErrorException as e:
+        except KeyError as e:
             print(e)
             return
 
@@ -44,7 +44,7 @@ class DAO(ABC):
         try:
             self.__cache.pop(key)
             self.__dump() #atualiza o arquivo depois de remover um objeto
-        except KeyErrorException as e:
+        except KeyError as e:
             print(e)
             return
 

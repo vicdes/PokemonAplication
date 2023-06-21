@@ -64,7 +64,7 @@ class TelaAmigo():
   def mostra_amigo(self, dados_amigo):
     string_todos_amigos = ""
     for dado in dados_amigo:
-      string_todos_amigos = string_todos_amigos + "NOME DO AMIGO: " + dado["nome"] + '\n'
+      string_todos_amigos = string_todos_amigos + "NOME DO AMIGão: " + dado["nome"] + '\n'
       string_todos_amigos = string_todos_amigos + "FONE DO AMIGO: " + str(dado["telefone"]) + '\n'
       string_todos_amigos = string_todos_amigos + "CPF DO AMIGO: " + str(dado["cpf"]) + '\n\n'
 
