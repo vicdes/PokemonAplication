@@ -19,12 +19,12 @@ class Treinador:
     def get_pokemons_capturados(self):
         return self.__pokemons_capturados
     
-    def captura_pokemon(self, pokemon):
+    '''def captura_pokemon(self, pokemon):
         if pokemon in self.__pokemons_capturados:
             print(f"Você já capturou o {pokemon.nome} antes!")
         else:
             self.__pokemons_capturados.append(pokemon)
-            print(f"\nParabéns, você capturou o {pokemon.nome}!")
+            print(f"\nParabéns, você capturou o {pokemon.nome}!")'''
 
     def mostrar_pokemons_capturados(self):
         if self.__pokemons_capturados:

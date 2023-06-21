@@ -133,9 +133,9 @@ class TelaTreinador(AbstractTela):
 
     def pega_dados_treinador(self):
         sg.ChangeLookAndFeel('DarkAmber')
-        '''self.titulo2("Cadastrar Treinador")
-        nickname = input("Nickname: ")
-        return {"nickname": nickname, "porcentagem_pokedex": 0.0}'''
+        #self.titulo2("Cadastrar Treinador")
+        #nickname = input("Nickname: ")
+        #return {"nickname": nickname, "porcentagem_pokedex": 0.0}'''
         layout = [
             [sg.Text('Nickname: ', size=(15,1)), sg.InputText('',key='nickname')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
@@ -147,6 +147,30 @@ class TelaTreinador(AbstractTela):
 
         self.close()
         return {"nickname": nickname, "porcentagem_pokedex": 0.0}
+    
+    def seleciona_treinador(self, treinadores):
+        print('tela com comboxo')
+        sg.ChangeLookAndFeel('DarkAmber')
+        lista_treinadores = treinadores
+        layout = [
+            [sg.Text('Nickname: ', size=(15,1)), sg.Combo(lista_treinadores, key='nickname', readonly=True)],
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+        ]
+        self.__window = sg.Window('Seleção de Treinador').Layout(layout)
+
+        while True:
+            button, values = self.open()
+            if button == 'Confirmar' and values['nickname']:
+                nickname = values['nickname']
+                self.close()
+                return nickname
+            elif button == 'Cancelar' or button is None:
+                self.close()
+                return None
+            else:
+                sg.popup("Você deve selecionar um treinador!")
+
+        
     def mostra_treinador(self, dados_treinador):
         """print("Nickname: ", dados_treinador["nickname"])
         print("Porcentagem da pokedéx completa: {:.1f}%".format(dados_treinador["porcentagem_pokedex"]))"""
@@ -155,12 +179,12 @@ class TelaTreinador(AbstractTela):
             string_todos_treinadores = "Não há treinadores cadastrados!"
         else:
             for treinador in dados_treinador:
-                string_todos_treinadores = string_todos_treinadores + "Nickname: " + treinador["nickname"] + '\n'
-                string_todos_treinadores = string_todos_treinadores + "Porcentagem da pokedéx: " + str(treinador["porcentagem_pokedex"]) + '\n'
+                string_todos_treinadores = string_todos_treinadores + "\nNickname: " + treinador["nickname"] + '\n'
+                string_todos_treinadores = string_todos_treinadores + f"Porcentagem da pokedéx: {treinador['porcentagem_pokedex']:.2f}%\n" #botei para duas casas decimais
         sg.Popup('-------- LISTA DE TREINADORES ----------', string_todos_treinadores)
 
 
-    def seleciona_treinador(self):
+    '''    def seleciona_treinador(self):
         """nickname = input("Nickname do treinador que deseja selecionar: ")
         return nickname"""
         layout = [
@@ -173,7 +197,7 @@ class TelaTreinador(AbstractTela):
         nickname = values['nickname']
 
         self.close()
-        return nickname
+        return nickname'''
 
     def seleciona_pokemon_capturado(self):
         # print("\nCódigo do pokémon que deseja selecionar: ")

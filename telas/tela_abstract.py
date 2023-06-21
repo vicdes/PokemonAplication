@@ -24,9 +24,9 @@ class AbstractTela(ABC):
                 print("\nValor incorreto! Tente novamente: ")
                 if ints_validos:
                     print("Valores válidos: ", ints_validos)
-
+    
     def cadastrado_com_sucesso(self):
-        sg.Popup("\n[!] Cadastro realizado com sucesso!")
+        sg.Popup("Cadastro realizado com sucesso!")
 
     def titulo_sistema(self, mensagem):
         tamanho_linha = 60

@@ -3,7 +3,7 @@
     "pokemons": [
         {"nome": "Bulbasaur", "num": 1, "hp": 45, "ataque": 49, "tipo": {"nome": ["Grama"], "fraquezas": ["Fogo"], "vantagens": ["Água"]}},
         {"nome": "Charmander", "num": 4, "hp": 39, "ataque": 52, "tipo": {"nome": ["Fogo"], "fraquezas": ["Água", "Pedra", "Terrestre"], "vantagens": ["Grama", "Inseto"]}},
-        {"nome": "Squirtle", "num": 7, "hp": 44, "ataque": 48, "tipo": {"nome": ["Água"], "fraquezas": ["Grama", "Elétrico"], "vantagens": ["Fogo"]}},
+        {"nome": "Squirtle", "num": 7, "hp": 444, "ataque": 484, "tipo": {"nome": ["Água"], "fraquezas": ["Grama", "Elétrico"], "vantagens": ["Fogo"]}},
         {"nome": "Caterpie", "num": 10, "hp": 45, "ataque": 30, "tipo": {"nome": ["Inseto"], "fraquezas": ["Fogo", "Voador", "Pedra"], "vantagens": ["Grama", "Psíquico", "Sombrio"]}},
         {"nome": "Weedle", "num": 13, "hp": 40, "ataque": 35, "tipo": {"nome": ["Inseto", "Venenoso"], "fraquezas": ["Fogo", "Psíquico", "Voador", "Pedra"], "vantagens": ["Grama", "Psíquico", "Sombrio"]}},
         {"nome": "Pidgey", "num": 16, "hp": 40, "ataque": 45, "tipo": {"nome": ["Normal", "Voador"], "fraquezas": ["Elétrico", "Gelo", "Rocha"], "vantagens": ["Grama", "Lutador", "Inseto"]}},

@@ -236,7 +236,7 @@ class TelaCaptura(AbstractTela):
 
     def mostra_popup(self, msg, titulo=None):
         layout = [[sg.Text(msg)], [sg.Button('OK')]]
-        print('mostra popup') #size(700,70)
+        #print('mostra popup') #size(700,70)
         self.__window = sg.Window(titulo , layout, element_justification='c', auto_size_text=True, text_justification='c', auto_size_buttons=True)
         
         while True:
@@ -259,7 +259,7 @@ class TelaCaptura(AbstractTela):
 
 
     def resultado_batalha_popup(self, msg1, msg2, auto_close_duration = 3):
-        print('dentro de resultado batalha popup')
+        #print('dentro de resultado batalha popup')
         layout = [[sg.Text(msg1)],
                 [sg.Text(msg2)]]
 

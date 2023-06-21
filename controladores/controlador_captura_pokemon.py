@@ -140,7 +140,7 @@ class ControladorCaptura():
                     #self.__tela_captura.mostra_mensagem(f"{pokemon.nome} ataca!")
                     #self.__tela_captura.pokemons_atacando(pokemon.nome, 1)
                     time_ataques.append(pokemon)
-                    pokemon_oponente.hp -= pokemon.ataque
+                    pokemon_oponente.hp -= pokemon.ataque * 10
                     if pokemon_oponente.hp <= 0:
                         break
                     
@@ -212,11 +212,21 @@ class ControladorCaptura():
             chance_captura = random.randint(1,100) #gera um número aleatório entre 1 e 100.
             self.__tela_captura.mostra_popup('Pokebola lançada...', 'Pokebola')
 
-            if chance_captura >= 25:
+            if chance_captura >= 2:
                 treinador.add_pokemon_capturado(pokemon)
+                dao = self.__controlador_sistema.controlador_treinadores.treinador_DAO()
+                
+                print(treinador)
+                dao.update(treinador)
+
                 self.__tela_captura.mostra_popup(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!', "Capturado")
                 info_batalha['resultado_captura'] = "Capturado! "
+
                 self.__controlador_sistema.controlador_treinadores.pega_porcentagem(treinador)
+                
+                #self.__controlador_sistema.controlador_treinadores.__treinador_DAO.update(treinador)
+                #preciso dar dump no arquivo de pokemons capturados
+                #para fazerr isso 
 
             else:
                 self.__tela_captura.mostra_popup(f'Que pena, o {pokemon.nome} escapou...', "Fugiu")

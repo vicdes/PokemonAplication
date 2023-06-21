@@ -34,10 +34,24 @@ class ControladorTreinadores:
         self.__controlador_sistema = controlador_sistema
         self.__treinador_DAO = TreinadorDAO()
     
+    def treinador_DAO(self):
+        return self.__treinador_DAO
+    
+    def nome_treinadores(self):
+        lista_nomes = []
+        for treinador in self.__treinador_DAO.get_all():
+            lista_nomes.append(treinador.nickname)
+        print(f'\n\n\n{lista_nomes}\n\n\n')
+        return lista_nomes
+    
     def verifica_treinador(self): #vê se o nome do treinador é existente na lista de treinadores
         #while True:
         try: #checa se o nome do treinador digitado existe na lista de treinadores
-            nickname = self.__tela_treinador.seleciona_treinador()
+            print('dentro do try')
+
+            lista_nomes = self.nome_treinadores()
+            nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+            
             #if nickname == '0':
               # break
             treinador = self.pega_treinador_por_nickname(nickname)
@@ -60,8 +74,11 @@ class ControladorTreinadores:
             total_pokemons = len(self.__controlador_sistema.controlador_pokemon.lista_pokemons)
             porcentagem = total_pokemons_capturados*100/total_pokemons
             treinador.porcentagem_pokedex = porcentagem
+            # atualiza o treinador no DAO
+            self.__treinador_DAO.update(treinador)
         else:
             return
+
 
     def lista_treinadores(self):
         dados_treinador = []
@@ -69,13 +86,6 @@ class ControladorTreinadores:
             dados_treinador.append({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
         self.__tela_treinador.mostra_treinador(dados_treinador)
 
-    #! importantíssimo!
-    def nome_treinadores(self): #isso retorna uma lista com os nomes dos treinadores
-        lista_nomes = []
-        for treinador in self.__treinadores:
-            lista_nomes.append(treinador.nickname)
-        return lista_nomes
-    
     def add_treinador(self):
         dados_treinador = self.__tela_treinador.pega_dados_treinador()
         nickname = dados_treinador["nickname"]
@@ -90,20 +100,22 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
             return
         self.__controlador_sistema.controlador_captura.captura_pokemon_inicial(nickname)
+        self.__treinador_DAO.update(treinador)
         self.__tela_treinador.cadastrado_com_sucesso()
 
     def del_treinador(self):
         self.lista_treinadores()
-        if len(self.__treinadores) > 0:
+        if len(self.__treinador_DAO.get_all()) > 0:
             treinador = self.verifica_treinador()
             if treinador is not None:
-                self.__treinador_DAO.remove(treinador)
-                self.__tela_treinador.mostra_mensagem("\n[!] Treinador deletado!")
+                self.__treinador_DAO.remove(treinador.nickname)
+                self.__tela_treinador.mostra_mensagem("Treinador deletado!")
                 self.lista_treinadores()
 
     def listar_pokemons_capturados(self, nickname=None):
         if nickname is None:
-            nickname = self.__tela_treinador.seleciona_treinador()
+            lista_nomes = self.nome_treinadores()
+            nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
         treinador = self.pega_treinador_por_nickname(nickname)
         pokemons_str = ""
         try:
@@ -117,8 +129,9 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
     
     def mostrar_time(self, nickname=None):
+        lista_nomes = self.nome_treinadores()
         if nickname is None:
-            nickname = self.__tela_treinador.seleciona_treinador()
+            nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
         treinador = self.pega_treinador_por_nickname(nickname)
         pokemons_str = ""
         try:
@@ -144,7 +157,9 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
 
     def add_time(self):
-        nickname = self.__tela_treinador.seleciona_treinador()
+        lista_nomes = self.nome_treinadores()
+        nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
@@ -188,7 +203,7 @@ class ControladorTreinadores:
                     break
                 continuar = self.__tela_treinador.cadastrar_outro_pokemon()
         else:
-            self.__tela_treinador.mostra_mensagem("\n[!] Já existe um time cadastrado para esse treinador!")
+            self.__tela_treinador.mostra_mensagem("Já existe um time cadastrado para esse treinador!")
 
     def existe_na_pokedex(self, codigo):
         flag = False
@@ -204,7 +219,10 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
 
     def del_time(self):
-        nickname = self.__tela_treinador.seleciona_treinador()
+
+        lista_nomes = self.nome_treinadores()
+        nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
@@ -225,7 +243,10 @@ class ControladorTreinadores:
             return
 
     def alterar_time(self):
-        nickname = self.__tela_treinador.seleciona_treinador()
+
+        lista_nomes = self.nome_treinadores()
+        nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:

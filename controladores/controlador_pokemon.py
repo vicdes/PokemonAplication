@@ -26,7 +26,7 @@ class ControladorPokemon():
             if pokemon is None:
                 return
             ControladorPokemon.lista_pokemons.remove(pokemon)
-            self.__tela_pokemon.mostra_mensagem(f"\n[!] O pokemon {pokemon.nome} foi removido do jogo com sucesso.", 'Exclusão')
+            self.__tela_pokemon.mostra_mensagem(f"O pokemon {pokemon.nome} foi removido do jogo com sucesso.", 'Exclusão')
         
         except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e, 'Exception')
