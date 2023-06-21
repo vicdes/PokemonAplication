@@ -1,5 +1,5 @@
-from DAOs.dao import DAO
-from entidade.treinador import Treinador
+from DAO.dao import DAO
+from entidades.treinador import Treinador
 
 #cada entidade terá uma classe dessa, implementação bem simples.
 class TreinadorDAO(DAO):
