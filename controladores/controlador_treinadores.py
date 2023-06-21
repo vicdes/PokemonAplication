@@ -41,13 +41,13 @@ class ControladorTreinadores:
         lista_nomes = []
         for treinador in self.__treinador_DAO.get_all():
             lista_nomes.append(treinador.nickname)
-        print(f'\n\n\n{lista_nomes}\n\n\n')
+        #print(f'\n\n\n{lista_nomes}\n\n\n')
         return lista_nomes
     
     def verifica_treinador(self): #vê se o nome do treinador é existente na lista de treinadores
         #while True:
         try: #checa se o nome do treinador digitado existe na lista de treinadores
-            print('dentro do try')
+            #print('dentro do try')
 
             lista_nomes = self.nome_treinadores()
             nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)

@@ -216,7 +216,7 @@ class ControladorCaptura():
                 treinador.add_pokemon_capturado(pokemon)
                 dao = self.__controlador_sistema.controlador_treinadores.treinador_DAO()
                 
-                print(treinador)
+                #print(treinador)
                 dao.update(treinador)
 
                 self.__tela_captura.mostra_popup(f'Você tirou {chance_captura} e conseguiu capturar {pokemon.nome}! Parabéns!!!', "Capturado")

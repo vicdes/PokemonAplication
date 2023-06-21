@@ -149,7 +149,7 @@ class TelaTreinador(AbstractTela):
         return {"nickname": nickname, "porcentagem_pokedex": 0.0}
     
     def seleciona_treinador(self, treinadores):
-        print('tela com comboxo')
+        #print('tela com comboxo')
         sg.ChangeLookAndFeel('DarkAmber')
         lista_treinadores = treinadores
         layout = [

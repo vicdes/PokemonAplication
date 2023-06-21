@@ -26,13 +26,13 @@ class Treinador:
             self.__pokemons_capturados.append(pokemon)
             print(f"\nParabéns, você capturou o {pokemon.nome}!")'''
 
-    def mostrar_pokemons_capturados(self):
+    '''    def mostrar_pokemons_capturados(self):
         if self.__pokemons_capturados:
-            print("Pokémons capturados:")
+            #print("Pokémons capturados:")
             for pokemon in self.__pokemons_capturados:
-                print(pokemon.nome)
+                #print(pokemon.nome)
         else:
-            print("Nenhum Pokémon foi capturado ainda.")
+            #print("Nenhum Pokémon foi capturado ainda.")'''
 
     @property
     def hp_time(self):
