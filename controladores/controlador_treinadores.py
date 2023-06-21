@@ -13,25 +13,26 @@ from entidades.time import Time
 class ControladorTreinadores:
     def __init__(self, controlador_sistema):
         #deixamos o treinador Ash temporário pra fazer testes mais rapidamente.
-        self.__treinadores = [Treinador(
-            "Ash",
-            6.98,
-            [
-                Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
-                Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
-                Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
-                Pokemon("Caterpie", 10, 45, 3, [TipoPokemon("Inseto")])
-            ],
-            Time([
-                Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
-                Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
-                Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
-            ])
-        )
-    ]
+    #     self.__treinadores = [Treinador(
+    #         "Ash",
+    #         6.98,
+    #         [
+    #             Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+    #             Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+    #             Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+    #             Pokemon("Caterpie", 10, 45, 3, [TipoPokemon("Inseto")])
+    #         ],
+    #         Time([
+    #             Pokemon("Pikachu", 25, 35, 55, [TipoPokemon("Elétrico")]),
+    #             Pokemon("Charmander", 4, 39, 52, [TipoPokemon("Fogo")]),
+    #             Pokemon("Pidgey", 16, 40, 45, [TipoPokemon("Normal"), TipoPokemon("Voador")]),
+    #         ])
+    #     )
+    # ]
             #(Treinador("Ash", 0.0, [Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)], Time([Pokemon("Pikachu", 25, 35, 55), Pokemon("Charmander", 4, 39, 52), Pokemon("Pidgey", 16, 40, 45)])))]
         self.__tela_treinador = TelaTreinador()
         self.__controlador_sistema = controlador_sistema
+        self.__treinador_DAO = TreinadorDAO()
     
     def verifica_treinador(self): #vê se o nome do treinador é existente na lista de treinadores
         #while True:
@@ -48,7 +49,7 @@ class ControladorTreinadores:
             self.__tela_treinador.mostra_mensagem(e)
 
     def pega_treinador_por_nickname(self, nickname: str):
-        for treinador in self.__treinadores:
+        for treinador in self.__treinador_DAO.get_all():
             if treinador.nickname == nickname:
                 return treinador
         return None
@@ -64,7 +65,7 @@ class ControladorTreinadores:
 
     def lista_treinadores(self):
         dados_treinador = []
-        for treinador in self.__treinadores:
+        for treinador in self.__treinador_DAO.get_all():
             dados_treinador.append({"nickname": treinador.nickname, "porcentagem_pokedex": treinador.porcentagem_pokedex})
         self.__tela_treinador.mostra_treinador(dados_treinador)
 
@@ -75,7 +76,7 @@ class ControladorTreinadores:
         try:
             if treinador == None:
                 treinador = Treinador(dados_treinador["nickname"], dados_treinador["porcentagem_pokedex"])
-                self.__treinadores.append(treinador)
+                self.__treinadores.treinador_DAO.add(treinador)
             else:
                 raise NicknameRepetidoException(nickname)
         except NicknameRepetidoException as e:
@@ -89,7 +90,7 @@ class ControladorTreinadores:
         if len(self.__treinadores) > 0:
             treinador = self.verifica_treinador()
             if treinador is not None:
-                self.__treinadores.remove(treinador)
+                self.__treinadores.treinador_DAO.remove(treinador)
                 self.__tela_treinador.mostra_mensagem("\n[!] Treinador deletado!")
                 self.lista_treinadores()
 
@@ -173,6 +174,7 @@ class ControladorTreinadores:
                 except PokemonInexistenteException as e:
                     self.__tela_treinador.mostra_mensagem(e)
                 treinador.time.lista_pokemons.append(pokemon_novo)
+                self.__treinador_DAO.update(treinador)
                 self.__tela_treinador.cadastrado_com_sucesso()
 
                 if len(treinador.time.lista_pokemons) == 3:
@@ -202,6 +204,7 @@ class ControladorTreinadores:
                 try:
                     if treinador.time is not None:
                         treinador.del_time()
+                        self.__treinador_DAO.update(treinador)
                         self.__tela_treinador.mostra_mensagem("Time deletado!")
                         return
                     else:
@@ -252,9 +255,11 @@ class ControladorTreinadores:
                                                     self.__tela_treinador.mostra_mensagem(e)
                                                     return
                                             treinador.time.lista_pokemons.append(pokemon_novo)
+                                            self.__treinador_DAO.update(treinador)
                                             self.mostrar_time(nickname)
                                         elif len(treinador.time.lista_pokemons) < 3:
                                             treinador.time.lista_pokemons.append(pokemon_novo)
+                                            self.__treinador_DAO.update(treinador)
                                             self.mostrar_time(nickname)
                                         else:
                                             self.__tela_treinador.mostra_mensagem("[!] O time já está cheio!")
@@ -274,6 +279,7 @@ class ControladorTreinadores:
                                     for pokemon in treinador.time.lista_pokemons:
                                         if codigo_pokemon_antigo == pokemon.num:
                                             treinador.time.lista_pokemons.remove(pokemon)
+                                            self.__treinador_DAO.update(treinador)
                                             flag = True
                                     try:
                                         if flag == True:
@@ -326,6 +332,7 @@ class ControladorTreinadores:
                                                     if pokemon.num == pokemon_antigo.num:
                                                         treinador.time.lista_pokemons.remove(pokemon)
                                                         treinador.time.lista_pokemons.append(pokemon_novo)
+                                                        self.__treinador_DAO.update(treinador)
                                                         self.mostrar_time(nickname)
                                                         break
 
