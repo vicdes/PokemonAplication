@@ -46,10 +46,10 @@ class TelaCaptura(AbstractTela):
         layout = [
             [sg.Text('-------- Captura Pokémon ----------', font=("Helvica", 25))],
             [sg.Text('Escolha sua opção', font=("Helvica", 15))],
-            [sg.Radio('Procurar pokémon', "RD1", key='1')],
-            [sg.Radio('Log Geral', "RD1", key='2')],
-            [sg.Radio('Log Treinador', "RD1", key='3')],
-            [sg.Radio('Ranking', "RD1", key='4')],
+            [sg.Radio('Procurar pokémon FUNCIONANDO', "RD1", key='1')],
+            [sg.Radio('Log Geral NÃO FUNCIONANDO', "RD1", key='2')],
+            [sg.Radio('Log Treinador FUNCIONANDO', "RD1", key='3')],
+            [sg.Radio('Ranking SÓ TERMINAL', "RD1", key='4')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]

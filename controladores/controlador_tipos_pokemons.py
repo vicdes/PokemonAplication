@@ -35,7 +35,7 @@ class ControladorTiposPokemons:
             # passamos a lista completa para mostra_tipo_pokemon()
             self.__tela_tipo_pokemon.mostra_tipo_pokemon(lista_tipos)
         else:
-            self.__tela_tipo_pokemon.mostra_mensagem("\n[!] Não há tipos cadastrados.")
+            self.__tela_tipo_pokemon.mostra_mensagem("Não há tipos cadastrados.",'Lista Vazia')
 
 
     def pega_tipo_por_nome(self):
@@ -56,11 +56,16 @@ class ControladorTiposPokemons:
     def del_tipo(self):
         #self.lista_tipos()
         if len(self.__tipos) == 0:
-            self.__tela_tipo_pokemon.mostra_mensagem("\n[!] Não há tipos cadastrados.")
+            self.__tela_tipo_pokemon.mostra_mensagem("Não há tipos cadastrados.", 'Lista Vazia')
             return
         
         nome_tipo = self.__tela_tipo_pokemon.seleciona_tipo_pokemon()
 
+        if nome_tipo is None or nome_tipo is "":
+            #self.__tela_tipo_pokemon.mostra_mensagem('Por favor, digite algo válido!', 'Valor Nulo')
+            self.__tela_tipo_pokemon.mostra_mensagem('Um tipo não pode ser VAZIO', 'Valor Inválido')
+            return
+        
         tipos_encontrados = []
         for tipo in self.__tipos:
             if tipo.nome == nome_tipo:
@@ -69,7 +74,7 @@ class ControladorTiposPokemons:
         try:
             if tipos_encontrados:
                 for tipo in tipos_encontrados:
-                    self.__tela_tipo_pokemon.mostra_mensagem(f'\n[!] {tipo.nome} removido da lista de Tipos.')
+                    self.__tela_tipo_pokemon.mostra_mensagem(f'{tipo.nome} removido da lista de Tipos.', 'Exclusão')
                     self.__tipos.remove(tipo)
 
                 #self.lista_tipos()
@@ -78,7 +83,7 @@ class ControladorTiposPokemons:
                 raise TipoInexistenteException(nome_tipo)
             
         except TipoInexistenteException as e:
-            self.__tela_tipo_pokemon.mostra_mensagem(e)
+            self.__tela_tipo_pokemon.mostra_mensagem(e, 'Exception')
 
     def retornar(self):
         self.__controlador_sistema.abre_tela()
