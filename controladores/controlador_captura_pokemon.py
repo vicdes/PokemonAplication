@@ -3,13 +3,15 @@
 
 from telas.tela_captura_pokemon import TelaCaptura
 from entidades.captura_pokemon import CapturaPokemon
+from DAO.captura_dao import CapturaDAO
 
 from exceptions.pokemon_inexistente_exception import PokemonInexistenteException
 from exceptions.nickname_nao_encontrado_exception import NicknameNaoEncontradoException
 import random
 
 class ControladorCaptura():
-    capturas = []
+    #capturas = []
+    captura_DAO = CapturaDAO()
     logs_treinadores = {}
 
     def __init__(self, controlador_sistema):   #! posteriomente recebe controlador_sistema
@@ -224,7 +226,7 @@ class ControladorCaptura():
         self.add_captura(info_batalha)
 
     def add_captura(self, info_batalha):
-        self.capturas.append(info_batalha)
+        self.captura_DAO.add(info_batalha)
         treinador = info_batalha['treinador']
         if treinador not in self.logs_treinadores:
             self.logs_treinadores[treinador] = []
@@ -232,12 +234,12 @@ class ControladorCaptura():
         self.__tela_captura.mostra_popup("Um novo registro foi adicionado com sucesso nos logs!", "Registro")
     
     def log_capturas(self):
-        if len(self.capturas) == 0:
+        if len(self.captura_DAO) == 0:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Registro de Capturas Gerais:")
             dados_captura = []
-            for captura in self.capturas:
+            for captura in self.captura_DAO:
                 '''self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
                 self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
