@@ -14,10 +14,10 @@ class TreinadorDAO(DAO):
         if((treinador is not None) and isinstance(treinador, Treinador) and isinstance(treinador.nickname, str)):
             super().update(treinador.nickname, treinador)
 
-    def get(self, key:int):
-        if isinstance(key, int):
+    def get(self, key:str):
+        if isinstance(key, str):
             return super().get(key)
 
-    def remove(self, key:int):
-        if(isinstance(key, int)):
+    def remove(self, key:str):
+        if(isinstance(key, str)):
             return super().remove(key)
