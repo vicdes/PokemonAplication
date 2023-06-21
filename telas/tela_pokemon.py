@@ -133,26 +133,6 @@ class TelaPokemon(AbstractTela):
                 return int(hp), int(ataque)
             except ValueError:
                 self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
-        
-    '''def pega_dados_amigo(self):
-        sg.ChangeLookAndFeel('DarkTeal4')
-        layout = [
-        [sg.Text('-------- DADOS AMIGO ----------', font=("Helvica", 25))],
-        [sg.Text('Nome:', size=(15, 1)), sg.InputText('', key='nome')],
-        [sg.Text('Telefone:', size=(15, 1)), sg.InputText('', key='telefone')],
-        [sg.Text('CPF:', size=(15, 1)), sg.InputText('', key='cpf')],
-        [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
-        ]
-        self.__window = sg.Window('Sistema de livros').Layout(layout)
-
-        button, values = self.open()
-        nome = values['nome']
-        telefone = values['telefone']
-        cpf = values['cpf']
-
-        self.close()
-        return {"nome": nome, "telefone": telefone, "cpf": cpf}'''
-
 
     def mostrar_pokemons(self, lista): # recebe a lista nomes e nums vindas do controlador de pokemons
         if len(lista) == 0:
@@ -174,22 +154,3 @@ class TelaPokemon(AbstractTela):
                     break
             janela.close()
 
-
-
-
-            '''print(f"\nOs pokémons disponíveis são: ")
-            for i, (nome, num) in enumerate(lista):
-                print(f"- {nome} #{num}")
-            print(f'\nTotal -> {len(lista)} pokémons.')'''
-    
-    '''def mostra_amigo(self, dados_amigo):
-    string_todos_amigos = ""
-    for dado in dados_amigo:
-      string_todos_amigos = string_todos_amigos + "NOME DO AMIGão: " + dado["nome"] + '\n'
-      string_todos_amigos = string_todos_amigos + "FONE DO AMIGO: " + str(dado["telefone"]) + '\n'
-      string_todos_amigos = string_todos_amigos + "CPF DO AMIGO: " + str(dado["cpf"]) + '\n\n'
-
-    sg.Popup('-------- LISTA DE AMIGOS ----------', string_todos_amigos)'''
-
-    def mostra_mensagem(self, msg, titulo = ''):
-        sg.popup(msg, title = titulo)

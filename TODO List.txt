@@ -1,11 +1,26 @@
 
 
 
+Adicionei na tela abstrata a função:
+
+    def mostra_mensagem(self, msg, titulo = ''):
+        sg.popup(msg, title = titulo)
+
+    Ela faz um popup, e na hora de chamar ela no controlador da pra dar um título para ela. fica mais bonitinho
+
+
 DAO Treinador
     A principio está salvando corretamente os treinadores e seus pokémons capturados
 
+
 TelaTreinador
-    Falta tratar alguns casos específicos como se a pessoa quiser voltar para tela anterior ou clicar no X de fechar a janela
+    Tem q trocar a parte de selecionar pokemon inicial para uma interface, talvez seja interessante usar 
+    a mesma lógica dos radio buttons.
+    
+    Falta tratar alguns casos específicos como se a pessoa quiser voltar para tela anterior ou clicar no X de fechar a janela.
+    Atualmente se ela faz alguma dessas opções, a tela interpreta como se estivesse retornando None para o controlador, aí aparece algo tipo:
+    'Não existe treinador com o nome: '
+
 
 TelaCaptura
     Log geral não funcionando ainda

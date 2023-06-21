@@ -257,6 +257,15 @@ class TelaCaptura(AbstractTela):
         event, values = self.open()
         self.close()
 
+    def titulor(self, message, auto_close_duration = 1): #TENTAR COLCOAR ISSO NA CLASSE ABSTRATA PARA USAR NO RESTO DO CODIGO
+        print('função titlo')
+
+        layout = [[sg.Text(message, font = (('Fixedsys'), 24))]]
+
+        self.__window = sg.Window('Batalha', layout, auto_close=True, auto_close_duration=auto_close_duration, element_justification='center', text_justification='center', size=(500, 60))
+
+        event, values = self.open()
+        self.close()
 
     def resultado_batalha_popup(self, msg1, msg2, auto_close_duration = 3):
         #print('dentro de resultado batalha popup')
@@ -271,9 +280,9 @@ class TelaCaptura(AbstractTela):
         self.close()
 
 
-    def mostra_mensagem(self, msg):
+    '''    def mostra_mensagem(self, msg):
         print('',msg)
-
+'''
 
     def close(self):
         self.__window.Close()

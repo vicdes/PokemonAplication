@@ -60,7 +60,7 @@ class ControladorCaptura():
         capturado = False
         rodada = 0
 
-        self.__tela_captura.titulo('Batalha Pokémon')
+        self.__tela_captura.titulor('Batalha Pokémon')
 
         pokemon_oponente = self.escolher_pokemon_aleatorio()
         num = pokemon_oponente.num

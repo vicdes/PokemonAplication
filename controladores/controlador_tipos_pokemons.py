@@ -1,6 +1,7 @@
 from telas.tela_tipos_pokemons import TelaTiposPokemons
 from entidades.tipo_pokemon import TipoPokemon
 from exceptions.tipo_inexistente_exception import TipoInexistenteException
+from exceptions.tipo_repetido_exception import TipoRepetidoExcpetion
 
 class ControladorTiposPokemons:
     def __init__(self, controlador_sistema):
@@ -12,8 +13,22 @@ class ControladorTiposPokemons:
         dados_tipo = self.__tela_tipo_pokemon.pega_dados_tipo_pokemon()
         if dados_tipo is None or dados_tipo == "":
             return
+        
+        nome_tipo = dados_tipo["nome"]
+        
+        try:
+            for tipo in self.__tipos:
+                if tipo.nome == nome_tipo:
+                    raise TipoRepetidoExcpetion(nome_tipo)
+                    
+        except TipoRepetidoExcpetion as e:
+            self.__tela_tipo_pokemon.mostra_mensagem(e, 'Exception')
+            return
+
+        # Se o nome do tipo não existir na lista, podemos adicionar o novo tipo
         tipo_pokemon = TipoPokemon(dados_tipo["nome"], dados_tipo["vantagens"], dados_tipo["fraquezas"])
         self.__tipos.append(tipo_pokemon)
+
 
     def lista_tipos(self):
         if len(self.__tipos) > 0:
