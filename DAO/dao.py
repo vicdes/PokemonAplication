@@ -24,6 +24,7 @@ class DAO(ABC):
         self.__cache[key] = obj
         self.__dump()  #atualiza o arquivo depois de add novo amigo
         print('ADICIONOU DAO')
+        
     #cuidado: esse update só funciona se o objeto com essa chave já existe
     def update(self, key, obj):
         try:
@@ -37,6 +38,7 @@ class DAO(ABC):
 
     def get(self, key):
         try:
+            print('GETOU DAO')
             return self.__cache[key]
         except KeyError as e:
             print(e)
