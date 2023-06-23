@@ -123,7 +123,6 @@ class TelaTreinador(AbstractTela):
         self.__window = sg.Window('Treinador').Layout(layout)
 
         button, values = self.open()
-        print(button)
         if button is not None and button == 'Confirmar':
             continuar = True
         else:
@@ -209,6 +208,7 @@ class TelaTreinador(AbstractTela):
         # print("\nCódigo do pokémon que deseja selecionar: ")
         # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         # return codigo
+        while True:
             sg.ChangeLookAndFeel('DarkAmber')
 
             layout = [
@@ -256,10 +256,6 @@ class TelaTreinador(AbstractTela):
                 return int(num_pokemon)
             except ValueError:
                 self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
-
-    def mostra_mensagem(self, msg):
-        #print(msg)
-        sg.Popup('', msg)
 
 
 

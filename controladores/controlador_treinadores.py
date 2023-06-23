@@ -187,6 +187,9 @@ class ControladorTreinadores:
             pokemon_novo = None
             continuar = True
             while continuar == True:
+                if len(treinador.time.lista_pokemons) == len(treinador.pokemons_capturados):
+                    self.__tela_treinador.mostra_mensagem("[!] Todos os seus pokémons capturados já estão no time.")
+                    return
                 codigo_pokemon = self.__tela_treinador.seleciona_pokemon_capturado()
                 if codigo_pokemon is None:
                     return
