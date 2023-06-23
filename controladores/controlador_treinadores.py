@@ -81,7 +81,6 @@ class ControladorTreinadores:
         else:
             return
 
-
     def lista_treinadores(self):
         dados_treinador = []
         for treinador in self.__treinador_DAO.get_all():
