@@ -131,7 +131,7 @@ class TelaTreinador(AbstractTela):
         self.close()
         return continuar
 
-    def pega_dados_treinador(self):
+    def cria_nickname_treinador(self):
         sg.ChangeLookAndFeel('DarkAmber')
         #self.titulo2("Cadastrar Treinador")
         #nickname = input("Nickname: ")
@@ -142,12 +142,17 @@ class TelaTreinador(AbstractTela):
         ]
         self.__window = sg.Window('Treinador').Layout(layout)
 
-        button, values = self.open()
-
-        nickname = values['nickname']
-
-        self.close()
-        return {"nickname": nickname, "porcentagem_pokedex": 0.0}
+        while True:
+            button, values = self.open()
+            if button == 'Confirmar' and values['nickname']:
+                nickname = values['nickname']
+                self.close()
+                return nickname
+            elif button == 'Cancelar' or button is None:
+                self.close()
+                return None
+            else:
+                sg.popup("Você deve digitar algo!")
     
     def seleciona_treinador(self, treinadores):
         #print('tela com comboxo')

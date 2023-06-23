@@ -51,7 +51,9 @@ class ControladorTreinadores:
 
             lista_nomes = self.nome_treinadores()
             nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
-            
+
+            if nickname is None:
+                return
             #if nickname == '0':
               # break
             treinador = self.pega_treinador_por_nickname(nickname)
@@ -87,12 +89,17 @@ class ControladorTreinadores:
         self.__tela_treinador.mostra_treinador(dados_treinador)
 
     def add_treinador(self):
-        dados_treinador = self.__tela_treinador.pega_dados_treinador()
-        nickname = dados_treinador["nickname"]
+        # dados_treinador = self.__tela_treinador.pega_dados_treinador()
+        # nickname = dados_treinador["nickname"]
+        lista_nomes = self.nome_treinadores()
+        nickname = self.__tela_treinador.cria_nickname_treinador()
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador == None:
-                treinador = Treinador(dados_treinador["nickname"], dados_treinador["porcentagem_pokedex"])
+                # treinador = Treinador(dados_treinador["nickname"], dados_treinador["porcentagem_pokedex"])
+                treinador = Treinador(nickname, 0.0)
                 self.__treinador_DAO.add(treinador)
             else:
                 raise NicknameRepetidoException(nickname)
@@ -116,6 +123,8 @@ class ControladorTreinadores:
         if nickname is None:
             lista_nomes = self.nome_treinadores()
             nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         pokemons_str = ""
         try:
@@ -132,6 +141,8 @@ class ControladorTreinadores:
         lista_nomes = self.nome_treinadores()
         if nickname is None:
             nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         pokemons_str = ""
         try:
@@ -160,6 +171,8 @@ class ControladorTreinadores:
         lista_nomes = self.nome_treinadores()
         nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
 
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
@@ -175,6 +188,8 @@ class ControladorTreinadores:
             continuar = True
             while continuar == True:
                 codigo_pokemon = self.__tela_treinador.seleciona_pokemon_capturado()
+                if codigo_pokemon is None:
+                    return
                 codigo = self.existe_na_pokedex(codigo_pokemon)
                 if codigo_pokemon != codigo:
                     return
@@ -223,11 +238,13 @@ class ControladorTreinadores:
         lista_nomes = self.nome_treinadores()
         nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
 
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
                 try:
-                    if treinador.time is not None:
+                    if treinador.time is not None and len(treinador.time.lista_pokemons) > 0:
                         treinador.del_time()
                         self.__treinador_DAO.update(treinador)
                         self.__tela_treinador.mostra_mensagem("Time deletado!")
@@ -246,7 +263,8 @@ class ControladorTreinadores:
 
         lista_nomes = self.nome_treinadores()
         nickname = self.__tela_treinador.seleciona_treinador(lista_nomes)
-
+        if nickname is None:
+            return
         treinador = self.pega_treinador_por_nickname(nickname)
         try:
             if treinador is not None:
@@ -269,6 +287,8 @@ class ControladorTreinadores:
                     while continuar == True:
                         if len(treinador.time.lista_pokemons) < 3:
                             codigo_pokemon_novo = self.__tela_treinador.seleciona_pokemon_capturado()
+                            if codigo_pokemon_novo is None:
+                                return
                             for pokemon in treinador.pokemons_capturados:
                                 if codigo_pokemon_novo == pokemon.num:
                                     pokemon_novo = pokemon
@@ -301,7 +321,9 @@ class ControladorTreinadores:
                         self.__tela_treinador.mostra_mensagem("[!] Você só tem 1 pokémon no time, seu time não pode ficar vazio.")
                         return
                     while continuar == True:
-                        codigo_pokemon_antigo = self.__tela_treinador.seleciona_pokemon_capturado()
+                        codigo_pokemon_antigo = self.__tela_treinador.seleciona_pokemon_do_time()
+                        if codigo_pokemon_antigo is None:
+                            return
                         flag = False
                         if len(treinador.time.lista_pokemons) > 0:
                             for pokemon in treinador.time.lista_pokemons:
@@ -335,6 +357,10 @@ class ControladorTreinadores:
                             while continuar == True:
                                 codigo_pokemon_antigo = self.__tela_treinador.seleciona_pokemon_do_time()
                                 codigo_pokemon_novo = self.__tela_treinador.seleciona_pokemon_capturado()
+                                if codigo_pokemon_antigo is None:
+                                    return
+                                if codigo_pokemon_novo is None:
+                                    return
                                 for pokemon in treinador.time.lista_pokemons:
                                     if codigo_pokemon_antigo == pokemon.num:
                                         pokemon_antigo = pokemon
