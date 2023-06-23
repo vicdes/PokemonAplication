@@ -90,7 +90,6 @@ class ControladorTreinadores:
     def add_treinador(self):
         # dados_treinador = self.__tela_treinador.pega_dados_treinador()
         # nickname = dados_treinador["nickname"]
-        lista_nomes = self.nome_treinadores()
         nickname = self.__tela_treinador.cria_nickname_treinador()
         if nickname is None:
             return
