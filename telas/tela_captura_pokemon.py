@@ -120,6 +120,7 @@ class TelaCaptura(AbstractTela):
             layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado['pokemon_oponente'])])
             layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado['resultado_batalha'])])
             layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado['resultado_captura'])])
+
             layout.append([sg.Text('-' * 40)])
 
         layout.append([sg.Button('Voltar')])
@@ -151,6 +152,32 @@ class TelaCaptura(AbstractTela):
         layout.append([sg.Button('Voltar')])
 
         window = sg.Window(f'Log Geral', layout, modal=True, auto_size_text= True) #largura x altura
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Voltar':
+                break
+        window.close()
+
+
+    def mostra_ranking(self, ranking): #cria a interface de ranking
+        layout = [[sg.Text('Ranking de Treinadores com mais Capturas:')]]
+        layout.append([sg.Text('-' * 40)])
+
+        for i, (treinador, capturas) in enumerate(ranking, start=1):
+            total_batalhas = len(capturas)
+            soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
+            taxa_de_vitoria = float(soma_capturas_com_sucesso/total_batalhas) * 100
+
+            layout.append([sg.Text(f'{i}. Treinador: ', size=(20, 1)), sg.Text(treinador)])
+            layout.append([sg.Text('Total de Batalhas: ', size=(20, 1)), sg.Text(total_batalhas)])
+            layout.append([sg.Text('Total de Capturas: ', size=(20, 1)), sg.Text(soma_capturas_com_sucesso)])
+            layout.append([sg.Text('Taxa de Vitória: ', size=(20, 1)), sg.Text(f'{taxa_de_vitoria:.1f}%')])
+
+            layout.append([sg.Text('-' * 40)])
+
+        layout.append([sg.Button('Voltar')])
+
+        window = sg.Window(f'Ranking de Treinadores', layout, modal=True, auto_size_text= True) #largura x altura
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == 'Voltar':

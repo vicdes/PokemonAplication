@@ -278,6 +278,7 @@ class ControladorCaptura():
             #print(capturas_gerais)
             self.__tela_captura.log_geral(capturas_gerais)
 
+    
     def log_treinador(self, nickname=None): #aqui é o log de um treinador em específico.
         if nickname is None:
             nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
@@ -302,7 +303,8 @@ class ControladorCaptura():
 
             self.__tela_captura.log_treinador(nickname, dado_treinador)
 
-    def ranking_treinadores(self):
+
+    '''    def ranking_treinadores(self):
         if not self.logs_treinadores:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
@@ -314,8 +316,30 @@ class ControladorCaptura():
                 soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
                 self.__tela_captura.mostra_mensagem(f"   Total de Capturas: {soma_capturas_com_sucesso}")
                 taxa_de_vitória = float(soma_capturas_com_sucesso/len(capturas)) * 100
-                self.__tela_captura.mostra_mensagem(f"   Taxa de Vitória: {taxa_de_vitória:.1f}%")
+                self.__tela_captura.mostra_mensagem(f"   Taxa de Vitória: {taxa_de_vitória:.1f}%")'''
     
+    def ranking_treinadores(self):
+        dados_captura = self.captura_DAO.get_all()
+
+        if not dados_captura:
+            self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
+        else:
+            self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
+
+            logs_treinadores = {}
+
+            for captura in dados_captura:
+                if captura.treinador not in logs_treinadores:
+                    logs_treinadores[captura.treinador] = []
+
+                logs_treinadores[captura.treinador].append({
+                    'resultado_captura': captura.resultado_captura
+                })
+
+            ranking = sorted(logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
+
+        self.__tela_captura.mostra_ranking(ranking)
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
