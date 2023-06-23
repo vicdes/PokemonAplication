@@ -107,25 +107,77 @@ class TelaCaptura(AbstractTela):
 
 
     def log_treinador(self, nickname, dado_treinador):
-
-        nome_treinador = str(nickname) # usando apenas para o título da janela
+        nome_treinador = str(nickname)  # usando apenas para o título da janela
         dados = dado_treinador
-        
+
         sg.change_look_and_feel('DarkAmber')
 
-        layout = [[sg.Text(f'Log Treinador - {nome_treinador}', font = ("Helvica"))]]
+        layout = [[sg.Text(f'Log Treinador - {nome_treinador}')]]
         layout.append([sg.Text('-' * 40)])
+        
         for dado in dados:
-            #layout.append([sg.Text('Treinador: ', size=(15, 1)), sg.Text(dado['treinador'])])
             layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado['pokemons_time'])])
             layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado['pokemon_oponente'])])
             layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado['resultado_batalha'])])
             layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado['resultado_captura'])])
+
             layout.append([sg.Text('-' * 40)])
 
         layout.append([sg.Button('Voltar')])
 
-        window = sg.Window(f'Log Treinador', layout, modal=True, auto_size_text= True) #largura x altura
+        window = sg.Window(f'Log Treinador', layout, modal=True, auto_size_text=True)  # largura x altura
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Voltar':
+                break
+        window.close()
+
+
+    def log_geral(self, info_log): #! falta fazer isso
+        dados = info_log
+
+        print(info_log)
+        layout = [[sg.Text('Log Geral')]]
+        layout.append([sg.Text('-' * 40)])
+
+        for dado in dados:
+            layout.append([sg.Text('Treinador: ', size=(20, 1)), sg.Text(dado[0])])
+            layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado[1])])
+            layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado[2])])
+            layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado[3])])
+            layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado[4])])
+
+            layout.append([sg.Text('-' * 40)])
+
+        layout.append([sg.Button('Voltar')])
+
+        window = sg.Window(f'Log Geral', layout, modal=True, auto_size_text= True) #largura x altura
+        while True:
+            event, values = window.read()
+            if event == sg.WINDOW_CLOSED or event == 'Voltar':
+                break
+        window.close()
+
+
+    def mostra_ranking(self, ranking): #cria a interface de ranking
+        layout = [[sg.Text('Ranking de Treinadores com mais Capturas:')]]
+        layout.append([sg.Text('-' * 40)])
+
+        for i, (treinador, capturas) in enumerate(ranking, start=1):
+            total_batalhas = len(capturas)
+            soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
+            taxa_de_vitoria = float(soma_capturas_com_sucesso/total_batalhas) * 100
+
+            layout.append([sg.Text(f'{i}. Treinador: ', size=(20, 1)), sg.Text(treinador)])
+            layout.append([sg.Text('Total de Batalhas: ', size=(20, 1)), sg.Text(total_batalhas)])
+            layout.append([sg.Text('Total de Capturas: ', size=(20, 1)), sg.Text(soma_capturas_com_sucesso)])
+            layout.append([sg.Text('Taxa de Vitória: ', size=(20, 1)), sg.Text(f'{taxa_de_vitoria:.1f}%')])
+
+            layout.append([sg.Text('-' * 40)])
+
+        layout.append([sg.Button('Voltar')])
+
+        window = sg.Window(f'Ranking de Treinadores', layout, modal=True, auto_size_text= True) #largura x altura
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == 'Voltar':
@@ -228,10 +280,6 @@ class TelaCaptura(AbstractTela):
             elif event == 'Sim':
                 self.close()
                 return True
-            
-
-    def log_geral(self): #! falta fazer isso
-        pass
 
 
     def mostra_popup(self, msg, titulo=None):

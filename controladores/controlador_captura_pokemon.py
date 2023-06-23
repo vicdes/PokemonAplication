@@ -12,7 +12,7 @@ import random
 class ControladorCaptura():
     #capturas = []
     captura_DAO = CapturaDAO()
-    logs_treinadores = {}
+    #logs_treinadores = {}
 
     def __init__(self, controlador_sistema):   #! posteriomente recebe controlador_sistema
         self.__tela_captura = TelaCaptura()
@@ -235,47 +235,76 @@ class ControladorCaptura():
             info_batalha['resultado_captura'] = "Não quis capturar."
         self.add_captura(info_batalha)
 
-    def add_captura(self, info_batalha):
-        self.captura_DAO.add(info_batalha)
+    def gerar_id_captura(self): #* função que gera um id para a captura, não estava conseguindo fazer a persistência sem um id próprio
+        #em treinadores é possível usar o nickname como id, mas em capturas não, por isso criei.
+        return len(self.captura_DAO.get_all()) + 1 #aqui é garantido que o id será único, pois é o tamanho da lista + 1
+
+    def instancia_captura(self, info_batalha): #instancia
+        id_captura = self.gerar_id_captura() 
         treinador = info_batalha['treinador']
-        if treinador not in self.logs_treinadores:
+        pokemons_time = info_batalha['pokemons_time']
+        pokemon_oponente = info_batalha['pokemon_oponente']
+        resultado_batalha = info_batalha['resultado_batalha']
+        resultado_captura = info_batalha['resultado_captura']
+        captura = CapturaPokemon(id_captura, treinador, pokemons_time, pokemon_oponente, resultado_batalha, resultado_captura)
+        return captura
+
+    def add_captura(self, info_batalha): #adiciona uma captura na lista de capturas DAO.
+        captura = self.instancia_captura(info_batalha)
+        self.captura_DAO.add(captura.id, captura)
+        #treinador = captura.treinador
+        '''if treinador not in self.logs_treinadores:
             self.logs_treinadores[treinador] = []
-        self.logs_treinadores[treinador].append(info_batalha)
+        self.logs_treinadores[treinador].append(captura)'''
         self.__tela_captura.mostra_popup("Um novo registro foi adicionado com sucesso nos logs!", "Registro")
-    
-    def log_capturas(self):
-        if len(self.captura_DAO) == 0:
+
+    def log_capturas(self): #aqui é o log de todas as capturas já registradas.
+        dados_captura = self.captura_DAO.get_all()
+        capturas_gerais = []
+
+        for captura in dados_captura: 
+            treinador = captura.treinador
+            pokemons_time = captura.pokemons_time
+            pokemon_oponente = captura.pokemon_oponente
+            resultado_batalha = captura.resultado_batalha
+            resultado_captura = captura.resultado_captura
+
+            capturas_gerais.append([treinador, pokemons_time, pokemon_oponente, resultado_batalha, resultado_captura])
+
+        if len(capturas_gerais) == 0:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
             self.__tela_captura.titulo3("Registro de Capturas Gerais:")
-            dados_captura = []
-            for captura in self.captura_DAO:
-                '''self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
-                self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
-                self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")'''
-                dados_captura.append([captura['treinador'], captura['pokemons_time'], captura['pokemon_oponente'], captura['resultado_batalha'], captura['resultado_captura']])     
-            self.__tela_captura.log_geral(dados_captura)
+            #print(capturas_gerais)
+            self.__tela_captura.log_geral(capturas_gerais)
 
-    def log_treinador(self, nickname = None):
-        nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
-        if nickname not in self.logs_treinadores or len(self.logs_treinadores[nickname]) == 0:
+    
+    def log_treinador(self, nickname=None): #aqui é o log de um treinador em específico.
+        if nickname is None:
+            nickname = self.__tela_captura.pega_dados_treinador(self.__controlador_sistema.controlador_treinadores.nome_treinadores())
+
+        capturas_treinador = self.captura_DAO.get_capturas_by_treinador(nickname)
+
+        if not capturas_treinador:
             self.__tela_captura.mostra_popup(f"Nenhuma captura registrada para o treinador {nickname}.")
         else:
             self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
-            dados_captura = []
-            for captura in self.logs_treinadores[nickname]:
-                dados_captura.append(captura)
+            dado_treinador = []
+            
+            for captura in capturas_treinador:
+                dados_captura = {
+                    'treinador': captura.treinador,
+                    'pokemons_time': captura.pokemons_time,
+                    'pokemon_oponente': captura.pokemon_oponente,
+                    'resultado_batalha': captura.resultado_batalha,
+                    'resultado_captura': captura.resultado_captura
+                }
+                dado_treinador.append(dados_captura)
 
-                '''self.__tela_captura.mostra_mensagem(f"\nTreinador: {captura['treinador']}")
-                self.__tela_captura.mostra_mensagem(f"   Pokémons no time: {captura['pokemons_time']}")
-                self.__tela_captura.mostra_mensagem(f"   Pokémon Oponente: {captura['pokemon_oponente']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Batalha: {captura['resultado_batalha']}")
-                self.__tela_captura.mostra_mensagem(f"   Resultado da Captura: {captura['resultado_captura']}")'''
-            self.__tela_captura.log_treinador(nickname, dados_captura)
+            self.__tela_captura.log_treinador(nickname, dado_treinador)
 
-    def ranking_treinadores(self):
+
+    '''    def ranking_treinadores(self):
         if not self.logs_treinadores:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
@@ -287,8 +316,30 @@ class ControladorCaptura():
                 soma_capturas_com_sucesso = sum(captura['resultado_captura'] == "Capturado! " for captura in capturas)
                 self.__tela_captura.mostra_mensagem(f"   Total de Capturas: {soma_capturas_com_sucesso}")
                 taxa_de_vitória = float(soma_capturas_com_sucesso/len(capturas)) * 100
-                self.__tela_captura.mostra_mensagem(f"   Taxa de Vitória: {taxa_de_vitória:.1f}%")
+                self.__tela_captura.mostra_mensagem(f"   Taxa de Vitória: {taxa_de_vitória:.1f}%")'''
     
+    def ranking_treinadores(self):
+        dados_captura = self.captura_DAO.get_all()
+
+        if not dados_captura:
+            self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
+        else:
+            self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
+
+            logs_treinadores = {}
+
+            for captura in dados_captura:
+                if captura.treinador not in logs_treinadores:
+                    logs_treinadores[captura.treinador] = []
+
+                logs_treinadores[captura.treinador].append({
+                    'resultado_captura': captura.resultado_captura
+                })
+
+            ranking = sorted(logs_treinadores.items(), key=lambda x: sum(captura['resultado_captura'] == "Capturado! " for captura in x[1]), reverse=True)
+
+        self.__tela_captura.mostra_ranking(ranking)
+
     def retornar(self):
         self.__controlador_sistema.abre_tela()
 
