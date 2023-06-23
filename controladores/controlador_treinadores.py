@@ -282,12 +282,12 @@ class ControladorTreinadores:
             if treinador.time is not None and len(treinador.time.lista_pokemons) > 0:
                 opcao = self.__tela_treinador.tela_opcoes_alterar_time()
                 if opcao == 1:
-                    pokemon_novo = None
                     continuar = True
                     if len(treinador.time.lista_pokemons) == len(treinador.pokemons_capturados):
                         self.__tela_treinador.mostra_mensagem("[!] Todos os seus pokémons capturados já estão no time.")
                         return
                     while continuar == True:
+                        pokemon_novo = None
                         if len(treinador.time.lista_pokemons) < 3:
                             codigo_pokemon_novo = self.__tela_treinador.seleciona_pokemon_capturado()
                             if codigo_pokemon_novo is None:
@@ -324,6 +324,7 @@ class ControladorTreinadores:
                         self.__tela_treinador.mostra_mensagem("[!] Você só tem 1 pokémon no time, seu time não pode ficar vazio.")
                         return
                     while continuar == True:
+                        codigo_pokemon_antigo = None
                         codigo_pokemon_antigo = self.__tela_treinador.seleciona_pokemon_do_time()
                         if codigo_pokemon_antigo is None:
                             return
@@ -347,17 +348,17 @@ class ControladorTreinadores:
                             self.__tela_treinador.mostra_mensagem("[!] O time está vazio!")
                             return
                         continuar = self.__tela_treinador.cadastrar_outro_pokemon()
-                else:
+                elif opcao == 3:
                     try:
                         if treinador.time.lista_pokemons is not None:
                             if len(treinador.time.lista_pokemons) == len(treinador.pokemons_capturados):
                                 self.__tela_treinador.mostra_mensagem("[!] Todos os seus pokémons capturados já estão no time.")
                                 return
                             self.mostrar_time(nickname)
-                            pokemon_antigo = None
-                            pokemon_novo = None
                             continuar = True
                             while continuar == True:
+                                pokemon_antigo = None
+                                pokemon_novo = None
                                 codigo_pokemon_antigo = self.__tela_treinador.seleciona_pokemon_do_time()
                                 codigo_pokemon_novo = self.__tela_treinador.seleciona_pokemon_capturado()
                                 if codigo_pokemon_antigo is None:
@@ -395,7 +396,6 @@ class ControladorTreinadores:
                                                 self.__treinador_DAO.update(treinador)
                                                 self.mostrar_time(nickname)
                                                 break
-
                                     else:
                                         raise PokemonInexistenteException(codigo_pokemon_novo)
                                 except PokemonInexistenteException as e:
@@ -405,6 +405,8 @@ class ControladorTreinadores:
                             raise NaoHaTimeCadastradoException()
                     except NaoHaTimeCadastradoException as e:
                         self.__tela_treinador.mostra_mensagem(e)
+                else:
+                    return
             else:
                 raise NaoHaTimeCadastradoException()
         except NaoHaTimeCadastradoException as e:
