@@ -38,8 +38,8 @@ class TelaTiposPokemons(AbstractTela):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
-            [sg.Text('-------- Tipo Pokémon ----------', font=("Helvica", 25))],
-            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Text('-------- Tipo Pokémon ----------', font=("Fixedsys", 25))],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
             [sg.Radio('Incluir tipo de pokémon FUNCIONANDO', "RD1", key='1')],
             [sg.Radio('Excluir tipo de pokémon TRATADO', "RD1", key='2')],
             [sg.Radio('Listar tipos de pokémon FUNCIONANDO', "RD1", key='3')],

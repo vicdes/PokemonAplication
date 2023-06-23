@@ -44,8 +44,8 @@ class TelaCaptura(AbstractTela):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
-            [sg.Text('-------- Captura Pokémon ----------', font=("Helvica", 25))],
-            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Text('-------- Captura Pokémon ----------', font=('Fixedsys 25'))],
+            [sg.Text('Escolha sua opção', font=('Fixedsys 15'))],
             [sg.Radio('Procurar pokémon FUNCIONANDO', "RD1", key='1')],
             [sg.Radio('Log Geral NÃO FUNCIONANDO', "RD1", key='2')],
             [sg.Radio('Log Treinador FUNCIONANDO', "RD1", key='3')],

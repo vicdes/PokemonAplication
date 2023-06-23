@@ -75,8 +75,8 @@ class TelaTreinador(AbstractTela):
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
             #[sg.Combo(['Ash', 'José'], size=(15, 30), font='Arial 12', key='Empresas')],
-            [sg.Text('Treinadores', font=("GOST Common", 25))],
-            [sg.Text('Escolha sua opção', font=("Roboto", 15))],
+            [sg.Text('-------- Treinadores --------', font=("Fixedsys", 25))],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
             [sg.Radio('Incluir novo treinador', "RD1", key='1')],
             [sg.Radio('Excluir Treinador', "RD1", key='2')],
             [sg.Radio('Listar Treinadores + Porcentagem Pokedex', "RD1", key='3')],

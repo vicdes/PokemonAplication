@@ -40,8 +40,8 @@ class TelaPokemon(AbstractTela):
         # sg.theme_previewer()
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
-            [sg.Text('-------- Pokémon ----------', font=("Helvica", 25))],
-            [sg.Text('Escolha sua opção', font=("Helvica", 15))],
+            [sg.Text('-------- Pokémon ----------', font=("Fixedsys", 25))],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
             [sg.Radio('Deletar Pokémon TRATADO ', "RD1", key='1')],
             [sg.Radio('Mostrar Pokémons existentes TRATADO ', "RD1", key='2')],
             [sg.Radio('Alterar HP ou Ataque de Pokémon TRATADO', "RD1", key='3')],
@@ -88,7 +88,7 @@ class TelaPokemon(AbstractTela):
     def mostra_status_pokemon(self, pokemon, nome_janela): #! é preciso fazer o usuário retornar pra tela anterior caso selecione cancelar na janela de status
         sg.ChangeLookAndFeel('DarkAmber')
         
-        layout = [[sg.Text('Pokémon selecionado com seus atributos alterados:', size=(40, 1), font=("Helvetica", 14))],
+        layout = [[sg.Text('Pokémon selecionado com seus atributos alterados:', size=(40, 1), font=(Fixedsys, 14))],
                 [sg.Text('Pokémon:', size=(15, 1)), sg.Text(pokemon.nome, size=(25, 1))],
                 [sg.Text('Número:', size=(15, 1)), sg.Text(pokemon.num, size=(25, 1))],
                 [sg.Text('HP:', size=(15, 1)), sg.Text(pokemon.hp, size=(25, 1))],
