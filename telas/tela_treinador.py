@@ -115,19 +115,19 @@ class TelaTreinador(AbstractTela):
         # print("\nDeseja continuar? \n1- sim \n2- não ")
         # continuar = self.le_num_inteiro() == 1 # * tratamento de exceção FEITO
         # return continuar
-
+        button = 0
         layout = [
             [sg.Text('Deseja continuar? ', size=(15,1))],
-            [sg.Button('Confirmar', key='1'), sg.Cancel('Cancelar')]
+            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
         self.__window = sg.Window('Treinador').Layout(layout)
 
-        button = self.open()
-        if button == '1':
+        button, values = self.open()
+        print(button)
+        if button is not None and button == 'Confirmar':
             continuar = True
         else:
             continuar = False
-
         self.close()
         return continuar
 
@@ -143,6 +143,7 @@ class TelaTreinador(AbstractTela):
         self.__window = sg.Window('Treinador').Layout(layout)
 
         button, values = self.open()
+
         nickname = values['nickname']
 
         self.close()
@@ -203,36 +204,53 @@ class TelaTreinador(AbstractTela):
         # print("\nCódigo do pokémon que deseja selecionar: ")
         # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         # return codigo
-        layout = [
-            [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
-        ]
-        self.__window = sg.Window('Treinador').Layout(layout)
+            sg.ChangeLookAndFeel('DarkAmber')
 
-        button, values = self.open()
-        codigo = values['codigo']
-        codigo = int(codigo)
+            layout = [
+                [sg.Text('Número do Pokémon que deseja incluir: ', size=(40,1)), sg.InputText('',key='num_pokemon')],
+                [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            ]
+            self.__window = sg.Window('Selecionar Pokemon').Layout(layout)
 
-        self.close()
-        return codigo
+            button, values = self.open()
+            num_pokemon = values['num_pokemon']
+
+            self.close()
+
+            if button == 'Cancelar' or button == None: #! se clicar em cancelar ou fechar a janela, deveria retornar para a tela anterior (tela_pokemon) e não para o menu principal
+                return None
+            #if num_pokemon is not None and num_pokemon != '':
+            try:
+                return int(num_pokemon)
+            except ValueError:
+                self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
 
     def seleciona_pokemon_do_time(self):
         # print("\nCódigo do pokémon que deseja substituir: ")
         # codigo = self.le_num_inteiro() #* tratamento de exceção FEITO
         # return codigo
         #while True:
-        layout = [
-            [sg.Text('Código do pokémon: ', size=(15,1)), sg.InputText('',key='codigo')],
-            [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
-        ]
-        self.__window = sg.Window('Treinador').Layout(layout)
+        while True:
+            sg.ChangeLookAndFeel('DarkAmber')
 
-        button, values = self.open()
-        codigo = values['codigo']
-        self.le_num_inteiro(codigo)
+            layout = [
+                [sg.Text('Número do Pokémon que deseja remover: ', size=(40,1)), sg.InputText('',key='num_pokemon')],
+                [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
+            ]
+            self.__window = sg.Window('Selecionar Pokemon').Layout(layout)
 
-        self.close()
-        return codigo
+            button, values = self.open()
+            num_pokemon = values['num_pokemon']
+
+            self.close()
+
+            if button == 'Cancelar' or button == None: #! se clicar em cancelar ou fechar a janela, deveria retornar para a tela anterior (tela_pokemon) e não para o menu principal
+                return None
+            #if num_pokemon is not None and num_pokemon != '':
+            try:
+                return int(num_pokemon)
+            except ValueError:
+                self.mostra_mensagem('Por favor, digite um número válido!', 'Value Error')
 
     def mostra_mensagem(self, msg):
         #print(msg)
