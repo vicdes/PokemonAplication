@@ -47,9 +47,9 @@ class TelaCaptura(AbstractTela):
             [sg.Text('-------- Captura Pokémon ----------', font=('Fixedsys 25'))],
             [sg.Text('Escolha sua opção', font=('Fixedsys 15'))],
             [sg.Radio('Procurar pokémon FUNCIONANDO', "RD1", key='1')],
-            [sg.Radio('Log Geral NÃO FUNCIONANDO', "RD1", key='2')],
+            [sg.Radio('Log Geral FUNCIONANDO', "RD1", key='2')],
             [sg.Radio('Log Treinador FUNCIONANDO', "RD1", key='3')],
-            [sg.Radio('Ranking SÓ TERMINAL', "RD1", key='4')],
+            [sg.Radio('Ranking FUNCIONANDO', "RD1", key='4')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
@@ -75,10 +75,41 @@ class TelaCaptura(AbstractTela):
         self.close()
         return nickname'''
 
-    def seleciona_pokemon_inicial(self): #* tratamento de exceção FEITO
-        codigo_inicial = self.le_num_inteiro("\nDigite o código do pokémon que deseja selecionar:\n#1 Bulbasaur\n#4 Charmander\n#7 Squirtle\n", [1,4,7]) 
+    def seleciona_pokemon_inicial(self): 
+
+        sg.ChangeLookAndFeel('DarkAmber')
+        layout = [
+            [sg.Text('Escolha seu Pokémon Inicial', font=('Fixedsys 15'))],
+            [sg.Radio('#1 - Bulbasaur', "RD1", key='1')],
+            [sg.Radio('#4 - Charmander', "RD1", key='4')],
+            [sg.Radio('#7 - Squirtle', "RD1", key='7')],
+            [sg.Button('Confirmar'), sg.Button('Cancelar')]]
+
+        window = sg.Window('Captura', layout)
+
+        while True:
+            event, values = window.read()
+            if event in ('Confirmar', 'Cancelar') or event == sg.WINDOW_CLOSED:
+                break
+
+        window.close()
+
+        if event == 'Confirmar':
+            if values['1']:
+                codigo_inicial = 1
+            elif values['4']:
+                codigo_inicial = 4
+            elif values['7']:
+                codigo_inicial = 7
+            else:
+                codigo_inicial = 0
+        else:
+            codigo_inicial = 0
+
         return codigo_inicial
 
+
+      
     def pega_dados_treinador(self, treinadores):
         sg.ChangeLookAndFeel('DarkAmber')
         lista_treinadores = treinadores
