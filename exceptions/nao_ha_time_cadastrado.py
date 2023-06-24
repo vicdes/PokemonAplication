@@ -1,3 +1,5 @@
+#ESTÁ ACONTECENDO
+
 class NaoHaTimeCadastradoException(Exception):
     def __init__(self):
         self.mensagem = "Não existe time cadastrado para esse treinador!"
