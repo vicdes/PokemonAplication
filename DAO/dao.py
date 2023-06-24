@@ -12,18 +12,18 @@ class DAO(ABC):
             self.__dump()
 
     def __dump(self):
-        print('DUMPOU DAO')
+        #print('DUMPOU DAO')
         pickle.dump(self.__cache, open(self.__datasource, 'wb'))
 
     def __load(self):
-        print('CARREGOU DAO')
+        #print('CARREGOU DAO')
         self.__cache = pickle.load(open(self.__datasource,'rb'))
 
     #esse método precisa chamar o self.__dump()
     def add(self, key, obj):
         self.__cache[key] = obj
         self.__dump()  #atualiza o arquivo depois de add novo amigo
-        print('ADICIONOU DAO')
+        #print('ADICIONOU DAO')
         
     #cuidado: esse update só funciona se o objeto com essa chave já existe
     def update(self, key, obj):
@@ -31,14 +31,14 @@ class DAO(ABC):
             if(self.__cache[key] != None):
                 self.__cache[key] = obj #atualiza a entrada
                 self.__dump()  #atualiza o arquivo
-                print('ATUALIZOU DAO')
+                #print('ATUALIZOU DAO')
         except KeyError as e:
             print(e)
             return
 
     def get(self, key):
         try:
-            print('GETOU DAO')
+            #print('GETOU DAO')
             return self.__cache[key]
         except KeyError as e:
             print(e)
@@ -49,7 +49,7 @@ class DAO(ABC):
         try:
             self.__cache.pop(key)
             self.__dump()
-            print('REMOVEU DAO') #atualiza o arquivo depois de remover um objeto
+            #print('REMOVEU DAO') #atualiza o arquivo depois de remover um objeto
         except KeyError as e:
             print(e)
             return

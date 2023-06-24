@@ -8,7 +8,7 @@ class CapturaDAO(DAO):
 
     def add(self, id, captura: CapturaPokemon):
         if captura is not None and isinstance(captura, CapturaPokemon):
-            print('ADD captura DAO')
+            #print('ADD captura DAO')
             super().add(id, captura)
 
     def get_capturas_by_treinador(self, nickname):
@@ -24,7 +24,7 @@ class CapturaDAO(DAO):
 
     def get(self, key:int):
         if isinstance(key, int):
-            print('GET captura DAO')
+            #print('GET captura DAO')
             return super().get(key)
 
     '''def remove(self, key:int):
