@@ -1,3 +1,5 @@
+#ESTÁ SENDO UTILIZADO
+
 class PokemonInexistenteException(Exception):
     def __init__(self, num_pokemon):
         self.mensagem = "Não existe um pokémon com o código {}!"

@@ -61,7 +61,7 @@ class ControladorPokemon():
             pokemon.hp = novos_status_pokemon[0]
             pokemon.ataque = novos_status_pokemon[1]
 
-            self.__tela_pokemon.mostra_status_pokemon(pokemon, 'Pokemon atualizado com sucesso!')
+            self.__tela_pokemon.mostra_status_pokemon(pokemon, 'Status atualizados')
         
         except PokemonInexistenteException as e:
             self.__tela_pokemon.mostra_mensagem(e, 'Exception')

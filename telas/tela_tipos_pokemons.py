@@ -41,9 +41,9 @@ class TelaTiposPokemons(AbstractTela):
             [sg.Text('-------- Tipo Pokémon ----------', font=("Fixedsys", 25))],
             [sg.HorizontalSeparator()],
             [sg.Text('Escolha sua opção', font=("Fixedsys", 16))],
-            [sg.Radio('Incluir tipo de pokémon FUNCIONANDO', "RD1", key='1')],
+            [sg.Radio('Incluir tipo de pokémon TRATADO', "RD1", key='1')],
             [sg.Radio('Excluir tipo de pokémon TRATADO', "RD1", key='2')],
-            [sg.Radio('Listar tipos de pokémon FUNCIONANDO', "RD1", key='3')],
+            [sg.Radio('Listar tipos de pokémon TRATADO', "RD1", key='3')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
@@ -78,8 +78,8 @@ class TelaTiposPokemons(AbstractTela):
         return {"nome": nome, "vantagens": vantagens, "fraquezas": fraquezas,}'''
     def popup_sim_nao(self, mensagem):
         layout = [[sg.Text(mensagem)], 
-                [sg.Button('Sim', button_color=('white', 'green')), #apenas teste de cores
-                sg.Button('Não', button_color=('white', 'red'))]]
+                [sg.Button('Sim'),
+                sg.Button('Não')]]
 
         window = sg.Window('SimNão', layout, size = (300, 80))
 
@@ -119,7 +119,7 @@ class TelaTiposPokemons(AbstractTela):
                 if not self.popup_sim_nao('Deseja digitar outra vantagem?'):
                     break
                 
-            sg.popup('Tipo de Pokémon cadastrado com sucesso!')
+            sg.popup('Tipo de Pokémon cadastrado com sucesso!', title = 'Cadastro Tipo')
             return {"nome": nome, "vantagens": vantagens, "fraquezas": fraquezas}
 
 
@@ -132,17 +132,18 @@ class TelaTiposPokemons(AbstractTela):
         print("\n")'''
 
     def mostra_tipo_pokemon(self, dados_tipo_pokemon):
-        layout = [[sg.Text('Tipos Registrados', font = ("Helvica bold", 25))]]
+        layout = [[sg.Text('Tipos Registrados',size=(60, 1), justification= 'center', font = ("Fixedsys 25"))],[sg.HorizontalSeparator()],
+]
 
         for tipo in dados_tipo_pokemon:
-            layout.append([sg.Text('Nome: ', size=(15, 1)), sg.Text(tipo["nome"])])
-            layout.append([sg.Text('Fraquezas: ', size=(15, 1)), sg.Text(tipo["fraquezas"])])
-            layout.append([sg.Text('Vantagens: ', size=(15, 1)), sg.Text(tipo["vantagens"])])
-            layout.append([sg.Text('-' * 40)])
+            layout.append([sg.Text('Nome: ', size=(30, 1)), sg.Text(tipo["nome"])])
+            layout.append([sg.Text('Fraquezas: ', size=(30, 1)), sg.Text(tipo["fraquezas"])])
+            layout.append([sg.Text('Vantagens: ', size=(30, 1)), sg.Text(tipo["vantagens"])])
+            layout.append([sg.Text('-' * 60)])
 
         layout.append([sg.Button('Voltar')])
 
-        window = sg.Window('Tipos', layout, modal=True, auto_size_text= True, size=(300, 500)) #largura x altura
+        window = sg.Window('Tipos', layout, modal=True, auto_size_text= True, size=(500, 500)) #largura x altura
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == 'Voltar':

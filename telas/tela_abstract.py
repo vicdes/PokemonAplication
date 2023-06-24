@@ -7,7 +7,7 @@ class AbstractTela(ABC):
     def tela_opcoes(self):
         pass
     
-    #! essa função deixará de existir :(
+    '''#! essa função deixará de existir :(
     def le_num_inteiro(self, mensagem="", ints_validos=None):
         while True:
             valor_lido = input(mensagem)
@@ -19,7 +19,7 @@ class AbstractTela(ABC):
             except ValueError:
                 print("\nValor incorreto! Tente novamente: ")
                 if ints_validos:
-                    print("Valores válidos: ", ints_validos)
+                    print("Valores válidos: ", ints_validos)'''
     
     def cadastrado_com_sucesso(self):
         sg.Popup("Cadastro realizado com sucesso!",title = 'Cadastro')

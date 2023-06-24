@@ -21,7 +21,7 @@ class ControladorCaptura():
     def captura_pokemon_inicial(self, nickname=None):
         codigo_inicial = self.__tela_captura.seleciona_pokemon_inicial()
     
-        if codigo_inicial is 0:
+        if codigo_inicial == 0:
             self.retornar()
         
         treinador = self.__controlador_sistema.controlador_treinadores.pega_treinador_por_nickname(nickname)

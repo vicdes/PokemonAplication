@@ -89,11 +89,13 @@ class TelaPokemon(AbstractTela):
     def mostra_status_pokemon(self, pokemon, nome_janela): #! é preciso fazer o usuário retornar pra tela anterior caso selecione cancelar na janela de status
         sg.ChangeLookAndFeel('DarkAmber')
         
-        layout = [[sg.Text('Pokémon selecionado com seus atributos alterados:', size=(40, 1), font=(Fixedsys, 14))],
-                [sg.Text('Pokémon:', size=(15, 1)), sg.Text(pokemon.nome, size=(25, 1))],
-                [sg.Text('Número:', size=(15, 1)), sg.Text(pokemon.num, size=(25, 1))],
-                [sg.Text('HP:', size=(15, 1)), sg.Text(pokemon.hp, size=(25, 1))],
-                [sg.Text('Ataque:', size=(15, 1)), sg.Text(pokemon.ataque, size=(25, 1))],
+        layout = [[sg.Text('Alteração de Atributos:', size=(25, 1), font=("Fixedsys 14"))],
+                #para adicionar uma linha horizontal basta adicionar um elemento sg.HorizontalSeparator()
+                [sg.HorizontalSeparator()],
+                [sg.Text('Pokémon:', size=(15, 1)), sg.Text(pokemon.nome, size=(15, 1))],
+                [sg.Text('Número:', size=(15, 1)), sg.Text(pokemon.num, size=(15, 1))],
+                [sg.Text('HP:', size=(15, 1)), sg.Text(pokemon.hp, size=(15, 1))],
+                [sg.Text('Ataque:', size=(15, 1)), sg.Text(pokemon.ataque, size=(15, 1))],
                 [sg.Button('OK')]]
 
         window = sg.Window(nome_janela, layout)
@@ -145,7 +147,7 @@ class TelaPokemon(AbstractTela):
                 [sg.Text('Pokémons disponíveis no jogo')],
                 [sg.Table(values=dados, headings=['Nome', 'Número'], display_row_numbers=False,
                         auto_size_columns=True, num_rows=min(25, len(dados)))],
-                [sg.Button('Voltar')]
+                [sg.Button('Voltar')], [sg.Text('Total disponível: ' + str(len(dados)))],
             ]
 
             janela = sg.Window('Pokémons', layout, modal=True, element_justification='c', size=(300, 500)) #largura x altura
