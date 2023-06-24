@@ -45,7 +45,8 @@ class TelaCaptura(AbstractTela):
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
             [sg.Text('-------- Captura Pokémon ----------', font=('Fixedsys 25'))],
-            [sg.Text('Escolha sua opção', font=('Fixedsys 15'))],
+            [sg.HorizontalSeparator()],
+            [sg.Text('Escolha sua opção', font=('Fixedsys 16'))],
             [sg.Radio('Procurar pokémon FUNCIONANDO', "RD1", key='1')],
             [sg.Radio('Log Geral FUNCIONANDO', "RD1", key='2')],
             [sg.Radio('Log Treinador FUNCIONANDO', "RD1", key='3')],
@@ -143,20 +144,29 @@ class TelaCaptura(AbstractTela):
 
         sg.change_look_and_feel('DarkAmber')
 
-        layout = [[sg.Text(f'Log Treinador - {nome_treinador}')]]
-        layout.append([sg.Text('-' * 40)])
-        
+        layout_interno = [[sg.Text('', size=(30, 1))],[sg.Text(f'Log Treinador - {nome_treinador}', size = (60,1), font = ('Fixedsys', 18))]]
+        #layout_interno.append([sg.Text('-' * 60,justification='center')])
+        layout_interno.append([sg.Text('', size=(30, 1))])
+
+        layout_interno.append([sg.HorizontalSeparator()])
         for dado in dados:
-            layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado['pokemons_time'])])
-            layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado['pokemon_oponente'])])
-            layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado['resultado_batalha'])])
-            layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado['resultado_captura'])])
 
-            layout.append([sg.Text('-' * 40)])
+            layout_interno.append([sg.Text('', size=(30, 1))])
 
-        layout.append([sg.Button('Voltar')])
+            layout_interno.append([sg.Text('Pokémons no Time: ', size=(30, 1)), sg.Text(dado['pokemons_time'])])
+            layout_interno.append([sg.Text('Pokémon Oponente: ', size=(30, 1)), sg.Text(dado['pokemon_oponente'])])
+            layout_interno.append([sg.Text('Resultado da Batalha: ', size=(30, 1)), sg.Text(dado['resultado_batalha'])])
+            layout_interno.append([sg.Text('Resultado da Captura: ', size=(30, 1)), sg.Text(dado['resultado_captura'])])
+            layout_interno.append([sg.Text('', size=(30, 1))])
 
-        window = sg.Window(f'Log Treinador', layout, modal=True, auto_size_text=True)  # largura x altura
+            layout_interno.append([sg.HorizontalSeparator()])
+
+        layout = [
+            [sg.Column(layout_interno, scrollable=True, vertical_scroll_only=True, size=(600, 600))],
+            [sg.Button('Voltar')]
+        ]
+
+        window = sg.Window(f'Log Individual', layout, modal=True, auto_size_text=True)  # largura x altura
         while True:
             event, values = window.read()
             if event == sg.WINDOW_CLOSED or event == 'Voltar':
@@ -164,23 +174,32 @@ class TelaCaptura(AbstractTela):
         window.close()
 
 
-    def log_geral(self, info_log): #! falta fazer isso
+    def log_geral(self, info_log): 
         dados = info_log
 
-        print(info_log)
-        layout = [[sg.Text('Log Geral')]]
-        layout.append([sg.Text('-' * 40)])
+        layout_interno = [[sg.Text('', size=(30, 1))],[sg.Text('Registro de Capturas Gerais', size = (60,1), font = ('Fixedsys', 18))]]
+        layout_interno.append([sg.Text('', size=(30, 1))])
+        
+        layout_interno.append([sg.HorizontalSeparator()])
 
         for dado in dados:
-            layout.append([sg.Text('Treinador: ', size=(20, 1)), sg.Text(dado[0])])
-            layout.append([sg.Text('Pokémons no Time: ', size=(20, 1)), sg.Text(dado[1])])
-            layout.append([sg.Text('Pokémon Oponente: ', size=(20, 1)), sg.Text(dado[2])])
-            layout.append([sg.Text('Resultado da Batalha: ', size=(20, 1)), sg.Text(dado[3])])
-            layout.append([sg.Text('Resultado da Captura: ', size=(20, 1)), sg.Text(dado[4])])
 
-            layout.append([sg.Text('-' * 40)])
+            layout_interno.append([sg.Text('', size=(30, 1))])
 
-        layout.append([sg.Button('Voltar')])
+            layout_interno.append([sg.Text('Treinador: ', size=(30, 1)), sg.Text(dado[0])])
+            layout_interno.append([sg.Text('Pokémons no Time: ', size=(30, 1)), sg.Text(dado[1])])
+            layout_interno.append([sg.Text('Pokémon Oponente: ', size=(30, 1)), sg.Text(dado[2])])
+            layout_interno.append([sg.Text('Resultado da Batalha: ', size=(30, 1)), sg.Text(dado[3])])
+            layout_interno.append([sg.Text('Resultado da Captura: ', size=(30, 1)), sg.Text(dado[4])])
+
+            layout_interno.append([sg.Text('', size=(30, 1))])
+
+            layout_interno.append([sg.HorizontalSeparator()])
+
+        layout = [
+            [sg.Column(layout_interno, scrollable=True, vertical_scroll_only=True, size=(600, 600))],
+            [sg.Button('Voltar')]
+        ]
 
         window = sg.Window(f'Log Geral', layout, modal=True, auto_size_text= True) #largura x altura
         while True:
@@ -188,6 +207,7 @@ class TelaCaptura(AbstractTela):
             if event == sg.WINDOW_CLOSED or event == 'Voltar':
                 break
         window.close()
+
 
 
     def mostra_ranking(self, ranking): #cria a interface de ranking
@@ -337,7 +357,7 @@ class TelaCaptura(AbstractTela):
         self.close()
 
     def titulor(self, message, auto_close_duration = 1): #TENTAR COLCOAR ISSO NA CLASSE ABSTRATA PARA USAR NO RESTO DO CODIGO
-        print('função titlo')
+        #print('função titlo')
 
         layout = [[sg.Text(message, font = (('Fixedsys'), 24))]]
 

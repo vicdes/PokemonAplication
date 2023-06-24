@@ -45,7 +45,8 @@ class TelaSistema(AbstractTela):
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
             [sg.Text('Boas-vindas,Treinador Pokémon!', font=("Fixedsys", 25))],
-            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
+            [sg.HorizontalSeparator()],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 16))],
             [sg.Radio('Treinadores', "RD1", key='1')],
             [sg.Radio('Tipos', "RD1", key='2')],
             [sg.Radio('Pokemon', "RD1", key='3')],

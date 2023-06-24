@@ -76,7 +76,8 @@ class TelaTreinador(AbstractTela):
         layout = [
             #[sg.Combo(['Ash', 'José'], size=(15, 30), font='Arial 12', key='Empresas')],
             [sg.Text('-------- Treinadores --------', font=("Fixedsys", 25))],
-            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
+            [sg.HorizontalSeparator()],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 16))],
             [sg.Radio('Incluir novo treinador', "RD1", key='1')],
             [sg.Radio('Excluir Treinador', "RD1", key='2')],
             [sg.Radio('Listar Treinadores + Porcentagem Pokedex', "RD1", key='3')],
@@ -185,8 +186,8 @@ class TelaTreinador(AbstractTela):
         else:
             for treinador in dados_treinador:
                 string_todos_treinadores = string_todos_treinadores + "\nNickname: " + treinador["nickname"] + '\n'
-                string_todos_treinadores = string_todos_treinadores + f"Porcentagem da pokedéx: {treinador['porcentagem_pokedex']:.2f}%\n" #botei para duas casas decimais
-        sg.Popup('-------- LISTA DE TREINADORES ----------', string_todos_treinadores)
+                string_todos_treinadores = string_todos_treinadores + f"Porcentagem da pokedéx: {treinador['porcentagem_pokedex']:.2f}%\n" #botei para duas casas decimais       
+        sg.Popup('Lista de Treinadores', string_todos_treinadores)
 
 
     '''    def seleciona_treinador(self):

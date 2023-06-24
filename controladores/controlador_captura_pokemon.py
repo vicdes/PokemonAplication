@@ -278,7 +278,7 @@ class ControladorCaptura():
         if len(capturas_gerais) == 0:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
-            self.__tela_captura.titulo3("Registro de Capturas Gerais:")
+            #self.__tela_captura.titulo3("Registro de Capturas Gerais:")
             #print(capturas_gerais)
             self.__tela_captura.log_geral(capturas_gerais)
 
@@ -292,7 +292,7 @@ class ControladorCaptura():
         if not capturas_treinador:
             self.__tela_captura.mostra_popup(f"Nenhuma captura registrada para o treinador {nickname}.")
         else:
-            self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
+            #self.__tela_captura.titulo3(f"Registro de Capturas - Treinador {nickname}:")
             dado_treinador = []
             
             for captura in capturas_treinador:
@@ -328,7 +328,7 @@ class ControladorCaptura():
         if not dados_captura:
             self.__tela_captura.mostra_popup("Nenhuma captura registrada até o momento.")
         else:
-            self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
+            #self.__tela_captura.titulo3("Ranking de Treinadores com mais Capturas:")
 
             logs_treinadores = {}
 
