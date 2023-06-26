@@ -143,13 +143,17 @@ class ControladorCaptura():
                 if pokemon.hp > 0:
                     #self.__tela_captura.mostra_mensagem(f"{pokemon.nome} ataca!")
                     #self.__tela_captura.pokemons_atacando(pokemon.nome, 1)
+                    #print(pokemon.ataque)
                     time_ataques.append(pokemon)
-                    pokemon_oponente.hp -= pokemon.ataque * 10
+                    #print(f"ANTES - HP do {pokemon_oponente.nome}: {pokemon_oponente.hp}")
+                    pokemon_oponente.hp -= (pokemon.ataque)
+
+                    #print(f"DEPOIS - HP do {pokemon_oponente.nome}: {pokemon_oponente.hp}")
                     if pokemon_oponente.hp <= 0:
                         break
                     
             self.__tela_captura.time_ataca(time_ataques)
-            
+            print(f"HP do {pokemon_oponente.nome}: {pokemon_oponente.hp}")
             if pokemon_oponente.hp <= 0:
                 pokemon_oponente.hp = 0 #apenas para evitar printar um valor negativo de hp.
 
@@ -216,7 +220,7 @@ class ControladorCaptura():
             chance_captura = random.randint(1,100) #gera um número aleatório entre 1 e 100.
             self.__tela_captura.mostra_popup('Pokebola lançada...', 'Pokebola')
 
-            if chance_captura >= 2:
+            if chance_captura >= 95:
                 treinador.add_pokemon_capturado(pokemon)
                 dao = self.__controlador_sistema.controlador_treinadores.treinador_DAO()
                 

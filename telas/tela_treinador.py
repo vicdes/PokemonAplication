@@ -101,8 +101,8 @@ class TelaTreinador(AbstractTela):
 
         sg.ChangeLookAndFeel('DarkAmber')
         layout = [
-            [sg.Text('Treinadores', font=("GOST Common", 25))],
-            [sg.Text('Escolha sua opção', font=("Roboto", 15))],
+            [sg.Text('Treinadores', font=("Fixedsys", 25))],
+            [sg.Text('Escolha sua opção', font=("Fixedsys", 15))],
             [sg.Radio('Incluir pokémon', "RD1", key='1')],
             [sg.Radio('Excluir pokémon', "RD1", key='2')],
             [sg.Radio('Trocar pokémon', "RD1", key='3')],

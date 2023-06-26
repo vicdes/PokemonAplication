@@ -177,5 +177,5 @@ class TelaTiposPokemons(AbstractTela):
         #nome = input("Nome do tipo de pokémon que deseja selecionar: ") #não posso colocar capitalize aqui pq quebra.
         #return nome
 
-    def mostra_mensagem(self, msg, titulo = ''):
-        sg.popup(msg, title = titulo)
+    '''def mostra_mensagem(self, msg, titulo = ''):
+        sg.popup(msg, title = titulo)'''
