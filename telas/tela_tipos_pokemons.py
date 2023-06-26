@@ -41,9 +41,9 @@ class TelaTiposPokemons(AbstractTela):
             [sg.Text('-------- Tipo Pokémon ----------', font=("Fixedsys", 25))],
             [sg.HorizontalSeparator()],
             [sg.Text('Escolha sua opção', font=("Fixedsys", 16))],
-            [sg.Radio('Incluir tipo de pokémon TRATADO', "RD1", key='1')],
-            [sg.Radio('Excluir tipo de pokémon TRATADO', "RD1", key='2')],
-            [sg.Radio('Listar tipos de pokémon TRATADO', "RD1", key='3')],
+            [sg.Radio('Incluir tipo de pokémon', "RD1", key='1')],
+            [sg.Radio('Excluir tipo de pokémon', "RD1", key='2')],
+            [sg.Radio('Listar tipos de pokémon', "RD1", key='3')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]

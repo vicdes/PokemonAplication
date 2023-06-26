@@ -47,10 +47,10 @@ class TelaCaptura(AbstractTela):
             [sg.Text('-------- Captura Pokémon ----------', font=('Fixedsys 25'))],
             [sg.HorizontalSeparator()],
             [sg.Text('Escolha sua opção', font=('Fixedsys 16'))],
-            [sg.Radio('Procurar pokémon FUNCIONANDO', "RD1", key='1')],
-            [sg.Radio('Log Geral FUNCIONANDO', "RD1", key='2')],
-            [sg.Radio('Log Treinador FUNCIONANDO', "RD1", key='3')],
-            [sg.Radio('Ranking FUNCIONANDO', "RD1", key='4')],
+            [sg.Radio('Procurar pokémon', "RD1", key='1')],
+            [sg.Radio('Log Geral', "RD1", key='2')],
+            [sg.Radio('Log Treinador', "RD1", key='3')],
+            [sg.Radio('Ranking', "RD1", key='4')],
             [sg.Radio('Retornar', "RD1", key='0')],
             [sg.Button('Confirmar'), sg.Cancel('Cancelar')]
         ]
