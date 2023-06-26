@@ -185,15 +185,16 @@ class ControladorTreinadores:
             pokemon_novo = None
             continuar = True
             while continuar == True:
+                flag = False
                 if len(treinador.time.lista_pokemons) == len(treinador.pokemons_capturados):
                     self.__tela_treinador.mostra_mensagem("[!] Todos os seus pokémons capturados já estão no time.")
                     return
                 codigo_pokemon = self.__tela_treinador.seleciona_pokemon_capturado()
                 if codigo_pokemon is None:
                     return
-                codigo = self.existe_na_pokedex(codigo_pokemon)
-                if codigo_pokemon != codigo:
-                    return
+                # codigo = self.existe_na_pokedex(codigo_pokemon)
+                # if codigo_pokemon != codigo:
+                #     return
                 for pokemon in treinador.pokemons_capturados:
                     if codigo_pokemon == pokemon.num:
                         pokemon_novo = pokemon
@@ -204,6 +205,7 @@ class ControladorTreinadores:
                                 if pokemon_cadastrado.num != pokemon_novo.num:
                                     pass
                                 else:
+                                    flag = True
                                     raise PokemonJaCadastradoException(pokemon_novo.num)
                             except PokemonJaCadastradoException as e:
                                 self.__tela_treinador.mostra_mensagem(e)
@@ -211,9 +213,10 @@ class ControladorTreinadores:
                         raise PokemonInexistenteException(codigo_pokemon)
                 except PokemonInexistenteException as e:
                     self.__tela_treinador.mostra_mensagem(e)
-                treinador.time.lista_pokemons.append(pokemon_novo)
-                self.__treinador_DAO.update(treinador)
-                self.__tela_treinador.cadastrado_com_sucesso()
+                if pokemon_novo is not None and flag == False:
+                    treinador.time.lista_pokemons.append(pokemon_novo)
+                    self.__treinador_DAO.update(treinador)
+                    self.__tela_treinador.cadastrado_com_sucesso()
 
                 if len(treinador.time.lista_pokemons) == 3:
                     break

@@ -1,5 +1,6 @@
 import pickle
 from abc import ABC, abstractmethod
+import PySimpleGUI as sg
 
 class DAO(ABC):
     @abstractmethod
@@ -33,7 +34,7 @@ class DAO(ABC):
                 self.__dump()  #atualiza o arquivo
                 #print('ATUALIZOU DAO')
         except KeyError as e:
-            print(e)
+            sg.popup(e)
             return
 
     def get(self, key):
@@ -41,7 +42,7 @@ class DAO(ABC):
             #print('GETOU DAO')
             return self.__cache[key]
         except KeyError as e:
-            print(e)
+            sg.popup(e)
             return
 
     # esse método precisa chamar o self.__dump()
@@ -51,7 +52,7 @@ class DAO(ABC):
             self.__dump()
             #print('REMOVEU DAO') #atualiza o arquivo depois de remover um objeto
         except KeyError as e:
-            print(e)
+            sg.popup(e)
             return
 
     def get_all(self):
